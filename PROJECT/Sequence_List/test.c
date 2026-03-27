@@ -8,14 +8,14 @@ int main()
     SLInit(&list);
 
     int x = 10;
-    PushFront(&list, x);
-    PushFront(&list, x);
-    PushFront(&list, x);
+    SLPushFront(&list, x);
+    SLPushFront(&list, x);
+    SLPushFront(&list, x);
 
     int y = 5;
-    PushBack(&list, y);
-    PushBack(&list, y);
-    PushBack(&list, y);
+    SLPushBack(&list, y);
+    SLPushBack(&list, y);
+    SLPushBack(&list, y);
 
     // PopFront(&list);
     // PopFront(&list);
