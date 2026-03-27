@@ -2,6 +2,8 @@
 #include "game.c"
 #include "game.h"
 
+
+
 void menu()
 {
     printf("********扫雷游戏*********\n"

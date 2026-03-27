@@ -1,5 +1,10 @@
 #include "game.h"
 
+
+
+
+
+
 void InitBoard(char board[ROWS][COLS], int row, int col, char set) //初始化棋盘
 {
     for(int i=0; i<row; i++)
