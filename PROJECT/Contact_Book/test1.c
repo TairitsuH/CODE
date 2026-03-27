@@ -1,10 +1,10 @@
 #include<stdio.h>
 #include <stdio.h>
-
+#include "Contact.c"
+#include "SeqList1.c"
 #include "Contact.h"
 #include "SeqList1.h"
-//应该只包含头文件
-//先包含Contact再包含SeqList
+
 
 void menu()
 {
