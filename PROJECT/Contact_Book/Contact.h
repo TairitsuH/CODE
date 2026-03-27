@@ -11,7 +11,9 @@ struct SeqList; //前置声明
 typedef struct SeqList Contact; //前置声明+重命名
 
 
-typedef struct PersonInfo
+typedef struct PersonInfo 
+
+//整个顺序表是结构体Contact，//顺序表中的元素是结构体PeoInfo
 {
     char name[NAME_MAX];
     char gender[GENDER_MAX];
@@ -32,7 +34,5 @@ void ContactFind(Contact* con); //查找数据
 
 void ContactShow(Contact* con); //打印数据
 
-//菜单
-void menu();
 
 

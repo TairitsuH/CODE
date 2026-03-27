@@ -2,7 +2,7 @@
 #include<assert.h>
 #include<string.h>
 #include "Contact.h"
-#include "SeqList.h"
+#include "SeqList1.h"
 
 void ContactInit(Contact* con) //初始化
 {
@@ -31,13 +31,13 @@ void ContactAdd(Contact* con) //添加联系人
     SLPushBack(con, p1); //在总表中尾插联系人
 }
 
-int ContactFindByName(Contact* con, char name[])
+int ContactFindByName(Contact* con, const char name[])
 {
     for(int i=0; i<con->size; i++)
     {
         if(strcmp(con->arr[i].name, name) == 0) //比较两个字符串
         {
-            return i;
+            return i; //返回下标
         }
     }
     return -1; //没有找到
