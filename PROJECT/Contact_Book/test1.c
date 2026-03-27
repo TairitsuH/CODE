@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include <stdio.h>
-#include "SeqList1.c"
-#include "Contact.c"
+
 #include "Contact.h"
 #include "SeqList1.h"
 //应该只包含头文件
