@@ -2,12 +2,12 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: gcc.exe 生成活动文件",
-            "command": "D:\\LeStoreDownload\\winlibs\\mingw64\\bin\\gcc.exe",
+            "label": "C/C++: g++.exe 生成活动文件",
+            "command": "D:\\LeStoreDownload\\winlibs\\mingw64\\bin\\g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "*.c",                              // 改这里！编译所有 .c 文件
+                "*.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
