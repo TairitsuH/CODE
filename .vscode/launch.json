@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "C/C++: gcc.exe 构建和调试活动文件",
+            "name": "调试C程序 (gcc)",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
@@ -24,10 +24,10 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C/C++: gcc.exe 生成活动文件"
+            "preLaunchTask": "编译C程序 (gcc)"
         },
         {
-            "name": "C/C++: g++.exe 构建和调试活动文件",  // 新增 C++ 配置
+            "name": "调试C++程序 (g++)",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
@@ -50,7 +50,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C/C++: g++.exe 生成活动文件"  // 需要创建对应的任务
+            "preLaunchTask": "编译C++程序 (g++)"
         }
     ],
     "version": "2.0.0"
