@@ -63,7 +63,7 @@ void FindMine(char mine[ROWS][COLS], char show[ROWS][COLS], int row, int col) //
     int time = 3;
     while(win < row * col - MINE)
     {
-        DisplayBoard(show, ROW, COL);
+        DisplayBoard(show, row, col);
         printf("请输入要排查的坐标：\n>");
         scanf("%d%d", &x, &y); //检查合理性！！
         if(x > 0 && x <= row && y > 0 && y <= col)
@@ -74,12 +74,12 @@ void FindMine(char mine[ROWS][COLS], char show[ROWS][COLS], int row, int col) //
                 if(time > 0)
                 {
                     printf("踩到雷了！你还有%d次机会TvT\n", time);
-                    
+                    show[x][y] = '#';
                 }
                 else
                 {
                     printf("排雷次数已用尽，很遗憾，你被炸死了TAT\n");
-                    DisplayBoard(mine, ROW, COL);
+                    DisplayBoard(mine, row, col);
                     break;
                 }
             }
@@ -88,7 +88,12 @@ void FindMine(char mine[ROWS][COLS], char show[ROWS][COLS], int row, int col) //
                 win++;
                 int a = AroundMine(mine, x, y);
                 show[x][y] = a + '0';
-                if(win == row * col - MINE) printf("恭喜！已你成功排查所有雷！[]~(￣▽￣)~*\n");
+                if(win == row * col - MINE)
+                {
+                    printf("恭喜！已你成功排查所有雷！[]~(￣▽￣)~*\n");
+                    DisplayBoard(mine, row, col);
+                    break;
+                }
                 else printf("排查成功！请继续......\n");
             }
             else

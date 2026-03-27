@@ -21,6 +21,11 @@ void game()
     SetMine(mine, ROW, COL); //只布置在有效位置！
 
     FindMine(mine, show, ROW, COL);
+
+    printf("\n按任意键继续...");
+    getchar(); //吸收最后一次输入的回车
+    getchar(); //按任意键继续
+
 }
 
 int main()
