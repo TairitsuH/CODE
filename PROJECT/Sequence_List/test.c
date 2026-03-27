@@ -1,5 +1,4 @@
 #include<stdio.h>
-#include "SeqList.c"
 #include "SeqList.h"
 
 int main()
