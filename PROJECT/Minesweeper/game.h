@@ -3,8 +3,6 @@
 #include<stdlib.h>
 #include<time.h>
 
-
-
 #define ROW 9
 #define COL 9
 
@@ -14,7 +12,7 @@
 #define MINE 10
 
 
-void InitBoard(char board[ROWS][COLS], int rows, int cols, char set); //初始化棋盘
+void InitBoard(char board[ROWS][COLS], int row, int col, char set); //初始化棋盘
 
 void DisplayBoard(char board[ROWS][COLS], int row, int col); //打印棋盘
 

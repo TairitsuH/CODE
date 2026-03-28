@@ -1,10 +1,5 @@
 #include "game.h"
 
-
-
-
-
-
 void InitBoard(char board[ROWS][COLS], int row, int col, char set) //初始化棋盘
 {
     for(int i=0; i<row; i++)
@@ -22,7 +17,7 @@ void DisplayBoard(char board[ROWS][COLS], int row, int col) //打印棋盘
     printf("  ");
     for(int i=1; i<=col; i++)
     {
-        printf("%d ", i); //打印坐标（从0开始）
+        printf("%d ", i); //打印坐标（从1开始）
     }
     printf("\n");
 
@@ -65,7 +60,7 @@ void FindMine(char mine[ROWS][COLS], char show[ROWS][COLS], int row, int col) //
     int x = 0;
     int y = 0;
     int win = 0;
-    int time = 3;
+    int chance = 3;
     while(win < row * col - MINE)
     {
         DisplayBoard(show, row, col);
@@ -73,12 +68,16 @@ void FindMine(char mine[ROWS][COLS], char show[ROWS][COLS], int row, int col) //
         scanf("%d%d", &x, &y); //检查合理性！！
         if(x > 0 && x <= row && y > 0 && y <= col)
         {
-            if(mine[x][y] == '1')
+            if(show[x][y] != '*')
             {
-                time--;
-                if(time > 0)
+                printf("该坐标已经排查！\n");
+            }
+            else if(mine[x][y] == '1')
+            {
+                chance--;
+                if(chance > 0)
                 {
-                    printf("踩到雷了！你还有%d次机会TvT\n", time);
+                    printf("踩到雷了！你还有%d次机会TvT\n", chance);
                     show[x][y] = '#';
                 }
                 else
@@ -88,22 +87,18 @@ void FindMine(char mine[ROWS][COLS], char show[ROWS][COLS], int row, int col) //
                     break;
                 }
             }
-            else if(show[x][y] == '*')
+            else
             {
                 win++;
                 int a = AroundMine(mine, x, y);
                 show[x][y] = a + '0';
                 if(win == row * col - MINE)
                 {
-                    printf("恭喜！已你成功排查所有雷！[]~(￣▽￣)~*\n");
+                    printf("恭喜！你已成功排查所有雷！[]~(￣▽￣)~*\n");
                     DisplayBoard(mine, row, col);
                     break;
                 }
                 else printf("排查成功！请继续......\n");
-            }
-            else
-            {
-                printf("该坐标已经排查！\n");
             }
         }
         else
