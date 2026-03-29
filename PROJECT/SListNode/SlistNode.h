@@ -1,8 +1,10 @@
+#pragma once
+
 typedef int SLTDataType;
 
 typedef struct SListNode
 {
-    SLTDataType deta;
+    SLTDataType data;
     struct SListNode* next; //还未声明结束，不能省略struct
 }SLTNode;
 
@@ -10,10 +12,12 @@ typedef struct SListNode
 //不需要修改指针变量中存的地址，仅需把这个地址复制给函数
 void SLTPrint(SLTNode* pphead);
 
+//创建新节点
+SLTNode* SLTBuyNode(SLTDataType x);
 
 //头部插入删除 & 尾部插入删除
-void SLTPushBack(SLTNode** pphead, SLTDataType x);
 void SLTPushFront(SLTNode** pphead, SLTDataType x);
+void SLTPushBack(SLTNode** pphead, SLTDataType x);
 void SLTPopBack(SLTNode** pphead);
 void SLTPopFront(SLTNode** pphead);
 
