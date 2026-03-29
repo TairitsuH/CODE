@@ -188,7 +188,7 @@ void SLTDestroy(SLTNode** pphead)
     assert(pphead && *pphead);
     SLTNode* del = *pphead;
     *pphead = NULL;
-    while(del ->next != NULL)
+    while(del)
     {
         SLTNode* tmp = del -> next;
         free(del);
