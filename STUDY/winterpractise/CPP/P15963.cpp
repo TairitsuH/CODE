@@ -42,7 +42,7 @@ int main()
 {
     int y = 2239;
     int m = 9;
-    int d = 3;
+    int d = 9;
     int cnt = 0;
     while(1)
     {
@@ -57,7 +57,7 @@ int main()
         {
             case 2:
             {
-                if((y%100!=0 && y%4==0) || (y%400==0)) //闰年
+                if((y%100!=0 && y%4==0) || (y%400==0)) //闰年 
                 {
                     if(d < 29) d++;
                     else
