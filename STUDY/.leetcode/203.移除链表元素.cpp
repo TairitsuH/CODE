@@ -78,3 +78,38 @@ public:
 
 //二刷：试了下虚拟头结点，不用分类讨论真不错！不过还是有很多细节需要注意
 //test
+
+//三刷：C语言版本
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+struct ListNode* removeElements(struct ListNode* head, int val)
+{
+    while(head != NULL && head->val == val)
+    {
+        struct ListNode* tmp = head;
+        head = head->next;
+        free(tmp);
+    }
+
+    struct ListNode* pos = head;
+    while(pos != NULL && pos->next != NULL)
+    {
+        if(pos->next->val == val)
+        {
+            struct ListNode* tmp = pos->next;
+            pos->next = pos->next->next;
+            free(tmp);
+        }
+        else
+        {
+            pos = pos->next;
+        }
+    }
+    
+    return head;
+}
