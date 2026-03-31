@@ -29,7 +29,7 @@ void LTPopFront(LTNode* phead); //头删
 
 LTNode* LTFind(LTNode* phead, LTDataType x); //查找元素
 
-void LTInsert(LTNode* phead, LTDataType x); //在pos之后插入节点（之前和之后一个原理，这里只演示后插
+void LTInsert(LTNode* pos, LTDataType x); //在pos之后插入节点（之前和之后一个原理，这里只演示后插
 void LTErase(LTNode* pos); //删除pos元素
 
 void LTDestroy(LTNode* phead); //销毁链表
