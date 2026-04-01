@@ -42,6 +42,41 @@ public:
 };
 // @lc code=end
 
+// //三刷：C语言版本
+// /**
+//  * Definition for singly-linked list.
+//  * struct ListNode {
+//  *     int val;
+//  *     struct ListNode *next;
+//  * };
+//  */
+// struct ListNode* removeElements(struct ListNode* head, int val)
+// {
+//     while(head != NULL && head->val == val)
+//     {
+//         struct ListNode* tmp = head;
+//         head = head->next;
+//         free(tmp);
+//     }
+
+//     struct ListNode* pos = head;
+//     while(pos != NULL && pos->next != NULL)
+//     {
+//         if(pos->next->val == val)
+//         {
+//             struct ListNode* tmp = pos->next;
+//             pos->next = pos->next->next;
+//             free(tmp);
+//         }
+//         else
+//         {
+//             pos = pos->next;
+//         }
+//     }
+    
+//     return head;
+// }
+//二刷：试了下虚拟头结点，不用分类讨论真不错！不过还是有很多细节需要注意
 //一刷：没接触过用结构体实现，仅仅学过数组模拟链表，是照着题解边打边理解的
 // class Solution {
 // public:
@@ -75,41 +110,3 @@ public:
 //         return head;
 //     }
 // };
-
-//二刷：试了下虚拟头结点，不用分类讨论真不错！不过还是有很多细节需要注意
-//test
-
-//三刷：C语言版本
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     struct ListNode *next;
- * };
- */
-struct ListNode* removeElements(struct ListNode* head, int val)
-{
-    while(head != NULL && head->val == val)
-    {
-        struct ListNode* tmp = head;
-        head = head->next;
-        free(tmp);
-    }
-
-    struct ListNode* pos = head;
-    while(pos != NULL && pos->next != NULL)
-    {
-        if(pos->next->val == val)
-        {
-            struct ListNode* tmp = pos->next;
-            pos->next = pos->next->next;
-            free(tmp);
-        }
-        else
-        {
-            pos = pos->next;
-        }
-    }
-    
-    return head;
-}

@@ -27,7 +27,7 @@ struct ListNode* reverseList(struct ListNode* head)
 
 
 
-//二刷
+//二刷：忽略了第一个指针要指向NULL的细节，直接指向head了，做起来很麻烦，因为还要单独考虑仅有两个节点的情况
 //一刷：需要注意最后一次循环中当n3为NULL时不可再次解引用。
 // struct ListNode* reverseList(struct ListNode* head)
 // {

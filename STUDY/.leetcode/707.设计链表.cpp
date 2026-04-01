@@ -24,7 +24,7 @@ MyLinkedList* myLinkedListCreate() {
     obj->head = dLinkListNodeCreat(0);
     obj->tail = dLinkListNodeCreat(0);
     obj->head->next = obj->tail;
-    obj->tail->prev = obj->head; 
+    obj->tail->prev = obj->head; //循环链表
     return obj;
 }
 
