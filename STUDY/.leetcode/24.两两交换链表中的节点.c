@@ -15,10 +15,34 @@
 typedef struct ListNode LTNode;
 struct ListNode* swapPairs(struct ListNode* head)
 {
-    
+    if(head == NULL) return head;
+    //虚拟头结点
+    LTNode* dum = (LTNode*)malloc(sizeof(LTNode));
+    dum->next = head;
+    LTNode* pcur = dum;
+
+    while(pcur->next && pcur->next->next)
+    {
+        //临时存储
+        LTNode* first = pcur->next;
+        LTNode* second = first->next;
+        LTNode* third = second->next;
+        
+        //移动
+        pcur->next = second;
+        second->next = first;
+        first->next = third;
+
+        //下一次循环
+        pcur = pcur->next->next;
+    }
+    head = dum->next;
+    free(dum);
+    return head;
 }
 // @lc code=end
 
+//二刷：在为虚拟头结点开辟空间后一定要记得初始化！（next一定要指向head，val可以不初始化）
 //一刷：分类讨论很乱，指针太多导致的。感谢DeepSeek老师！！果然还是不能跳步骤，要一步步来。太容易对空指针解引用了啊啊TvT
 //cur每次操作两个节点。（以4 / 5个节点来举例）
 //偶数个节点时，cur最后指向4，此时cur->next为NULL，已经完成所有的交换，循环终止；
