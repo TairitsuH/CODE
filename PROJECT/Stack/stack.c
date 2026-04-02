@@ -19,7 +19,7 @@ void STDestroy(ST* pst)
     assert(pst);
     free(pst->a);
     pst->a = NULL;
-    pst->top = pst->capacity = NULL;
+    pst->top = pst->capacity = 0;
 }
 
 //入栈
@@ -31,13 +31,14 @@ void STPush(ST* pst, STDataType x)
     if(pst->top == pst->capacity)
     {
         int newcapacity = pst->capacity == 0 ? 4 : 2*pst->capacity;
-        ST* tmp = (ST*)realloc(pst->a, sizeof(STDataType)*pst->capacity);
+        STDataType* tmp = (STDataType*)realloc(pst->a, sizeof(STDataType) * newcapacity);
         if(tmp == NULL)
         {
             perror("realloc fail");
             exit(1);
         }
         pst->a = tmp;
+        pst->capacity = newcapacity;
     }
     
     pst->a[pst->top] = x;
@@ -54,7 +55,7 @@ void STPop(ST* pst)
 //查询栈顶元素
 STDataType STTop(ST* pst)
 {
-    assert(pst && pst->top);
+    assert(pst && pst->top>0);
     return pst->a[pst->top-1];
 }
 
@@ -69,5 +70,5 @@ bool STEmpty(ST* pst)
 int STSize(ST* pst)
 {
     assert(pst);
-    return pst->top+1;
+    return pst->top;
 }
