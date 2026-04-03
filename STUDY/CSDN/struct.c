@@ -43,21 +43,45 @@
 //     return 0;
 // }
 
-struct A
+// struct A
+// {
+//     int _a: 2;
+//     int _b: 3;
+//     int _c: 4;
+//     int _d: 5;
+// };
+
+// int main()
+// {
+//     struct A sa = {0};
+
+//     int b = 0;
+//     scanf("%d\n", &b);
+//     sa._b = b; //合法
+
+//     return 0;
+// }
+
+#include<stdio.h>
+
+struct S
 {
-    int _a: 2;
-    int _b: 3;
-    int _c: 4;
-    int _d: 5;
+    int x;
+    char y;
 };
 
 int main()
 {
-    struct A sa = {0};
+    struct S s1;
+    struct S* ps = &s1;
+    s1.x = 10;
+    printf("%d\n", s1.x);
 
-    int b = 0;
-    scanf("%d\n", &b);
-    sa._b = b; //合法
+    (*ps).x = 20;
+    printf("%d\n", (*ps).x);
+
+    ps->x = 30;
+    printf("%d\n", ps->x);
 
     return 0;
 }
