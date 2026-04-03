@@ -35,7 +35,7 @@ void QueuePush(Queue* pq, QLNDataType x)
 {
     assert(pq);
     //为新节点开辟空间
-    QNode* newnode = (QNode*)malloc(sizeof(QLNDataType));
+    QNode* newnode = (QNode*)malloc(sizeof(QNode));
     if(newnode == NULL) //开辟失败
     {
         perror("malloc fail");

@@ -38,6 +38,6 @@ QLNDataType QueueBack(Queue* pq);
 
 //判空
 bool QueueEmpty(Queue* pq);
-
+ 
 //打印队列(左边是头，右边是尾)
 void QueuePrint(Queue* pq);
