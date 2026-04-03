@@ -72,3 +72,15 @@ int STSize(ST* pst)
     assert(pst);
     return pst->top;
 }
+
+//打印栈的元素
+//如果需要更改STDataType的类型则对应的输出格式也要更改
+void STPrint(ST *pst)
+{
+    assert(pst);
+    for(int i=0; i<pst->top; i++)
+    {
+        printf("%d ", pst->a[i]);
+    }
+    printf("\n");
+}

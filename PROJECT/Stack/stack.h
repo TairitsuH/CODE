@@ -24,5 +24,8 @@ STDataType STTop(ST* pst);
 bool STEmpty(ST* pst);
 
 //查询数据个数
-int STSize(ST* pst);
+STDataType STSize(ST* pst);
 
+//打印栈的元素
+//如果需要更改STDataType的类型则对应的输出格式也要更改
+void STPrint(ST *pst);
