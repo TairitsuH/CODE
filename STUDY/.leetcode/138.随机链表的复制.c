@@ -44,7 +44,7 @@ struct Node* copyRandomList(struct Node* head)
         if(!pcur->random)
         {
             cpy->random = NULL;
-        }
+        } 
         else
         {
             cpy->random = pcur->random->next;
