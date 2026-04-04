@@ -31,3 +31,17 @@
 //     printf("%d", cnt);
 //     return 0;
 // }
+
+
+#include<stdio.h>
+int main()
+{
+    int a;
+    int b;
+    int c;
+    int d;
+    int e;
+    int f;
+    printf("%0x %0x %0x %0x %0x %0x", a, b, c, d, e, f);
+    return 0;
+}
