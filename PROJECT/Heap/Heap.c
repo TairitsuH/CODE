@@ -119,7 +119,7 @@ void HPPop(Heap* php)
 HPDataType HPTop(Heap* php)
 {
     assert(php && php->size > 0);
-    return php->a[php->size-1];
+    return php->a[0];
 }
 
 //判空

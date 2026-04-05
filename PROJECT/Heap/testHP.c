@@ -23,11 +23,6 @@ void HeapSort(int* a, int n)
     }
 }
 
-void HeaPsort(Heap* php)
-{
-
-}
-
 int main()
 {
     srand((unsigned int)time(NULL));
