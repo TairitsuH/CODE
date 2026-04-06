@@ -21,7 +21,7 @@ void HPDestroy(Heap* php);
 
 //向上/下调整
 void AdjustUp(HPDataType* a, int child);
-void AdjustDown(HPDataType* a, int n, int parent); //n个元素
+void AdjustDown(HPDataType* a, int n, int parent); //n为总元素个数
 
 //插入元素
 void HPPush(Heap* php, HPDataType x);
