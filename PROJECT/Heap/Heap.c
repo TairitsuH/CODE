@@ -54,11 +54,11 @@ void AdjustDown(HPDataType* a, int n, int parent)
 {
     //父->子：*2+1
     //子->父：-1)/2
-    while(parent <= (n-1)/2)
+    int child = parent * 2 + 1;
+    while(child < n) //孩子要大于最后一个节点
     {
         //假设法（左孩子小）
-        int child = parent * 2 + 1;
-        if(child+1 < n && a[child+1] < a[child])
+        if(child+1 < n && a[child+1] < a[child]) //保证右子存在
         {
             child += 1;
         }
@@ -67,6 +67,7 @@ void AdjustDown(HPDataType* a, int n, int parent)
         {
             Swap(&a[parent], &a[child]);
             parent = child;
+            child = parent * 2 + 1;
         }
         else
         {
