@@ -69,6 +69,15 @@ void HeapSortTopK()
         }
     }
 
+    //对数组数据排序
+    int end = k - 1;
+    while(end>0)
+    {
+        Swap(&KMinHeap[0], &KMinHeap[end]);
+        AdjustDown(KMinHeap, end, 0);
+        end--;
+    }
+
     //打印
     printf("最大的前K个数为：");
     for(int i=0; i<k; i++)
