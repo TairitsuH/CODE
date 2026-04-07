@@ -34,3 +34,5 @@ bool isSymmetric(struct TreeNode* root)
 
 // @lc code=end
 
+//一刷：由于root的左右子树是要分开比较的，所以需要再写一个函数单独处理左右子树
+
