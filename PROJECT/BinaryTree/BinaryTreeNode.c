@@ -73,6 +73,7 @@ int TreeSize(BTNode* root)
     if(!root)
     return 0;
 
+    //左子树节点数 + 右子树节点数 + 当前节点
     return TreeSize(root->left) + TreeSize(root->right) + 1;
 }
 
@@ -83,6 +84,7 @@ int LeafSize(BTNode* root)
     if(!root)
     return 0;
 
+    //左右都为空，即为叶子节点
     if(!root->left && !root->right)
     return 1;
 
@@ -95,6 +97,7 @@ int TreeHeight(BTNode* root)
     if(!root)
     return 0;
 
+    //取左右子树中较深的一棵，算入当前层数
     return fmax(TreeHeight(root->left), TreeHeight(root->right)) + 1;    
 }
 
@@ -104,6 +107,7 @@ int LeafLevelKSize(BTNode* root, int k)
     if(!root)
     return 0;
 
+    //到达K层则将当前节点计入总数
     if(k == 1)
     return 1;
 
@@ -122,7 +126,7 @@ BTNode* TreeFind(BTNode* root, BTDataType x)
     BTNode* ret1 = TreeFind(root->left, x);
     if(ret1 != NULL)
     {
-        return ret1;
+        return ret1; //找到就return，不必遍历右子树
     }
     BTNode* ret2 = TreeFind(root->right, x);
     if(ret2 != NULL)
@@ -130,5 +134,5 @@ BTNode* TreeFind(BTNode* root, BTDataType x)
         return ret2;
     }
 
-    return NULL;
+    return NULL; //注意不要漏掉if条件之外的return！
 }
