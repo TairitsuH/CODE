@@ -51,9 +51,9 @@ void MidOrder(BTNode* root)
     if(!root)
     return;
 
-    PreOrder(root->left); //左
+    MidOrder(root->left); //左
     printf("%d ", root->val); //根
-    PreOrder(root->right); //右
+    MidOrder(root->right); //右
 }
 
 //后序遍历
@@ -62,8 +62,8 @@ void PostOrder(BTNode* root)
     if(!root)
     return;
 
-    PreOrder(root->left); //左
-    PreOrder(root->right); //右
+    PostOrder(root->left); //左
+    PostOrder(root->right); //右
     printf("%d ", root->val); //根
 }
 
@@ -94,9 +94,6 @@ int TreeHeight(BTNode* root)
 {
     if(!root)
     return 0;
-
-    if(!root->left && !root->right)
-    return 1;
 
     return fmax(TreeHeight(root->left), TreeHeight(root->right)) + 1;    
 }
@@ -132,6 +129,6 @@ BTNode* TreeFind(BTNode* root, BTDataType x)
     {
         return ret2;
     }
-    
+
     return NULL;
 }
