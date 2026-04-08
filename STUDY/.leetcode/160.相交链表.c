@@ -12,58 +12,100 @@
  *     struct ListNode *next;
  * };
  */
-
-// @lc code=end
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     struct ListNode *next;
- * };
- */
 typedef struct ListNode LTNode;
-struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB)
+
+int LTNodeLenth(LTNode* pcur)
 {
-    LTNode* pcura = headA;
-    LTNode* pcurb = headB;
-    int la = 1, lb = 1; //由于要比较尾节点，所以不能等到NULL才停止遍历，因此长度要+1才是总长度
-
-    while(pcura->next)
+    int num = 0;
+    LTNode* tmp = pcur;
+    while(tmp)
     {
-        pcura = pcura->next;
-        la++;
+        tmp = tmp->next;
+        num++;
     }
-    while(pcurb->next)
-    {
-        pcurb = pcurb->next;
-        lb++;
-    }
-
-    if(pcura != pcurb) return NULL; //尾节点不同
-
-    int n = abs(la - lb);
-    LTNode* l = headA, *s = headB;
-    if(la < lb)
-    {
-        l = headB;
-        s = headA;
-    }
-
-    while(n--)
-    {
-        l = l->next;
-    }
-
-    while(l != s)
-    {
-        l = l->next;
-        s = s->next;
-    }
-
-    return l;
+    return num;
 }
 
+struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB)
+{
+    int la = LTNodeLenth(headA);
+    int lb = LTNodeLenth(headB);
+    LTNode* pa = headA;
+    LTNode* pb = headB;
+    
+    while(pa) pa = pa->next;
+    while(pb) pb = pb->next;
+
+    if(pa != pb) return NULL;
+
+    //假设法
+    LTNode* plong = headA;
+    LTNode* pshort = headB;
+    if(la < lb)
+    {
+        plong = pshort;
+        pshort = headA;
+    }
+
+    int sep = abs(la - lb);
+    while(sep--)
+    {
+        plong = plong->next;
+    }
+
+    while(plong != pshort)
+    {
+        plong = plong->next;
+        pshort = pshort->next;
+    }
+
+    return plong;
+}
+// @lc code=end
+
+//四刷：稳定一遍过，可以可以
 //三刷：整体思路：首次遍历计算出两个链表的长度并判断尾部节点是否为同一个（不同就可以返回NULL了）；
+// typedef struct ListNode LTNode;
+// struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB)
+// {
+//     LTNode* pcura = headA;
+//     LTNode* pcurb = headB;
+//     int la = 1, lb = 1; //由于要比较尾节点，所以不能等到NULL才停止遍历，因此长度要+1才是总长度
+
+//     while(pcura->next)
+//     {
+//         pcura = pcura->next;
+//         la++;
+//     }
+//     while(pcurb->next)
+//     {
+//         pcurb = pcurb->next;
+//         lb++;
+//     }
+
+//     if(pcura != pcurb) return NULL; //尾节点不同
+
+//     int n = abs(la - lb);
+//     LTNode* l = headA, *s = headB;
+//     if(la < lb)
+//     {
+//         l = headB;
+//         s = headA;
+//     }
+
+//     while(n--)
+//     {
+//         l = l->next;
+//     }
+
+//     while(l != s)
+//     {
+//         l = l->next;
+//         s = s->next;
+//     }
+
+//     return l;
+// }
 //计算出长度差，移动长指针使两指针对齐；第二次遍历，直接找出相交的第一个节点并返回。
 //一遍过！verygooooooood!!![]~(￣▽￣)~*
 

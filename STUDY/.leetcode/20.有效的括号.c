@@ -76,50 +76,88 @@ STDataType STTop(ST* pst)
 bool isValid(char* s)
 {
     ST st;
-    STInit(&st);
+    ST* pst = &st;
+    STInit(pst);
 
-    while(*s)
+    int len = strlen(s);
+    for(int i=0; i<len; i++)
     {
-        if(*s == '(' || *s == '{' || *s == '[')
+        if(s[i] == '(' || s[i] == '{' || s[i] == '[')
         {
-            STPush(&st, *s);
+            STPush(pst, s[i]);
         }
         else
         {
-            if(STEmpty(&st))
-            {
-                STDestroy(&st);
-                return false;
-            }
-
-            STDataType x = STTop(&st);
-
-            if((x == '(' && *s != ')') 
-            || (x == '{' && *s != '}') 
-            || (x == '[' && *s != ']'))
-            {
-                STDestroy(&st);
-                return false;
-            }
+            if(STEmpty(pst)) return false;
             
-            STPop(&st);
+            char x = STTop(pst);
+            STPop(pst);
+
+            if((s[i] == ')' && x != '(') 
+            || (s[i] == '}' && x != '{') 
+            || (s[i] == ']' && x != '['))
+            return false;
         }
-        s++;
     }
 
-    if(STEmpty(&st))
+    if(STEmpty(pst))
     {
-        STDestroy(&st);
+        STDestroy(pst);
         return true;
     }
 
-    STDestroy(&st);
+    STDestroy(pst);
     return false;
 }
 
 // @lc code=end
 
+//三刷：在s[i]为右括号时判断条件的左右括号写反了TvT
 //二刷：整体的栈框架已经掌握，需要注意一些细节，比如在扩容前判断容器是否已满
+// bool isValid(char* s)
+// {
+//     ST st;
+//     STInit(&st);
+
+//     while(*s)
+//     {
+//         if(*s == '(' || *s == '{' || *s == '[')
+//         {
+//             STPush(&st, *s);
+//         }
+//         else
+//         {
+//             if(STEmpty(&st))
+//             {
+//                 STDestroy(&st);
+//                 return false;
+//             }
+
+//             STDataType x = STTop(&st);
+
+//             if((x == '(' && *s != ')') 
+//             || (x == '{' && *s != '}') 
+//             || (x == '[' && *s != ']'))
+//             {
+//                 STDestroy(&st);
+//                 return false;
+//             }
+            
+//             STPop(&st);
+//         }
+//         s++;
+//     }
+
+//     if(STEmpty(&st))
+//     {
+//         STDestroy(&st);
+//         return true;
+//     }
+
+//     STDestroy(&st);
+//     return false;
+// }
+
 //一刷：栈思想，左括号则入栈，右括号则出栈匹配（出栈前判空），匹配错误false，最后栈不为空也是false，return前要destroy！
 // typedef char STDataType;
 // typedef struct Stack
