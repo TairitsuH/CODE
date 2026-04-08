@@ -15,39 +15,77 @@
 typedef struct ListNode LTNode;
 bool isPalindrome(struct ListNode* head)
 {
-    LTNode* fast = head, *slow = head;
-
-    //查找中间节点
+    LTNode* fast = head;
+    LTNode* slow = head;
     while(fast && fast->next)
     {
         fast = fast->next->next;
         slow = slow->next;
     }
 
-    //逆置
     LTNode* newhead = NULL;
-    while(slow)
+    LTNode* tmp = slow;
+    while(tmp)
     {
-        LTNode* tmp = slow->next;
-        slow->next = newhead;
-        newhead = slow;
-        slow = tmp;
+        LTNode* n1 = tmp->next;
+        tmp->next = newhead;
+        newhead = tmp;
+        tmp = n1;
     }
 
-    LTNode* headleft = head;
-    while(headleft && newhead)
+    LTNode* left = head;
+    LTNode* right = newhead;
+    while(left && right)
     {
-        if(headleft->val != newhead->val) return false;
-        headleft = headleft->next;
-        newhead = newhead->next;
+        if(left->val != right->val)
+        {
+            return false;
+        }
+
+        left = left->next;
+        right = right->next;
     }
+
     return true;
+
 }
 
 // @lc code=end
 
+//三刷：又有点忘了TAT，把newhead置空会更好做
 //二刷：先查找中间节点，记录并使中间往后的节点逆置；然后从两端开始往中间遍历，判断是否回文。
 //一遍过~！我真棒ヾ(≧▽≦*)o
+// typedef struct ListNode LTNode;
+// bool isPalindrome(struct ListNode* head)
+// {
+//     LTNode* fast = head, *slow = head;
+
+//     //查找中间节点
+//     while(fast && fast->next)
+//     {
+//         fast = fast->next->next;
+//         slow = slow->next;
+//     }
+
+//     //逆置
+//     LTNode* newhead = NULL;
+//     while(slow)
+//     {
+//         LTNode* tmp = slow->next;
+//         slow->next = newhead;
+//         newhead = slow;
+//         slow = tmp;
+//     }
+
+//     LTNode* headleft = head;
+//     while(headleft && newhead)
+//     {
+//         if(headleft->val != newhead->val) return false;
+//         headleft = headleft->next;
+//         newhead = newhead->next;
+//     }
+//     return true;
+// }
 
 //一刷：思路是先查找中间节点，然后将中间往后的节点逆置，再用双指针一头一尾比较val。
 //注意点：对reverse的设计还需完善。刚开始写的时候没有设置newhead，导致slow指向NULL并回传，产生了对空指针解引用的错误
