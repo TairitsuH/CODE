@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<math.h>
 #include<stdio.h>
+#include<stdbool.h>
 
 typedef int BTDataType;
 
