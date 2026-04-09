@@ -101,6 +101,19 @@ int TreeHeight(BTNode* root)
     return fmax(TreeHeight(root->left), TreeHeight(root->right)) + 1;    
 }
 
+//或者：（计算高度
+// int TreeHeight(BTNode* root)
+// {
+//     if(!root)
+//     return 0;
+
+//     int ret1 = TreeHeight(root->left);
+//     int ret2 = TreeHeight(root->right);
+
+//     return ret1 > ret2 ? ret1+1 : ret2+1;
+// }
+//不能直接返回函数！否则递归次数会大大增加（没有记录，每一次都要重算）
+
 //计算第K层节点个数
 int LeafLevelKSize(BTNode* root, int k)
 {
