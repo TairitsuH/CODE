@@ -37,6 +37,32 @@ BTNode* CreateBinaryTree()
     return node1;
 }
 
+//根据前序遍历创建二叉树（i为字符数组a的下标，从0开始，传址确保实参改变）
+BTNode* PrevCreateBinaryTree(char* a, int* pi)
+{
+    
+    if(a[*pi] == '#')
+    {
+        (*pi)++; //记得加括号！不要写在if里面！因为只要判断就会＋1
+        return NULL;
+    }
+
+    BTNode* root = (BTNode*)malloc(sizeof(BTNode));
+    if(!root)
+    {
+        perror("malloc fail");
+        exit(1);
+    }
+
+    //初始化
+    root->val = a[(*pi)++] - '0'; //转化为整型数据存入
+
+    root->left = PrevCreateBinaryTree(a, pi);
+    root->right = PrevCreateBinaryTree(a, pi);
+
+    return root;
+}
+
 //前序遍历
 void PreOrder(BTNode* root)
 {

@@ -5,7 +5,9 @@
 
 int main()
 {
-    BTNode* root = CreateBinaryTree();
+    char a[16] = "1237####45##6##";
+    int i = 0;
+    BTNode* root = PrevCreateBinaryTree(a, &i);
 
     PreOrder(root);
     printf("\n");
