@@ -63,7 +63,7 @@ struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *he
 }
 // @lc code=end
 
-//四刷：稳定一遍过，可以可以
+//四刷：稳定一遍过，可以可以（￣︶￣）↗　
 //三刷：整体思路：首次遍历计算出两个链表的长度并判断尾部节点是否为同一个（不同就可以返回NULL了）；
 // typedef struct ListNode LTNode;
 // struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB)
