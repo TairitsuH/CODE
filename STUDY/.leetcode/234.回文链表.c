@@ -15,6 +15,8 @@
 typedef struct ListNode LTNode;
 bool isPalindrome(struct ListNode* head)
 {
+    if(!head) return false;
+
     LTNode* fast = head;
     LTNode* slow = head;
     while(fast && fast->next)
@@ -23,36 +25,69 @@ bool isPalindrome(struct ListNode* head)
         slow = slow->next;
     }
 
-    LTNode* newhead = NULL;
     LTNode* tmp = slow;
+    LTNode* newhead = NULL;
     while(tmp)
     {
-        LTNode* n1 = tmp->next;
+        LTNode* tmp2 = tmp->next;
         tmp->next = newhead;
         newhead = tmp;
-        tmp = n1;
+        tmp = tmp2;
     }
 
     LTNode* left = head;
     LTNode* right = newhead;
     while(left && right)
     {
-        if(left->val != right->val)
-        {
-            return false;
-        }
-
+        if(left->val != right->val) return false;
         left = left->next;
         right = right->next;
     }
 
     return true;
-
 }
 
 // @lc code=end
 
+//四刷：熟悉的感觉又回来了╰(*°▽°*)╯ 一遍过~
 //三刷：又有点忘了TAT，把newhead置空会更好做
+// typedef struct ListNode LTNode;
+// bool isPalindrome(struct ListNode* head)
+// {
+//     LTNode* fast = head;
+//     LTNode* slow = head;
+//     while(fast && fast->next)
+//     {
+//         fast = fast->next->next;
+//         slow = slow->next;
+//     }
+
+//     LTNode* newhead = NULL;
+//     LTNode* tmp = slow;
+//     while(tmp)
+//     {
+//         LTNode* n1 = tmp->next;
+//         tmp->next = newhead;
+//         newhead = tmp;
+//         tmp = n1;
+//     }
+
+//     LTNode* left = head;
+//     LTNode* right = newhead;
+//     while(left && right)
+//     {
+//         if(left->val != right->val)
+//         {
+//             return false;
+//         }
+
+//         left = left->next;
+//         right = right->next;
+//     }
+
+//     return true;
+
+// }
 //二刷：先查找中间节点，记录并使中间往后的节点逆置；然后从两端开始往中间遍历，判断是否回文。
 //一遍过~！我真棒ヾ(≧▽≦*)o
 // typedef struct ListNode LTNode;
