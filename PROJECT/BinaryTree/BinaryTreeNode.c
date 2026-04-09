@@ -38,9 +38,10 @@ BTNode* CreateBinaryTree()
 }
 
 //根据前序遍历创建二叉树（i为字符数组a的下标，从0开始，传址确保实参改变）
-BTNode* PrevCreateBinaryTree(char* a, int* pi)
+BTNode* PrevCreateBinaryTree(char* a, int n, int* pi)
 {
-    
+    if(*pi >= n) return NULL; //防止越界
+
     if(a[*pi] == '#')
     {
         (*pi)++; //记得加括号！不要写在if里面！因为只要判断就会＋1
@@ -57,8 +58,8 @@ BTNode* PrevCreateBinaryTree(char* a, int* pi)
     //初始化
     root->val = a[(*pi)++] - '0'; //转化为整型数据存入
 
-    root->left = PrevCreateBinaryTree(a, pi);
-    root->right = PrevCreateBinaryTree(a, pi);
+    root->left = PrevCreateBinaryTree(a, n, pi);
+    root->right = PrevCreateBinaryTree(a, n, pi);
 
     return root;
 }

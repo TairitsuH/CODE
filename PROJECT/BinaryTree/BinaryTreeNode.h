@@ -21,7 +21,7 @@ BTNode* CreateBinaryTree();
 
 //根据前序遍历创建二叉树
 //D:\CODE\STUDY\BYTE CLASS\NC_TSINGK110.c
-BTNode* PrevCreateBinaryTree(char* a, int* pi);
+BTNode* PrevCreateBinaryTree(char* a, int n, int* pi);
 
 //前序遍历
 void PreOrder(BTNode* root);
