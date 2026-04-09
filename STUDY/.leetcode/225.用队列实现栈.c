@@ -5,8 +5,6 @@
  */
 
 // @lc code=start
-#include<stdio.h>
-#include<stdlib.h>
 
 typedef struct QueueListNode
 {
