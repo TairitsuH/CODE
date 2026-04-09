@@ -42,3 +42,6 @@ int LeafLevelKSize(BTNode* root, int k);
 
 //根据值查找节点
 BTNode* TreeFind(BTNode* root, BTDataType x);
+
+//销毁二叉树
+void TreeDestroy(BTNode* root);

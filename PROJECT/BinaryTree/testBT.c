@@ -40,5 +40,7 @@ int main()
         printf("找到了。\n");
     }
 
+    TreeDestroy(root);
+
     return 0;
 }

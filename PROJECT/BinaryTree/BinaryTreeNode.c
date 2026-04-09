@@ -149,3 +149,14 @@ BTNode* TreeFind(BTNode* root, BTDataType x)
 
     return NULL; //注意不要漏掉if条件之外的return！
 }
+
+//销毁二叉树
+void TreeDestroy(BTNode* root)
+{
+    if(!root) return;
+
+    TreeDestroy(root->left);
+    TreeDestroy(root->right);
+    free(root);
+    //根据后续遍历的方式销毁，避免找不到后续节点
+}
