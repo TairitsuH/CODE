@@ -1,4 +1,5 @@
 #include "BinaryTreeNode.h"
+#include "Queue.h"
 
 //新建树节点
 BTNode* BuyNode(BTDataType val)
@@ -24,12 +25,14 @@ BTNode* CreateBinaryTree()
     BTNode* node4 = BuyNode(4);
     BTNode* node5 = BuyNode(5);
     BTNode* node6 = BuyNode(6);
+    BTNode* node7 = BuyNode(7);
 
     node1->left = node2;
     node1->right = node4;
     node2->left = node3;
     node4->left = node5;
     node4->right = node6;
+    node3->left = node7;
 
     return node1;
 }
@@ -159,4 +162,68 @@ void TreeDestroy(BTNode* root)
     TreeDestroy(root->right);
     free(root);
     //根据后续遍历的方式销毁，避免找不到后续节点
+}
+
+//层序遍历（非递归）
+void TreeLevelOrder(BTNode* root)
+{
+    Queue q;
+    QueueInit(&q);
+
+    if(root)
+    {
+        QueuePush(&q, root);
+    }
+
+    while(!QueueEmpty(&q))
+    {
+        BTNode* top = QueueFront(&q);
+        QueuePop(&q);
+
+        printf("%d ", top->val);
+
+        if(top->left) QueuePush(&q, top->left);
+        if(top->right) QueuePush(&q, top->right);
+    }
+    printf("\n");
+    QueueDestroy(&q);
+}
+
+//判断是否为完全二叉树（把NULL节点也放入队列中）
+bool isBinaryTree(BTNode* root)
+{
+    Queue q;
+    QueueInit(&q);
+
+    QueuePush(&q, root);
+
+
+    while(!QueueEmpty(&q))
+    {
+        BTNode* top = QueueFront(&q);
+        QueuePop(&q);
+
+        if(top == NULL)
+        {
+            break;
+        }
+
+        QueuePush(&q, top->left);
+        QueuePush(&q, top->right);
+    }
+
+    while(!QueueEmpty(&q))
+    {
+        BTNode* top = QueueFront(&q);
+        QueuePop(&q);
+
+        if(top)
+        {
+            QueueDestroy(&q);
+            return false;
+        }
+    }
+
+    QueueDestroy(&q);
+    return true;
 }

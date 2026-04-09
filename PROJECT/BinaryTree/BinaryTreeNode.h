@@ -19,6 +19,9 @@ BTNode* BuyNode(BTDataType val);
 //创建固定二叉树，返回根节点
 BTNode* CreateBinaryTree();
 
+//根据前序遍历创建二叉树
+//D:\CODE\STUDY\BYTE CLASS\NC_TSINGK110.c
+
 //前序遍历
 void PreOrder(BTNode* root);
 
@@ -45,3 +48,9 @@ BTNode* TreeFind(BTNode* root, BTDataType x);
 
 //销毁二叉树
 void TreeDestroy(BTNode* root);
+
+//层序遍历
+void TreeLevelOrder(BTNode* root);
+
+//判断是否为完全二叉树
+bool isBinaryTree(BTNode* root);
