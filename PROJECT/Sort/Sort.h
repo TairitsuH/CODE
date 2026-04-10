@@ -1,0 +1,21 @@
+//写排序技巧：先写一次排序（内层循环），再推广至整个数组排序（外层循环）
+//
+#include<stdio.h>
+#include<stdlib.h>
+
+void Swap(int* x, int* y);
+
+//冒泡排序
+void BubbleSort(int* a, int n);
+
+//插入排序
+void InsertSort(int* a, int n);
+
+//希尔排序
+void ShellSort(int* a, int n);
+
+//选择排序（双指针）
+void SelectSort(int* a, int n);
+
+//堆排序
+void HeapSort(int* a, int n);
