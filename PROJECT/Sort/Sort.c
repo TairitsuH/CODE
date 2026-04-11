@@ -200,3 +200,42 @@ void HeapSort(int* a, int n)
         end--;
     }
 }
+
+//基础快排（递归）
+void QuickSort(int* a, int begin, int end)
+{
+    //终止条件
+    if(begin >= end)
+    return;
+
+    //begin和end用于标记区间范围
+    //begin和end是在区间内移动的指针
+    int keyi = begin;
+    int left = begin;
+    int right = end;
+    
+    while(left < right)
+    {
+        //先移动右指针，小于keyi就停下
+        while(left < right && a[right] >= a[keyi])
+        {
+            right--;
+        }
+        //再移动左指针，大于keyi就停下
+        while(left < right && a[left] <= a[keyi])
+        {
+            left++;
+        }
+
+        //交换两个指针的值
+        Swap(&a[left], &a[right]);
+    }
+
+    //当两指针重合时交换keyi和重合点，更新keyi
+    Swap(&a[keyi], &a[left]);
+    keyi = left;
+
+    //继续递归
+    QuickSort(a, begin, keyi - 1);
+    QuickSort(a, keyi + 1, end);
+}

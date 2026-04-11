@@ -19,3 +19,6 @@ void SelectSort(int* a, int n);
 
 //堆排序
 void HeapSort(int* a, int n);
+
+//基础快排（递归）
+void QuickSort(int* a, int begin, int end);

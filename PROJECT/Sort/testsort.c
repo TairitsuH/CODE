@@ -22,6 +22,7 @@ int main()
     // ShellSort1(a, n);
     // ShellSort2(a, n);
     // HeapSort(a, n);
+    // QuickSort(a, 0, n-1);
     PrintArr(a, n);
 
     return 0;
