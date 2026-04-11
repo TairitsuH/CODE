@@ -30,3 +30,5 @@ struct TreeNode* invertTree(struct TreeNode* root)
 }
 // @lc code=end
 
+//一刷；凡是遇到有返回值的递归函数务必要为每个子问题都设置返回值！
+
