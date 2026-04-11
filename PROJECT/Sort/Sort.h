@@ -21,4 +21,7 @@ void SelectSort(int* a, int n);
 void HeapSort(int* a, int n);
 
 //基础快排（递归）
-void QuickSort(int* a, int begin, int end);
+void QuickSort1(int* a, int begin, int end);
+
+//基础快排（三数选中，小区间优化，递归）
+void QuickSort2(int* a, int begin, int end);
