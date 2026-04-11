@@ -13,12 +13,18 @@ void BubbleSort(int* a, int n)
 {
     for(int i=0; i<n-1; i++)
     {
+        int flag = 0;
         for(int j=0; j<n-1-i; j++)
         {
             if(a[j] > a[j+1])
             {
+                flag = 1;
                 Swap(&a[j], &a[j+1]);
             }
+        }
+        if(flag == 0)
+        {
+            return;
         }
     }
 }
@@ -42,9 +48,9 @@ void InsertSort(int* a, int n)
             {
                 break;
             }
-
-            a[end + 1] = obj;
         }
+
+        a[end + 1] = obj;
     }
 }
 
@@ -54,14 +60,15 @@ void InsertSort(int* a, int n)
 void ShellSort1(int* a, int n)
 {
     int gap = n;
-    while(gap > 1) //gap为1时为插入排序
+    while(gap > 1) //gap为1时为插入排序（最后一次循环先判断再变为1，因此不用加=）
     {
         gap = gap / 3 + 1;
         for(int j=0; j<gap; j++) //一共有gap数量的组
         {
-            for(int i=0; i<n-gap; i+=gap) //改为n-gap，否则会越界
+            for(int i=j; i<n-gap; i+=gap) //改为n-gap，否则会越界；i要从j开始！（每组的第一个数）
             {
                 int end = i;
+                int obj = a[end + gap];
                 while(end >= 0)
                 {
                     if(a[end] > a[end+gap])
@@ -74,6 +81,7 @@ void ShellSort1(int* a, int n)
                         break;
                     }
                 }
+                a[end + gap] = obj;
             }
         }
     }
@@ -89,6 +97,7 @@ void ShellSort2(int* a, int n)
         for(int i=0; i<n-gap; i++)
         {
             int end = i;
+            int obj = a[end + gap];
             while(end >= 0)
             {
                 if(a[end] > a[end + gap])
@@ -101,6 +110,7 @@ void ShellSort2(int* a, int n)
                     break;
                 }
             }
+            a[end + gap] = obj;
         }
     }
 }
