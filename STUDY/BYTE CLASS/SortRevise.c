@@ -158,3 +158,67 @@ void HeapSort(int* a, int n)
         end--;
     }
 }
+
+
+//基础快排（递归）
+void Swap(int* x, int* y)
+{
+    int tmp = *x;
+    *x = *y;
+    *y = tmp;
+}
+
+void QuickSort1(int* a, int begin, int end)
+{
+    if(begin >= end) return;
+
+    int left = begin;
+    int right = end;
+    int keyi = begin;
+
+    while(left < right)
+    {
+        //先移动右指针
+        while(left < right && a[right] >= a[keyi])
+        {
+            right--;
+        }
+
+        while(left < right && a[left] <= a[keyi]) //等于号防止死循环！
+        {
+            left++;
+        }
+
+        if(left < right) //最后相遇时减少一次自交换
+        {
+            Swap(&a[left], &a[right]);
+        }
+    }
+
+    Swap(&a[keyi], &a[left]);
+    keyi = left;
+
+    QuickSort1(a, begin, keyi - 1);
+    QuickSort1(a, keyi + 1, end);
+}
+
+//基础快排（三数选中，小区间优化，递归）
+int GetMid(int* a, int begin, int end)
+{
+    int midi = (begin + end) / 2;
+    
+    
+}
+
+void QuickSort2(int* a, int begin, int end)
+{
+    int left = begin;
+    int right = end;
+    int keyi = GetMid(a, left, right);
+
+
+    while(left < right)
+    {
+
+    }
+}

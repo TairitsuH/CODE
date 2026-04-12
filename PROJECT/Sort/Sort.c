@@ -324,8 +324,11 @@ void QuickSort2(int* a, int begin, int end)
             left++;
         }
 
-        //交换两个指针的值
-        Swap(&a[left], &a[right]);
+        //再次比较减少一次自交换
+        if(left < right)
+        {
+            Swap(&a[left], &a[right]);
+        }
     }
 
     //当两指针重合时交换keyi和重合点，更新keyi
@@ -335,4 +338,139 @@ void QuickSort2(int* a, int begin, int end)
     //继续递归
     QuickSort2(a, begin, keyi - 1);
     QuickSort2(a, keyi + 1, end);
+}
+
+//快速排序（双指针）
+int PartSort(int* a, int left, int right)
+{
+    int keyi = left;
+    int prev = left;
+    int cur = prev + 1;
+    while(cur <= right)
+    {
+        if(a[cur] <= a[keyi])
+        {
+            prev++;
+            Swap(&a[prev], &a[cur]);
+        }
+
+        cur++;
+    }
+
+    Swap(&a[keyi], &a[prev]);
+    return prev;
+}
+
+void QuickSort3(int* a, int begin, int end)
+{
+    int left = begin;
+    int right = end;
+
+    if(right - left + 1 < 10)
+    {
+        InsertSort(a + begin, end - begin + 1); //特别注意不是从0位置开始插入排序！不要传错了
+    }
+    else
+    {
+        //双指针排序
+        int keyi = PartSort(a, left, right);
+
+        QuickSort3(a, begin, keyi - 1);
+        QuickSort3(a, keyi + 1, end);
+    }
+}
+
+//快速排序（非递归：栈）
+void QuickSortNonR(int* a, int begin, int end)
+{
+    //数组首尾下标入栈
+    ST st;
+    STInit(&st);
+    STPush(&st, begin);
+    STPush(&st, end);
+
+    //循环出入
+    while(!STEmpty(&st))
+    {
+        //先入后出
+        int right = STTop(&st);
+        STPop(&st);
+        int left = STTop(&st);
+        STPop(&st);
+
+        //排序
+        int keyi = PartSort(a, left, right);
+
+        //入栈(要判断边界是否有效！)
+        // [left, keyi - 1] keyi [keyi + 1, right]
+        if(left < keyi - 1)
+        {
+            STPush(&st, left);
+            STPush(&st, keyi - 1);
+        }
+
+        if(keyi + 1 < right)
+        {
+            STPush(&st, keyi + 1);
+            STPush(&st, right);
+        }
+    }
+
+    STDestroy(&st);
+}
+
+//归并排序（递归）
+void _MergeSort(int* a, int* tmp, int begin, int end)
+{
+    if(begin >= end) return;
+
+    int mid = (begin + end) / 2;
+
+    _MergeSort(a, tmp, begin, mid);
+    _MergeSort(a, tmp, mid + 1, end);
+
+    int begin1 = begin, begin2 = mid + 1;
+    int end1 = mid, end2 = end;
+    int i = begin;
+
+    while(begin1 <= end1 && begin2 <= end2)
+    {
+        if(a[begin1] < a[begin2])
+        {
+            tmp[i++] = a[begin1++];
+        }
+        else
+        {
+            tmp[i++] = a[begin2++];
+        }
+    }
+
+    //处理剩余数据
+    while(begin1 <= end1)
+    {
+        tmp[i++] = a[begin1++];
+    }
+    while(begin2 <= end2)
+    {
+        tmp[i++] = a[begin2++];
+    }
+
+    //拷贝(不能用begin1因为已经被更改)
+    memcpy(a+begin, tmp+begin, (end - begin + 1) * sizeof(int));
+
+}
+
+void MergeSort(int* a, int n)
+{
+    int* tmp = (int*)malloc(n*sizeof(int));
+    if(tmp == NULL)
+    {
+        perror("malloc fail");
+        exit(1);
+    }
+
+    _MergeSort(a, tmp, 0, n-1);
+
+    free(tmp);
+    tmp = NULL;
 }
