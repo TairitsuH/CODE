@@ -100,9 +100,9 @@ void ShellSort2(int* a, int n)
             int obj = a[end + gap];
             while(end >= 0)
             {
-                if(a[end] > a[end + gap])
+                if(a[end] > obj)
                 {
-                    Swap(&a[end], &a[end + gap]);
+                    a[end + gap] = a[end];
                     end -= gap;
                 }
                 else
