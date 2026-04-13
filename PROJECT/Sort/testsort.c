@@ -33,6 +33,8 @@ int main()
     // QuickSort3(a, 0, n-1);
     // QuickSortNonR(a, 0, n-1);
     // MergeSort(a, n);
+    // CountSort(a, n);
+    MergeSortNonR(a, n);
 
     PrintArr(a, n);
 

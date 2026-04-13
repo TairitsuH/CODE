@@ -40,3 +40,6 @@ void MergeSort(int* a, int n);
 
 //归并排序（非递归：循环）
 void MergeSortNonR(int* a, int n);
+
+//计数排序
+void CountSort(int* a, int n);

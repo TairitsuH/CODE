@@ -435,7 +435,7 @@ void _MergeSort(int* a, int* tmp, int begin, int end)
 
     while(begin1 <= end1 && begin2 <= end2)
     {
-        if(a[begin1] < a[begin2])
+        if(a[begin1] <= a[begin2]) //取等时则排序稳定
         {
             tmp[i++] = a[begin1++];
         }
@@ -460,7 +460,8 @@ void _MergeSort(int* a, int* tmp, int begin, int end)
 
 }
 
-void MergeSort(int* a, int n)
+//归并排序（非递归：循环）
+void MergeSortNonR(int* a, int n)
 {
     int* tmp = (int*)malloc(n*sizeof(int));
     if(tmp == NULL)
@@ -469,8 +470,106 @@ void MergeSort(int* a, int n)
         exit(1);
     }
 
-    _MergeSort(a, tmp, 0, n-1);
+    //gap为每组归并的数据个数
+    int gap = 1;
+    while(gap < n)
+    {
+        for(int i=0; i<n; i+= 2*gap)
+        {
+            //选出两组归并
+            int begin1 = i, end1 = i + gap - 1;
+            int begin2 = i + gap, end2 = i + gap * 2 - 1;
+
+            //判断是否符合归并条件
+            if(begin2 >= n) //第二组全部越界，则第一组已经有序，不必继续归并
+            {
+                break;
+            }
+            if(end2 >= n) //第二组end2越界
+            {
+                end2 = n - 1;
+            }
+
+            int j = i; //两组归并起点
+            while(begin1 <= end1 && begin2 <= end2)
+            {
+                if(a[begin1] <= a[begin2])
+                {
+                    tmp[j++] = a[begin1++];
+                }
+                else
+                {
+                    tmp[j++] = a[begin2++];
+                }
+            }
+
+            //放入剩余数据
+            while(begin2 <= end2)
+            {
+                tmp[j++] = a[begin2++];
+            }
+
+            while(begin1 <= end1)
+            {
+                tmp[j++] = a[begin1++];
+            }
+
+            //拷贝
+            memcpy(a + i, tmp + i, sizeof(int) * (end2 - i + 1));
+        }
+
+        //gap每次乘2，扩大归并范围
+        gap *= 2;
+    }
 
     free(tmp);
     tmp = NULL;
+}
+
+//计数排序
+void CountSort(int* a, int n)
+{
+    //step1:找出最大最小值，确定范围
+    int max = a[0];
+    int min = a[0];
+    for(int i=0; i<n; i++)
+    {
+        if(a[i] < min)
+        {
+            min = a[i];
+        }
+        if(a[i] > max)
+        {
+            max = a[i];
+        }
+    }
+    int range = max - min + 1;
+
+    //step2:开辟空间
+    int* tmp = (int*)calloc(range, sizeof(int));
+    //Allocates a block of memory for an array of num elements, 
+    //each of them size bytes long, 
+    //and initializes all its bits to zero.
+    if(!tmp)
+    {
+        perror("malloc fail");
+        exit(1);
+    }
+
+    //step3:统计次数
+    for(int i=0; i<n; i++)
+    {
+        tmp[a[i] - min]++;
+    }
+    
+
+    //step4:排序
+    int j = 0;
+    for(int i=0; i<range; i++)
+    {
+        while(tmp[i]--)
+        {
+            a[j++] = i + min;
+        }
+    }
 }
