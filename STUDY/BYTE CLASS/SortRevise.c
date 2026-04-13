@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include"../../PROJECT/Stack/Stack.c"
 
 //冒泡排序
 void BubbleSort(int* a, int n)
@@ -353,3 +354,55 @@ void MergeSort(int* a, int n)
     tmp = NULL;
 }
 
+//快速排序（非递归：栈）
+int PartSort(int* a, int begin, int end) //双指针快排
+{
+    int prev = begin, cur = begin + 1;
+    int keyi = begin;
+    while(cur <= end)
+    {
+        if(a[cur] < a[keyi])
+        {
+            prev++;
+            Swap(&a[prev], &a[cur]);
+        }
+        cur++;
+    }
+    Swap(&a[keyi], &a[prev]);
+    return prev;
+}
+void QuickSortNonR(int* a, int begin, int end)
+{
+    ST st;
+    STInit(&st);
+
+    //入栈先左后右
+    STPush(&st, begin);
+    STPush(&st, end);
+
+    while(!STEmpty(&st))
+    {
+        //出栈先右后左
+        int right = STTop(&st);
+        STPop(&st);
+        int left = STTop(&st);
+        STPop(&st);
+
+        //排序
+        int keyi = PartSort(a, left, right);
+
+        //拆分入栈
+        if(left < keyi - 1)
+        {
+            STPush(&st, left);
+            STPush(&st, keyi - 1);
+        }
+        if(keyi + 1 < right)
+        {
+            STPush(&st, keyi+1);
+            STPush(&st, right);
+        }
+    }
+
+    STDestroy(&st);
+}
