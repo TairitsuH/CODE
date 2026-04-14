@@ -71,7 +71,7 @@ void HeapSortTopK()
 
     //对数组数据排序
     int end = k - 1;
-    while(end>0)
+    while(end > 0)
     {
         Swap(&KMinHeap[0], &KMinHeap[end]);
         AdjustDown(KMinHeap, end, 0);
@@ -85,6 +85,10 @@ void HeapSortTopK()
         printf("%d ", KMinHeap[i]);
     }
     printf("\n");
+
+    //释放空间
+    free(KMinHeap);
+    KMinHeap = NULL;
 }
 
 int main()
