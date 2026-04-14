@@ -17,13 +17,15 @@ int main()
     int a[n];
     for(int i=0; i<n; i++)
     {
-        a[i] = rand() % 10;
+        a[i] = rand() % 100;
     }
     PrintArr(a, n);
 
     // QuickSort2(a, 0, n-1);
-    // MergeSort(a, n);
-    QuickSortNonR(a, 0, n-1);
+    MergeSort(a, n);
+    // QuickSortNonR(a, 0, n-1);
+    // MergeSortNonR(a, n);
+    CountSort(a, n);
 
     PrintArr(a, n);
 

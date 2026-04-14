@@ -211,7 +211,7 @@ void HeapSort(int* a, int n)
     }
 }
 
-//基础快排（递归）
+//快速排序（递归）
 void QuickSort1(int* a, int begin, int end)
 {
     //终止条件
@@ -457,7 +457,22 @@ void _MergeSort(int* a, int* tmp, int begin, int end)
 
     //拷贝(不能用begin1因为已经被更改)
     memcpy(a+begin, tmp+begin, (end - begin + 1) * sizeof(int));
+}
 
+void MergeSort(int* a, int n)
+{
+    int* tmp = (int*)malloc(sizeof(int)*n);
+    if(!tmp)
+    {
+        perror("malloc fail");
+        exit(1);
+    }
+
+    _MergeSort(a, tmp, 0, n-1);
+
+    //不要忘记释放！
+    free(tmp);
+    tmp = NULL;
 }
 
 //归并排序（非递归：循环）
@@ -522,6 +537,7 @@ void MergeSortNonR(int* a, int n)
         gap *= 2;
     }
 
+    //不要忘记释放！
     free(tmp);
     tmp = NULL;
 }
@@ -572,4 +588,8 @@ void CountSort(int* a, int n)
             a[j++] = i + min;
         }
     }
+
+    //不要忘记释放！
+    free(tmp);
+    tmp = NULL;
 }

@@ -32,7 +32,7 @@ int main()
     // QuickSort2(a, 0, n-1);
     // QuickSort3(a, 0, n-1);
     // QuickSortNonR(a, 0, n-1);
-    // MergeSort(a, n);
+    MergeSort(a, n);
     // CountSort(a, n);
     MergeSortNonR(a, n);
 
