@@ -16,7 +16,6 @@ void SLCheckCapacity(SL* ps); //检查内存，扩容
 void SLPushFront(SL* ps, SLDataType x); //头插
 void SLPushBack(SL* ps, SLDataType x); //尾插
 
-
 void SLPopFront(SL* ps); //头删
 void SLPopBack(SL* ps); //尾删
 
