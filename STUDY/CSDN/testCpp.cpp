@@ -78,3 +78,22 @@ int a;
 
 //类型& 引用别名 = 引用对象
 int& ra = a;
+
+#include<iostream>
+using namespace std;
+
+void Swap(int& rx, int& ry)
+{
+    int tmp = rx;
+    rx = ry;
+    ry = tmp;
+}
+
+int main()
+{
+    int x = 20;
+    int y = 10;
+    Swap(x, y);
+    cout << x << endl << y << endl;
+    return 0;
+}
