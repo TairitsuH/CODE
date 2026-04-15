@@ -22,10 +22,14 @@ int main()
     PrintArr(a, n);
 
     // QuickSort2(a, 0, n-1);
-    MergeSort(a, n);
+    // MergeSort(a, n);
     // QuickSortNonR(a, 0, n-1);
     // MergeSortNonR(a, n);
-    CountSort(a, n);
+    // CountSort(a, n);
+    // InsertSort(a, n);
+    // ShellSort(a, n);
+    // SelectSort(a, 0, n-1);
+    HeapSort(a, n);
 
     PrintArr(a, n);
 

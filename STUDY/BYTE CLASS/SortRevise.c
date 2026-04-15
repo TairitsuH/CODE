@@ -26,16 +26,40 @@ void BubbleSort(int* a, int n)
     }
 }
 
+// //插入排序
+// void InsertSort(int* a, int n)
+// {
+//     for(int i=0; i<n-1; i++)
+//     {
+//         int end = i;
+//         int obj = a[end + 1]; //复制一份防止丢失
+//         while(end >= 0)
+//         {
+//             if(a[end] > obj)
+//             {
+//                 a[end + 1] = a[end];
+//                 end--;
+//             }
+//             else
+//             {
+//                 break;
+//             }
+//         }
+
+//         a[end + 1] = obj;
+//     }
+// }
+
 //插入排序
 void InsertSort(int* a, int n)
 {
     for(int i=0; i<n-1; i++)
-    {
+        {
         int end = i;
-        int obj = a[end + 1]; //复制一份防止丢失
+        int obj = a[end + 1];
         while(end >= 0)
         {
-            if(a[end] > obj)
+            if(a[end] > obj) //倒序改成<
             {
                 a[end + 1] = a[end];
                 end--;
@@ -46,24 +70,56 @@ void InsertSort(int* a, int n)
             }
         }
 
-        a[end + 1] = obj;
+        a[end + 1] = obj; //在while结束后赋值，相比在while内部可以大大减少不必要的赋值次数
     }
 }
 
+// //希尔排序
+// //法一：（法二去掉j变量for循环，i变量初始值改为0）
+// void ShellSort(int* a, int n)
+// {
+//     int gap = n;
+//     while(gap >= 1)
+//     {
+//         gap = gap / 3 + 1;
+
+//         for(int j=0; j<gap; j++) //一共gap组
+//         {
+//             for(int i=j; i<n-1; i+=gap)
+//             {
+//                 int end = 0;
+//                 int obj = a[end + gap];
+//                 while(end >= 0)
+//                 {
+//                     if(a[end] > obj)
+//                     {
+//                         a[end + gap] = a[end];
+//                         end -= gap;
+//                     }
+//                     else
+//                     {
+//                         break;
+//                     }
+//                 }
+
+//             a[end + gap] = obj;
+//             }
+//         }
+//     }
+// }
+
 //希尔排序
-//法一：（法二去掉j变量for循环，i变量初始值改为0）
 void ShellSort(int* a, int n)
 {
-    int gap = n;
-    while(gap >= 1)
+    int gap = n-1;
+    while(gap > 1)
     {
         gap = gap / 3 + 1;
-
-        for(int j=0; j<gap; j++) //一共gap组
+        for(int j=0; j<gap; j++)
         {
-            for(int i=j; i<n-1; i+=gap)
+            for(int i=j; i<n-gap; i+=gap)
             {
-                int end = 0;
+                int end = i;
                 int obj = a[end + gap];
                 while(end >= 0)
                 {
@@ -78,91 +134,91 @@ void ShellSort(int* a, int n)
                     }
                 }
 
-            a[end + gap] = obj;
+                a[end + gap] = obj;
             }
         }
     }
 }
 
-//选择排序（双指针）
-void SelectSort(int* a, int n)
-{
-    int begin = 0;
-    int end = n-1;
-    while(begin < end)
-    {
-        int mini = begin, maxi = begin; //注意初始化为区间开头
-        for(int i=begin+1; i<=end; i++)
-        {
-            if(a[i] < a[mini])
-            {
-                mini = i;
-            }
+// //选择排序
+// void SelectSort(int* a, int n)
+// {
+//     int begin = 0;
+//     int end = n-1;
+//     while(begin < end)
+//     {
+//         int mini = begin, maxi = begin; //注意初始化为区间开头
+//         for(int i=begin+1; i<=end; i++)
+//         {
+//             if(a[i] < a[mini])
+//             {
+//                 mini = i;
+//             }
 
-            if(a[i] > a[maxi])
-            {
-                maxi = i;
-            }
-        }
-        //交换
-        int tmp = a[begin]; a[begin] = a[mini]; a[mini] = tmp;
-        if(maxi == begin)
-        {
-            maxi = mini;
-        }
-        //交换
-        tmp = a[end]; a[end] = a[maxi]; a[maxi] = tmp;
+//             if(a[i] > a[maxi])
+//             {
+//                 maxi = i;
+//             }
+//         }
+//         //交换
+//         int tmp = a[begin]; a[begin] = a[mini]; a[mini] = tmp;
+//         if(maxi == begin)
+//         {
+//             maxi = mini;
+//         }
+//         //交换
+//         tmp = a[end]; a[end] = a[maxi]; a[maxi] = tmp;
 
-        begin++;
-        end--;
-    }
-}
+//         begin++;
+//         end--;
+//     }
+// }
 
-//堆排序(小堆)
-void AdjustDown(int* a, int n, int parent)
-{
-    int child = parent * 2 + 1;
-    while(child < n)
-    {
-        if(child + 1 < n && a[child+1] < a[child])
-        {
-            child += 1;
-        }
+// //堆排序(小堆)
+// void AdjustDown(int* a, int n, int parent)
+// {
+//     int child = parent * 2 + 1;
+//     while(child < n)
+//     {
+//         if(child + 1 < n && a[child+1] < a[child])
+//         {
+//             child += 1;
+//         }
 
-        if(a[parent] > a[child])
-        {
-            int tmp = a[parent];
-            a[parent] = a[child];
-            a[child] = tmp;
-            parent = child;
-            child = parent * 2 + 1;
-        }
-        else
-        {
-            break;
-        }
-    }
-}
+//         if(a[parent] > a[child])
+//         {
+//             int tmp = a[parent];
+//             a[parent] = a[child];
+//             a[child] = tmp;
+//             parent = child;
+//             child = parent * 2 + 1;
+//         }
+//         else
+//         {
+//             break;
+//         }
+//     }
+// }
 
-void HeapSort(int* a, int n)
-{
-    for(int i=(n-1-1)/2; i>=0; i--)
-    {
-        AdjustDown(a, n, i);
-    }
+// void HeapSort(int* a, int n)
+// {
+//     for(int i=(n-1-1)/2; i>=0; i--)
+//     {
+//         AdjustDown(a, n, i);
+//     }
 
-    int end = n - 1;
-    while(end > 0)
-    {
-        int tmp = a[end];
-        a[end] = a[0];
-        a[0] = tmp;
+//     int end = n - 1;
+//     while(end > 0)
+//     {
+//         int tmp = a[end];
+//         a[end] = a[0];
+//         a[0] = tmp;
 
-        AdjustDown(a, end, 0); //注意堆的大小要传end！
+//         AdjustDown(a, end, 0); //注意堆的大小要传end！
 
-        end--;
-    }
-}
+//         end--;
+//     }
+// }
 
 
 //基础快排（递归）
@@ -517,4 +573,74 @@ void CountSort(int* a, int n)
     //不要忘记释放！
     free(tmp);
     tmp = NULL;
+}
+
+//选择排序
+void SelectSort(int* a, int begin, int end)
+{
+    while(begin < end)
+    {
+        int mini = begin, maxi = begin;
+        for(int i=begin+1; i<=end; i++)
+        {
+            if(a[i] > a[maxi])
+            {
+                maxi = i;
+            }
+            if(a[i] < a[mini])
+            {
+                mini = i;
+            }
+        }
+
+        Swap(&a[mini], &a[begin]);
+        if(begin == maxi) maxi = mini;
+        Swap(&a[end], &a[maxi]);
+
+        //记得缩小区间范围
+        begin++;
+        end--;
+    }
+}
+
+//堆排序
+void AdjustDown(int* a, int n, int parent)
+{
+    int child = parent * 2 + 1;
+    while(child < n)
+    {
+        if(child + 1 < n && a[child + 1] > a[child])
+        {
+            child += 1;
+        }
+
+        if(a[parent] < a[child])
+        {
+            Swap(&a[parent], &a[child]);
+            parent = child;
+            child = parent * 2 + 1;
+        }
+        else
+        {
+            break;
+        }
+    }
+}
+
+void HeapSort(int* a, int n)
+{
+    //整理成堆
+    for(int i=(n-1-1)/2; i>=0; i--)
+    {
+        AdjustDown(a, n, i);
+    }
+
+    //排序
+    int end = n - 1;
+    while(end > 0)
+    {
+        Swap(&a[end], &a[0]);
+        AdjustDown(a, end, 0);
+        end--;
+    }
 }
