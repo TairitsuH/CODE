@@ -24,7 +24,7 @@ void SLDestroy(SL* ps) //销毁
 void SLCheckCapacity(SL* ps) //检查内存，扩容
 {
     assert(ps);
-    if(ps -> capacity == ps -> size) //空间不足和空间为空两种情况
+    if(ps -> capacity == ps -> size) //包含空间不足和空间为空两种情况
     {
         int newcapacity = ps->capacity == 0 ? INIT_CAPACITY : 2*ps->capacity;
         SLDataType* tmp = (SLDataType*)realloc(ps->arr, newcapacity*sizeof(SLDataType));
@@ -64,17 +64,6 @@ void SLPushBack(SL* ps, SLDataType x) //尾插
 
     ps->arr[ps->size] = x;
     ps->size++;
-}
-
-
-void SLPrint(SL* ps) //打印
-{
-    assert(ps);
-    for(int i=0; i<ps->size; i++)
-    {
-        printf("%d ", ps->arr[i]);
-    }
-    printf("\n");
 }
 
 void SLPopFront(SL* ps) //头删
@@ -146,4 +135,14 @@ void SLFind(SL* ps, SLDataType x) //查找
     {
         printf("没找到TvT\n");
     }
+}
+
+void SLPrint(SL* ps) //打印
+{
+    assert(ps);
+    for(int i=0; i<ps->size; i++)
+    {
+        printf("%d ", ps->arr[i]);
+    }
+    printf("\n");
 }
