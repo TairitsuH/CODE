@@ -1,26 +1,30 @@
-#include<iostream>
-#include<vector>
-using namespace std;
+#include<stdio.h>
+
+const int N = 1e6 + 10;
+int a[N];
 
 int main()
 {
-    int n, m; cin >> n >> m;
-    int maxe = 1;
-    int T = n + m;
-    vector<int> a(T);
-    while(T--)
+    int n, m;
+    scanf("%d%d", &n, &m);
+
+    int max = 0;
+    for(int i=0; i<m+n; i++)
     {
-        int e, x;
-        cin >> e >> x;
-        a[e] += x;
-        maxe = max(maxe, e);
+        int j = 0, cnt;
+        scanf("%d%d", &j, &cnt);
+        a[j] += cnt;
+        if(j > max)
+        {
+            max = j;
+        }
     }
-    
-    for(int i=1; i<=maxe; i++)
+
+    for(int i=0; i<=max; i++)
     {
         if(a[i] != 0)
         {
-            cout << i << " " << a[i] << endl;
+            printf("%d %d\n", i, a[i]);
         }
     }
     return 0;
