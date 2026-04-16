@@ -74,26 +74,47 @@
 // // }
 
 
-int a;
+// int a;
 
-//类型& 引用别名 = 引用对象
-int& ra = a;
+// //类型& 引用别名 = 引用对象
+// int& ra = a;
 
-#include<iostream>
-using namespace std;
+// #include<iostream>
+// using namespace std;
 
-void Swap(int& rx, int& ry)
+// void Swap(int& rx, int& ry)
+// {
+//     int tmp = rx;
+//     rx = ry;
+//     ry = tmp;
+// }
+
+// int main()
+// {
+//     int x = 20;
+//     int y = 10;
+//     Swap(x, y);
+//     cout << x << endl << y << endl;
+//     return 0;
+// }
+
+#ifdef NULL
+    #ifdef __cplusplus
+        #define NULL    0
+    #else
+        #define NULL    ((void *)0)
+    #endif
+#endif
+    
+
+void func(int x)
 {
-    int tmp = rx;
-    rx = ry;
-    ry = tmp;
+    cout << "int" << endl;
+}
+void func(char* p)
+{
+    cout << "pointer" << endl;
 }
 
-int main()
-{
-    int x = 20;
-    int y = 10;
-    Swap(x, y);
-    cout << x << endl << y << endl;
-    return 0;
-}
+func(NULL); // 这里会调用func(int)，因为NULL是0
+func(nullptr); // 调用func(char*)
