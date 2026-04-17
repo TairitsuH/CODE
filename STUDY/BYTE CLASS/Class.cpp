@@ -91,3 +91,33 @@ int main()
 
     return 0;
 }
+
+class Array
+{
+    int* _data;
+    int _size;
+public:
+    Array(int size) {
+        _size = size;
+        _data = new int[size];
+    }
+
+    ~Array() {
+        delete[] _data;
+    }
+    
+    Array(const Array& other)
+    {
+        _size = other._size;
+        _data = new int[_size];
+        for(int i=0; i<_size; i++)
+        {
+            _data[i] = other._data[i];
+        }
+    }
+};
+int main() {
+    Array a1(10);
+    Array a2 = a1;
+    return 0;
+}

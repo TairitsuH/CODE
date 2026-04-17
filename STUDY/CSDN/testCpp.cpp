@@ -98,23 +98,23 @@
 //     return 0;
 // }
 
-#ifdef NULL
-    #ifdef __cplusplus
-        #define NULL    0
-    #else
-        #define NULL    ((void *)0)
-    #endif
-#endif
+// #ifdef NULL
+//     #ifdef __cplusplus
+//         #define NULL    0
+//     #else
+//         #define NULL    ((void *)0)
+//     #endif
+// #endif
     
 
-void func(int x)
-{
-    cout << "int" << endl;
-}
-void func(char* p)
-{
-    cout << "pointer" << endl;
-}
+// void func(int x)
+// {
+//     cout << "int" << endl;
+// }
+// void func(char* p)
+// {
+//     cout << "pointer" << endl;
+// }
 
-func(NULL); // 这里会调用func(int)，因为NULL是0
-func(nullptr); // 调用func(char*)
+// func(NULL); // 这里会调用func(int)，因为NULL是0
+// func(nullptr); // 调用func(char*)
