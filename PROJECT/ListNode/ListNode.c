@@ -114,7 +114,7 @@ void LTInsert(LTNode* pos, LTDataType x) //在pos之后插入节点（之前和�
 {
     assert(pos);
 
-    LTNode* newnode = LTInit2(x);
+    LTNode* newnode = LTBuyNode(x);
 
     newnode->next = pos->next;
     newnode->prev = pos;
