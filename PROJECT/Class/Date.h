@@ -6,12 +6,16 @@ using namespace std;
 
 class Date
 {
-    //友元函数声明
+    //类内部友元函数声明
     friend ostream& operator<<(ostream& out, const Date& d);
     friend istream& operator>>(istream& in, Date& d);
 
 
+
 public:
+    // Date& operator<<(ostream& out);
+    // Date& operator>>(istream& in);
+
 
     // 获取某年某月的天数
     int GetMonthDay(int year, int month) const

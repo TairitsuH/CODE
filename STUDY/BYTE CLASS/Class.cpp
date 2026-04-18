@@ -121,3 +121,22 @@ int main() {
     Array a2 = a1;
     return 0;
 }
+
+
+class Date {
+public:
+    Date(int y = 1900, int m = 1, int d = 1)
+        : _year(y)
+    {
+        _year = 2010;
+        _month = 10;
+        _day = 10;
+    }
+private:
+    int _year = 2000;
+    int _month = 2;
+    int _day = 3;
+};
+
+Date d;        // 不传参
+Date d2(2025); // 传一个参

@@ -279,3 +279,29 @@ istream& operator >> (istream& in, Date& d)
 
     return in;
 }
+
+// //输入输出（局部）
+// Date& Date::operator << (ostream& out)
+// {
+//     out << _year << "年" << _month << "月" << _day << "日";
+//     return *this;
+// }
+
+// Date& Date::operator >> (istream& in)
+// {
+//     cout << "请依次输入年月日：" << endl;
+//     while(1)
+//     {
+//         in >> _year >> _month >> _day;
+//         if(!CheckDate())
+//         {
+//             cout << "非法，请重新输入！" << endl;
+//         }
+//         else
+//         {
+//             break;
+//         }
+//     }
+
+//     return *this;
+// }
