@@ -40,10 +40,10 @@ public:
     // d2 = d3 -> d2.operator=(&d2, d3)
     Date& operator=(const Date& d);
 
-    //判断日期合法
+    // 判断日期合法
     bool CheckDate() const;
 
-    //打印日期
+    // 打印日期
     void Print() const;
 
     // 日期+=天数

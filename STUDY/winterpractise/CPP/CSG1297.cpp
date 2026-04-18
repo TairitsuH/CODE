@@ -43,46 +43,48 @@ SLTNode* SLTPushBack(SLTNode** pphead, SLTDataType x)
     return newnode;
 }
 
-int main()
-{
-    ios::sync_with_stdio(false);  // 关闭C和C++ IO同步
-    cin.tie(nullptr);              // 解除cin和cout的绑定
-    cout.tie(nullptr);
-    
-    int n, k;
-    cin >> n >>k;
-
-    SLTNode* phead = SLTBuyNode(1);
-    SLTNode* ptail = SLTBuyNode(n);
-    ptail->next = phead;
-
-    if(n > 2)
-    {
-        SLTNode* pnew;
-        for(int i=2; i<n; i++)
+class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param n int整型 
+     * @param m int整型 
+     * @return int整型
+     */
+    int ysf(int n, int m)
         {
-            pnew = SLTPushBack(&phead, i);
-        }
-        pnew->next = ptail;
-    }
-
-    while(phead->next != phead)
-    {
-        int cnt = k - 1;
-        while(cnt--)
-        {
-            phead = phead->next;
-            ptail = ptail->next;
-        }
-        SLTNode* tmp = phead;
-        phead = phead->next;
+        SLTNode* phead = SLTBuyNode(1);
+        SLTNode* ptail = SLTBuyNode(n);
         ptail->next = phead;
 
-        free(tmp);
-        tmp = nullptr;
+        if(n > 2)
+        {
+            SLTNode* pnew;
+            for(int i=2; i<n; i++)
+            {
+                pnew = SLTPushBack(&phead, i);
+            }
+            pnew->next = ptail;
+        }
+
+        while(phead->next != phead)
+        {
+            int cnt = m - 1;
+            while(cnt--)
+            {
+                phead = phead->next;
+                ptail = ptail->next;
+            }
+            SLTNode* tmp = phead;
+            phead = phead->next;
+            ptail->next = phead;
+
+            free(tmp);
+            tmp = nullptr;
+        }
+
+        return phead->data;
     }
-
-    cout << phead->data << endl;
-
-    return 0;
-}
+};
