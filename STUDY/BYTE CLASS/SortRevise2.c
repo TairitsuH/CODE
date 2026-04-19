@@ -75,16 +75,14 @@ int PartSort2(int* a, int begin, int end)
             left++;
         }
 
-        if(left < right)
-        {
-            a[keyi] = a[right];
-            a[right] = a[left];
-            keyi = left;
-        }
+        // 注意挖坑法不是原地交换，不能写if(left < right)
+        a[keyi] = a[right];
+        a[right] = a[left];
+        keyi = left;
+
     }
+
     a[keyi] = key;
-    Swap(a+keyi, a+left);
-    keyi = left;
     return keyi;
 }
 // 快速排序前后指针法
@@ -115,8 +113,8 @@ void QuickSort(int* a, int begin, int end)
     return;
 
     // int keyi2 = PartSort1(a, begin, end);
-    // int keyi2 = PartSort2(a, begin, end);
-    int keyi2 = PartSort3(a, begin, end);
+    int keyi2 = PartSort2(a, begin, end);
+    // int keyi2 = PartSort3(a, begin, end);
     QuickSort(a, begin, keyi2-1);
     QuickSort(a, keyi2+1, end);
 }

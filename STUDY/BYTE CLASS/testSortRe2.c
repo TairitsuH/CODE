@@ -25,8 +25,8 @@ int main()
     PrintArr(a, n);
 
     // BubbleSort(a, n);
-    // QuickSort(a, 0, n-1);
-    QuickSortNonR(a, 0, n-1);
+    QuickSort(a, 0, n-1);
+    // QuickSortNonR(a, 0, n-1);
 
     PrintArr(a, n);
 
