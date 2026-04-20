@@ -14,30 +14,54 @@
 //     ListNode(int x) : val(x), next(nullptr) {}
 //    ListNode(int x, ListNode *next) : val(x), next(next) {}
 // };
-
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head)
     {
-        if(!head)
-        return nullptr;
-
+        if(!head) return nullptr;
+        
         ListNode* tmp = head;
         while(tmp && tmp->next)
         {
             while(tmp && tmp->next && tmp->val == tmp->next->val)
             {
-                ListNode* obj = tmp->next->next;
-                delete tmp->next;
-                tmp->next = obj;
+                ListNode* del = tmp->next;
+                tmp->next = tmp->next->next;
+                delete del;
+                del = nullptr;
             }
 
             tmp = tmp->next;
         }
+
         return head;
     }
 };
+
+
 // @lc code=end
 
+//二刷：还是需要严谨一点，比如忘记返回值之类的错误就不要犯了TvT
 //一刷：遗漏了很多需要注意的点，比如外层while检验空指针不完善，内层应该用while不能用if，用if无法处理两个以上的相同值节点
+// class Solution {
+// public:
+//     ListNode* deleteDuplicates(ListNode* head)
+//     {
+//         if(!head)
+//         return nullptr;
 
+//         ListNode* tmp = head;
+//         while(tmp && tmp->next)
+//         {
+//             while(tmp && tmp->next && tmp->val == tmp->next->val)
+//             {
+//                 ListNode* obj = tmp->next->next;
+//                 delete tmp->next;
+//                 tmp->next = obj;
+//             }
+
+//             tmp = tmp->next;
+//         }
+//         return head;
+//     }
+// };
