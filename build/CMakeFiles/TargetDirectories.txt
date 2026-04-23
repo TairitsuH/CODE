@@ -1,3 +1,0 @@
-D:/CODE/build/CMakeFiles/StringProject.dir
-D:/CODE/build/CMakeFiles/edit_cache.dir
-D:/CODE/build/CMakeFiles/rebuild_cache.dir

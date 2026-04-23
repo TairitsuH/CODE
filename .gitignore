@@ -1,0 +1,13 @@
+cd D:\CODE
+
+# 创建 .gitignore 文件
+echo "build/" >> .gitignore
+echo "*.exe" >> .gitignore
+echo "*.obj" >> .gitignore
+echo "*.o" >> .gitignore
+echo "*.a" >> .gitignore
+echo ".vscode/" >> .gitignore
+echo ".cmake/" >> .gitignore
+echo "CMakeCache.txt" >> .gitignore
+echo "CMakeFiles/" >> .gitignore
+echo "compile_commands.json" >> .gitignore
