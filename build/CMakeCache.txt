@@ -159,7 +159,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=StringProject
+CMAKE_PROJECT_NAME:STATIC=String
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=
@@ -267,6 +267,15 @@ StringProject_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 StringProject_SOURCE_DIR:STATIC=D:/CODE/PROJECT/String
+
+//Value Computed by CMake
+String_BINARY_DIR:STATIC=D:/CODE/build
+
+//Value Computed by CMake
+String_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+String_SOURCE_DIR:STATIC=D:/CODE/PROJECT/String
 
 
 ########################

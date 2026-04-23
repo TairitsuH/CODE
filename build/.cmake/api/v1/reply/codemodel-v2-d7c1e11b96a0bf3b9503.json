@@ -27,7 +27,7 @@
 					[
 						0
 					],
-					"name" : "StringProject",
+					"name" : "String",
 					"targetIndexes" : 
 					[
 						0
@@ -38,9 +38,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "StringProject::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-StringProject-Debug-0a2db1b0cc9242ba4a11.json",
-					"name" : "StringProject",
+					"id" : "String::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-String-Debug-528e74e23cddc6c4c94e.json",
+					"name" : "String",
 					"projectIndex" : 0
 				}
 			]

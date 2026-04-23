@@ -116,24 +116,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named StringProject
+# Target rules for targets named String
 
 # Build rule for target.
-StringProject: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 StringProject
-.PHONY : StringProject
+String: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 String
+.PHONY : String
 
 # fast build rule for target.
-StringProject/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\StringProject.dir\build.make CMakeFiles/StringProject.dir/build
-.PHONY : StringProject/fast
+String/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\String.dir\build.make CMakeFiles/String.dir/build
+.PHONY : String/fast
 
 String.obj: String.cpp.obj
 .PHONY : String.obj
 
 # target to build an object file
 String.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\StringProject.dir\build.make CMakeFiles/StringProject.dir/String.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\String.dir\build.make CMakeFiles/String.dir/String.cpp.obj
 .PHONY : String.cpp.obj
 
 String.i: String.cpp.i
@@ -141,7 +141,7 @@ String.i: String.cpp.i
 
 # target to preprocess a source file
 String.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\StringProject.dir\build.make CMakeFiles/StringProject.dir/String.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\String.dir\build.make CMakeFiles/String.dir/String.cpp.i
 .PHONY : String.cpp.i
 
 String.s: String.cpp.s
@@ -149,7 +149,7 @@ String.s: String.cpp.s
 
 # target to generate assembly for a file
 String.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\StringProject.dir\build.make CMakeFiles/StringProject.dir/String.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\String.dir\build.make CMakeFiles/String.dir/String.cpp.s
 .PHONY : String.cpp.s
 
 testStr.obj: testStr.cpp.obj
@@ -157,7 +157,7 @@ testStr.obj: testStr.cpp.obj
 
 # target to build an object file
 testStr.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\StringProject.dir\build.make CMakeFiles/StringProject.dir/testStr.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\String.dir\build.make CMakeFiles/String.dir/testStr.cpp.obj
 .PHONY : testStr.cpp.obj
 
 testStr.i: testStr.cpp.i
@@ -165,7 +165,7 @@ testStr.i: testStr.cpp.i
 
 # target to preprocess a source file
 testStr.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\StringProject.dir\build.make CMakeFiles/StringProject.dir/testStr.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\String.dir\build.make CMakeFiles/String.dir/testStr.cpp.i
 .PHONY : testStr.cpp.i
 
 testStr.s: testStr.cpp.s
@@ -173,7 +173,7 @@ testStr.s: testStr.cpp.s
 
 # target to generate assembly for a file
 testStr.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\StringProject.dir\build.make CMakeFiles/StringProject.dir/testStr.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\String.dir\build.make CMakeFiles/String.dir/testStr.cpp.s
 .PHONY : testStr.cpp.s
 
 # Help Target
@@ -184,7 +184,7 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... StringProject
+	@echo ... String
 	@echo ... String.obj
 	@echo ... String.i
 	@echo ... String.s
