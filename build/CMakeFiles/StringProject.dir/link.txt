@@ -1,3 +1,0 @@
-D:\LeStoreDownload\winlibs\mingw64\bin\cmake.exe -E rm -f CMakeFiles\StringProject.dir/objects.a
-D:\LeStoreDownload\winlibs\mingw64\bin\ar.exe qc CMakeFiles\StringProject.dir/objects.a @CMakeFiles\StringProject.dir\objects1.rsp
-D:\LeStoreDownload\winlibs\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\StringProject.dir/objects.a -Wl,--no-whole-archive -o StringProject.exe -Wl,--out-implib,libStringProject.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\StringProject.dir\linkLibs.rsp

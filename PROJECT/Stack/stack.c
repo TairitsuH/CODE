@@ -1,8 +1,3 @@
-#pragma once
-#include<stdio.h>
-#include<stdlib.h>
-#include<assert.h>
-#include<stdbool.h>
 #include "stack.h"
 
 //栈的初始化
