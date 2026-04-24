@@ -72,13 +72,27 @@ namespace tairitsu_h
             _size = _capacity = 0;
         }
 
-        //拷贝构造
+        ////拷贝构造
+        //String(const String& str)
+        //{
+        //    _str = new char[str._capacity + 1];
+        //    strcpy(_str, str._str);
+        //    _size = str._size;
+        //    _capacity = str._capacity;
+        //}
+
+        void Swap(String& str)
+        {
+            swap(_str, str._str);
+            swap(_size, str._size);
+            swap(_capacity, str._capacity);
+        }
+
+        //拷贝构造（交换）
         String(const String& str)
         {
-            _str = new char[str._capacity + 1];
-            strcpy(_str, str._str);
-            _size = str._size;
-            _capacity = str._capacity;
+            String tmp = str._str;
+            Swap(tmp);
         }
 
         size_t size() const

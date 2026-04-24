@@ -174,19 +174,40 @@ namespace tairitsu_h
         return ret;
     }
 
+    //赋值重载
+    //String& String::operator=(const String& str)
+    //{
+    //    if(this != &str)
+    //    {
+    //        delete[] _str;
+    //        _str = new char[str._capacity + 1];
+    //        strcpy(_str, str._str);
+    //        _size = str._size;
+    //        _capacity = str._capacity;
+    //    }
+
+    //    return *this;
+    //}
+
+    //赋值重载（交换）
     String& String::operator=(const String& str)
     {
-        if(this != &str)
+        if (this != &str)
         {
-            delete[] _str;
-            _str = new char[str._capacity + 1];
-            strcpy(_str, str._str);
-            _size = str._size;
-            _capacity = str._capacity;
+            String tmp = str._str;
+            Swap(tmp);
         }
 
         return *this;
     }
+    //test
+
+    ////或者
+    //String& String::operator+=(String tmp)
+    //{
+    //    swap(tmp);
+    //    return *this;
+    //}
 
     bool operator<(const String& s1, const String& s2)
     {

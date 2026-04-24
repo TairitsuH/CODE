@@ -17,6 +17,8 @@ Makefile
 
 # 编辑器/IDE 文件
 .vscode/
+.vs/
+*.vsidx
 .DS_Store
 
 # 其他临时文件
@@ -24,3 +26,4 @@ Makefile
 *.tmp
 *.bak
 *.swp
+compile_commands.json
