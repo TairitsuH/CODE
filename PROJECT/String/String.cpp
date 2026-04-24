@@ -56,7 +56,7 @@ namespace tairitsu_h
         append(str);
         return *this;
     }
-
+    
     void String::insert(size_t pos, char ch)
     {
         assert(pos <= _size);
