@@ -200,7 +200,6 @@ namespace tairitsu_h
 
         return *this;
     }
-    //test
 
     ////或者
     //String& String::operator+=(String tmp)
