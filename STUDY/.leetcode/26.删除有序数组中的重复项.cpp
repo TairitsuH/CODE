@@ -3,6 +3,17 @@
  *
  * [26] 删除有序数组中的重复项
  */
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums)
+    {
+        int fast = 0;
+    }
+};
+// @lc code=end
+
+//二刷：对边界情况的分析还需要更仔细。
+//一刷：忽略了非严格递增（有重复元素的类递增数组），按照无序做了（新建数组记录次数）TvT
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -24,7 +35,3 @@ public:
         return slow;
     }
 };
-// @lc code=end
-
-//一刷：忽略了非严格递增（有重复元素的类递增数组），按照无序做了（新建数组记录次数）TvT
-//二刷：对边界情况的分析还需要更仔细。
