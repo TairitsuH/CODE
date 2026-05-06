@@ -152,3 +152,78 @@ void QuickSortNonR(int* a, int begin, int end)
 
     STDestroy(&st);
 }
+
+//归并排序
+void _MergeSort(int* a, int* tmp, int begin, int end)
+{
+    if(begin >= end)
+    {
+        return;
+    }
+
+    int left = begin;
+    int right = end;
+    int mid = (left + right) / 2;
+
+    _MergeSort(a, tmp, left, mid);
+    _MergeSort(a, tmp, mid+1, right);
+
+    int begin1 = left;
+    int end1 = mid;
+    int begin2 = mid + 1;
+    int end2 = right;
+    int i = begin;
+    while(begin1 <= end1 && begin2 <= end2)
+    {
+        if(a[begin1] < a[begin2])
+        {
+            tmp[i++] = a[begin1++];
+        }
+        else
+        {
+            tmp[i++] = a[begin2++];
+        }
+    }
+
+    while(begin1 <= end1)
+    {
+        tmp[i++] = a[begin1++];
+    }
+
+    while(begin2 <= end2)
+    {
+        tmp[i++] = a[begin2++];
+    }
+
+    memcpy(a + left, tmp + left, sizeof(int)*(right-left+1));
+}
+
+void MergeSort(int* a, int n)
+{
+    int* tmp = (int*)malloc(n*sizeof(int));
+    if(!tmp)
+    {
+        perror("malloc fail");
+        exit(1);
+    }
+
+    int begin = 0;
+    int end = n-1;
+
+    _MergeSort(a, tmp, begin, end);
+
+    free(tmp);
+    tmp = NULL;
+}
+
+// 归并排序非递归实现
+void MergeSortNonR(int* a, int n)
+{
+
+}
+
+// 计数排序
+void CountSort(int* a, int n)
+{
+
+}

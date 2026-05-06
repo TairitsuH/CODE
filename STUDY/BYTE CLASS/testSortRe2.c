@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 #include<time.h>
 #include"SortRevise2.c"
 
@@ -25,8 +26,9 @@ int main()
     PrintArr(a, n);
 
     // BubbleSort(a, n);
-    QuickSort(a, 0, n-1);
+    // QuickSort(a, 0, n-1);
     // QuickSortNonR(a, 0, n-1);
+    MergeSort(a, n);
 
     PrintArr(a, n);
 

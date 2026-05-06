@@ -375,20 +375,16 @@ void _MergeSort(int* a, int* tmp, int begin, int end)
     }
 
     //补充剩余数
-    if(begin1 > end1)
+    while(begin2 <= end2)
     {
-        while(begin2 <= end2)
-        {
-            tmp[i++] = a[begin2++];
-        }
+        tmp[i++] = a[begin2++];
     }
-    else
+
+    while(begin1 <= end1)
     {
-        while(begin1 <= end1)
-        {
-            tmp[i++] = a[begin1++];
-        }
+        tmp[i++] = a[begin1++];
     }
+
 
     memcpy(a+begin, tmp+begin, sizeof(int)*(end-begin+1));
 }
