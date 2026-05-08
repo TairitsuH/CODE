@@ -7,30 +7,51 @@ class Solution {
 public:
     int removeDuplicates(vector<int>& nums)
     {
-        int slow = 0;
-        int fast = slow + 1;
-        while(fast < nums.size())
-        {
-            while(fast < nums.size() && nums[slow] == nums[fast])
-            {
-                fast++;
-            }
+        int n = nums.size();
 
-            if(fast < nums.size())
-            {            
-                swap(nums[slow + 1], nums[fast]);
+        int slow = 1;
+        int fast = 1;
+        for(fast=1; fast<n; fast++)
+        {
+            if(nums[fast] != nums[fast-1])
+            {
+                nums[slow] = nums[fast];
                 slow++;
-                fast++;
             }
         }
 
-        return slow + 1;
+        return slow;
     }
 };
 // @lc code=end
 
+//三刷：尝试在做完后简化代码，看别人的题解
 //二刷：循环中多次判断fast是否越界有点麻烦
-//一刷：忽略了非严格递增（有重复元素的类递增数组），按照无序做了（新建数组记录次数）TvT
+// class Solution {
+// public:
+//     int removeDuplicates(vector<int>& nums)
+//     {
+//         int slow = 0;
+//         int fast = slow + 1;
+//         while(fast < nums.size())
+//         {
+//             while(fast < nums.size() && nums[slow] == nums[fast])
+//             {
+//                 fast++;
+//             }
+
+//             if(fast < nums.size())
+//             {            
+//                 swap(nums[slow + 1], nums[fast]);
+//                 slow++;
+//                 fast++;
+//             }
+//         }
+
+//         return slow + 1;
+//     }
+// };
+//一刷：忽略了非严格递增（有重复元素的类递增数组），按照无序做了（新建数组记录次数）TvT，已改
 // #include<iostream>
 // #include<vector>
 // using namespace std;
