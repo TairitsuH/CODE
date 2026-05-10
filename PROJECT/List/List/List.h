@@ -147,7 +147,7 @@ namespace tairitsu_h
         //赋值重载
         list<T>& operator=(list<T> l)
         {
-            swap(l);
+            Swap(l);
             return *this;
         }
 
@@ -258,20 +258,15 @@ namespace tairitsu_h
         //清空链表
         void clear()
         {
-            Node* cur = _pHead->_pNext;
-            while (cur != _pHead)
+            iterator p = begin();
+            while (p != end())
             {
-                Node* next = cur->_pNext;
-                delete cur;
-                cur = next;
+                p = erase(p);
             }
-
-            _pHead->_pPre = _pHead;
-            _pHead->_pNext = _pHead;
         }
 
         //通过交换头结点来交换链表
-        void swap(list<T>& l)
+        void Swap(list<T>& l)
         {
             swap(_pHead, l._pHead);
         }
