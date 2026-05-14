@@ -25,7 +25,6 @@ public:
         vector<vector<int>> vv;
         queue<TreeNode*> q;
         int levelsize = 0;
-
         if(root)
         {
             q.push(root);
@@ -38,6 +37,7 @@ public:
             while(levelsize--)
             {
                 v.push_back(q.front()->val);
+
                 if(q.front()->left)
                 {
                     q.push(q.front()->left);
@@ -58,8 +58,47 @@ public:
     }
 };
 
-
+//四刷：忘记删除节点了TAT
 //三刷：重新捋了一遍思路就顺了^_^
+// class Solution {
+// public:
+//     vector<vector<int>> levelOrder(TreeNode* root)
+//     {
+//         vector<vector<int>> vv;
+//         queue<TreeNode*> q;
+//         int levelsize = 0;
+
+//         if(root)
+//         {
+//             q.push(root);
+//             levelsize = 1;
+//         }
+
+//         while(!q.empty())
+//         {
+//             vector<int> v;
+//             while(levelsize--)
+//             {
+//                 v.push_back(q.front()->val);
+//                 if(q.front()->left)
+//                 {
+//                     q.push(q.front()->left);
+//                 }
+//                 if(q.front()->right)
+//                 {
+//                     q.push(q.front()->right);
+//                 }
+
+//                 q.pop();
+//             }
+
+//             vv.push_back(v);
+//             levelsize = q.size();
+//         }
+
+//         return vv;
+//     }
+// };
 //二刷：熟练度和审题还需提升
 // class Solution {
 // public:

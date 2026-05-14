@@ -75,4 +75,3 @@ int main()
 	cout<<v.size()<<":"<<v.capacity()<<endl;
 
 }
-
