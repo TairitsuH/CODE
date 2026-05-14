@@ -22,14 +22,14 @@ public:
     {}
 
     //赋值重载
-    void Swap(Person& p)
-    {
-        swap(p._name, _name);
-    }
-    Person& operator=(Person p)
+    Person& operator=(const Person& p)
     {
         cout << "Person& operator=(Person p)" << endl;
-        Swap(p);
+        if(this != &p)
+        {
+            _name = p._name;
+        }
+        
         return *this;
     }
 
@@ -40,8 +40,63 @@ public:
     }
 };
 
+class Student: public Person
+{
+private:
+    int _num;
+
+public:
+    Student(const char* name = "NULL", int num = 0)
+        :Person(name)
+        ,_num(num)
+    {
+        cout << "Student(const char* name, int num)" << endl;
+    }
+
+    //拷贝构造(C++中，派生类对象可以当作基类对象使用)
+    Student(const Student& stu)
+        :Person(stu)
+        ,_num(stu._num)
+    {
+        // Person(stu);不能写在内部
+        cout << "Student(const Student& stu)" << endl;
+    }
+
+    //赋值重载
+    Student& operator=(const Student& stu)
+    {
+        cout << "Student& operator=(const Student& stu)" << endl;
+         if(this != &stu)
+         {
+            Person::operator=(stu); //构成了隐藏，需要显式调用
+            _num = stu._num;
+         }
+
+         return *this;
+    }
+
+    //析构
+    ~Student()
+    {
+        cout << "~Student()" << endl;
+    }
+
+    void Print_Student()
+    {
+        cout << _name << " " << _num << endl;
+    }
+};
+
 int main()
 {
+    Student s1("Tairitsu", 2025);
+    Student s2("Hikari", 2026);
+    Student s3;
+    s1.Print_Student();
+    s2.Print_Student();
+    s3.Print_Student();
+    s3 = s1;
+    s3.Print_Student();
 
     return 0;
 }
