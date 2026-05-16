@@ -42,6 +42,7 @@ public:
                 {
                     q.push(q.front()->left);
                 }
+
                 if(q.front()->right)
                 {
                     q.push(q.front()->right);
