@@ -3,25 +3,41 @@
  *
  * [283] 移动零
  */
-#include<iostream>
-#include<vector>
-using namespace std;
 // @lc code=start
 class Solution {
 public:
     void moveZeroes(vector<int>& nums)
     {
-        int n = nums.size();
         int slow = 0;
-        for(int fast=0; fast<n; fast++)
+        int fast = 0;
+        while(fast < nums.size())
         {
             if(nums[fast] != 0)
             {
                 swap(nums[slow], nums[fast]);
                 slow++;
             }
+
+            fast++;
         }
     }
 };
 // @lc code=end
-//复盘；slow指向的是数组中从左往右第一个0的位置，fast跳过0寻找之后不为0的数并与slow交换
+//二刷：确定好快慢指针的动向
+//一刷；slow指向的是数组中从左往右第一个0的位置，fast跳过0寻找之后不为0的数并与slow交换
+// class Solution {
+// public:
+//     void moveZeroes(vector<int>& nums)
+//     {
+//         int n = nums.size();
+//         int slow = 0;
+//         for(int fast=0; fast<n; fast++)
+//         {
+//             if(nums[fast] != 0)
+//             {
+//                 swap(nums[slow], nums[fast]);
+//                 slow++;
+//             }
+//         }
+//     }
+// };

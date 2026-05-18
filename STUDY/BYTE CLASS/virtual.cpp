@@ -1,37 +1,95 @@
 #include<iostream>
 using namespace std;
 
-class A
-{
-public:
-    virtual void func(int val = 1)
-    {
-        cout << "A->" << val << endl;
-    }
-
-    virtual void test()
-    {
-        func();
-    }
-};
-
-class B: public A
-{
-public:
-    virtual void func(int val = 0)
-    {
-        cout << "B->" << val << endl;
-    }
+// class A
+// {
+// public:
+//     virtual void func(int val = 1)
+//     {
+//         cout << "A->" << val << endl;
+//     }
 
 //     virtual void test()
 //     {
 //         func();
 //     }
+// };
+
+// class B: public A
+// {
+// public:
+//     virtual void func(int val = 0)
+//     {
+//         cout << "B->" << val << endl;
+//     }
+
+// //     virtual void test()
+// //     {
+// //         func();
+// //     }
+// };
+
+// int main()
+// {
+//     B* ptr = new B;
+//     ptr->test();
+//     return 0;
+// }
+
+class A
+
+{
+
+public:
+
+  A ()
+  :m_iVal(0)
+  {
+    test();
+  }
+
+  virtual void func() { cout<<m_iVal<<' ';}
+
+  void test(){func();}
+
+public:
+
+  int m_iVal;
+
 };
 
-int main()
+
+
+class B : public A
+
 {
-    B* ptr = new B;
-    ptr->test();
-    return 0;
+
+public:
+
+  B(){test();}
+
+  virtual void func()
+
+  {
+
+    ++m_iVal;
+
+    std::cout<<m_iVal<<' ';
+
+  }
+
+};
+
+
+
+int main(int argc ,char* argv[])
+
+{
+
+  A*p = new B;
+
+  p->test();
+
+  return 0;
+
 }
