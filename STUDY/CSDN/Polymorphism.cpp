@@ -19,8 +19,17 @@ public:
     }
 };
 
+void Func(Person* ptr)
+{
+    ptr->BuyTicket();
+}
+
 int main()
 {
-    
+    Student* stu = new Student;
+    Person* ps1 = stu;
+
+    Func(ps1);
+
     return 0;
 }
