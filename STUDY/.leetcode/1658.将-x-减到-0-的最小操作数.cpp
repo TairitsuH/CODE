@@ -1,0 +1,49 @@
+/*
+ * @lc app=leetcode.cn id=1658 lang=cpp
+ *
+ * [1658] 将 x 减到 0 的最小操作数
+ */
+
+// @lc code=start
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int x)
+    {
+        int left = 0, right = 0, minlen = INT_MAX;
+        long long sum = 0;
+        int arrsum = 0;
+        int n = nums.size();
+
+        for (auto i : nums)
+        {
+            arrsum += i;
+        }
+        if(arrsum < x) return -1;
+
+        long long key = arrsum - x;
+
+        while (right < n)
+        {
+            sum += nums[right];
+            
+            while (sum > key)
+            {
+                sum -= nums[left++];
+            }
+        
+            if (sum == key)
+            {
+                int len = n - (right - left + 1);
+                minlen = min(minlen, len);
+            }
+
+
+            right++;
+        }
+
+        return minlen == INT_MAX ? -1 : minlen;
+    }
+};
+
+// @lc code=end
+//一刷：正难则反，滑动窗口。找中间和为arrsum-x的最大区间，剩下的元素即为和为x的最小个数
