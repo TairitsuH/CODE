@@ -14,19 +14,19 @@ public:
         int arrsum = 0;
         int n = nums.size();
 
+        // 求和
         for (auto i : nums)
         {
             arrsum += i;
         }
-        if(arrsum < x) return -1;
-
         long long key = arrsum - x;
+        if(key < 0) return -1; //所有的数加起来都比x小，则不成立（滑动窗口仅支持大于零的元素）
 
         while (right < n)
         {
             sum += nums[right];
             
-            while (sum > key)
+            while (sum > key) //注意>的判断要在==前
             {
                 sum -= nums[left++];
             }
@@ -36,7 +36,6 @@ public:
                 int len = n - (right - left + 1);
                 minlen = min(minlen, len);
             }
-
 
             right++;
         }
