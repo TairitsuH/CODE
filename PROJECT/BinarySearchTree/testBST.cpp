@@ -16,5 +16,8 @@ int main()
     bst.Insert(7, 7);
 
     bst.InOrder();
+
+    TestBSTree();
+    
     return 0;
 }
