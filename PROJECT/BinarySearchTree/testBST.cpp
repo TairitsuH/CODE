@@ -17,6 +17,13 @@ int main()
 
     bst.InOrder();
 
+    bst.Erase(4);
+    bst.Erase(1);
+    bst.Erase(6);
+    bst.Erase(7);
+
+    bst.InOrder();
+
     TestBSTree();
     
     return 0;

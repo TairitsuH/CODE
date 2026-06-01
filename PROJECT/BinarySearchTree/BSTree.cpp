@@ -35,7 +35,7 @@ public:
         _root = Copy(t._root);
     }
 
-    BSTree<K, V> Copy(Node& n)
+    Node* Copy(Node& n)
     {
         if(n == nullptr)
         {
@@ -69,8 +69,8 @@ public:
         
         //移动至叶子节点
         Node* cur = _root;
-        Node* parent = _root;
-        while(cur != nullptr)
+        Node* parent = nullptr;
+        while(cur)
         {
             if(cur->_key < key)
             {
@@ -120,18 +120,107 @@ public:
             {
                 return cur;
             }
-
-            return nullptr;
         }
 
         return nullptr;
     }
 
-    // //删除节点
-	// bool Erase(const K& key)
-    // {
+    //删除节点
+	bool Erase(const K& key)
+    {
+        Node* parent = nullptr;
+        Node* cur = _root;
 
-    // }
+        //找节点
+        while(cur)
+        {
+            if(cur->_key < key)
+            {
+                parent = cur;
+                cur = cur->_right;
+            }
+            else if(cur->_key > key)
+            {
+                parent = cur;
+                cur = cur->_left;
+            }
+            else //找到key
+            {
+                //1. c左为空
+                if(cur->_left == nullptr)
+                {
+                    //根节点
+                    if(parent == nullptr)
+                    {
+                        _root = cur->_right;
+                    }
+                    else //非根节点
+                    {
+                        //p左为c
+                        if(parent->_left == cur)
+                        {
+                            parent->_left = cur->_right;
+                        }
+                        else 
+                        {
+                            parent->_right = cur->_right;
+                        }
+                    }
+                }
+                //2. c右为空
+                else if(cur->_right == nullptr)
+                {
+                    //根节点
+                    if(parent == nullptr)
+                    {
+                        _root = cur->_left;
+                    }
+                    else //非根节点
+                    {
+                        //p左为c
+                        if(parent->_left = cur)
+                        {
+                            parent->_left = cur->_left;
+                        }
+                        else //p右为c
+                        {
+                            parent->_right = cur->_left;
+                        }
+                    }
+                }
+                //3. c左右非空，找右子树的最小节点
+                else
+                {
+                    Node* RNodeP = cur;
+                    Node* RNodeC = cur->_left;
+                    while(RNodeC)
+                    {
+                        RNodeP = RNodeC;
+                        RNodeC = RNodeC->_left;
+                    }
+
+                    //赋值
+                    cur->_key = RNodeC->_key;
+                    cur->_value = RNodeC->_value;
+
+                    //转化为1，2情况（c左为空）
+                    if(RNodeP->_left == RNodeC) //p左为c
+                    {
+                        RNodeP->_left = RNodeC->_right;
+                    }
+                    else //p右为c
+                    {
+                        RNodeP->_right = RNodeC->_right;
+                    }
+                }
+
+                delete cur;
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     //中序遍历
 	void InOrder()
