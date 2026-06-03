@@ -9,30 +9,28 @@ class Solution {
 public:
     struct Compare
     {
-        bool operator()(const pair<string, int>& p1, const pair<string, int>& p2) const
+        bool operator()(const pair<string, int>& p1, const pair<string, int> p2) const
         {
-            if(p1.second != p2.second)
+            if(p1.second == p2.second)
             {
-                return p1.second > p2.second;
+                return p1.first < p2.first;
             }
-            return p1.first < p2.first;
+            return p1.second > p2.second;
         }
     };
 
     vector<string> topKFrequent(vector<string>& words, int k)
     {
-        map<string, int> mp;
-        for(auto& ch : words)
+        map<string, int> hash;
+        for(auto s : words)
         {
-            mp[ch]++;
+            hash[s]++;
         }
 
-        vector<pair<string, int>> v(mp.begin(), mp.end());
-
+        vector<pair<string, int>> v(hash.begin(), hash.end());
         stable_sort(v.begin(), v.end(), Compare());
 
         vector<string> ret;
-
         for(int i=0; i<k; i++)
         {
             ret.push_back(v[i].first);
@@ -42,5 +40,41 @@ public:
     }
 };
 // @lc code=end
+//二刷：思路没问题，但pair的使用还是不熟
 //一刷：仿函数部分一开始只对函数用了const，结果报错了。STL容器要求比较器的参数必须是const引用！
+// class Solution {
+// public:
+//     struct Compare
+//     {
+//         bool operator()(const pair<string, int>& p1, const pair<string, int>& p2) const
+//         {
+//             if(p1.second != p2.second)
+//             {
+//                 return p1.second > p2.second;
+//             }
+//             return p1.first < p2.first;
+//         }
+//     };
 
+//     vector<string> topKFrequent(vector<string>& words, int k)
+//     {
+//         map<string, int> mp;
+//         for(auto& ch : words)
+//         {
+//             mp[ch]++;
+//         }
+
+//         vector<pair<string, int>> v(mp.begin(), mp.end());
+
+//         stable_sort(v.begin(), v.end(), Compare());
+
+//         vector<string> ret;
+
+//         for(int i=0; i<k; i++)
+//         {
+//             ret.push_back(v[i].first);
+//         }
+
+//         return ret;
+//     }
+// };
