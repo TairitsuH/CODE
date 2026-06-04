@@ -146,7 +146,7 @@ private:
 		Node* subLR = subL->_pRight;
 
 		parent->_pLeft = subLR;
-		if (subLR) //h不为0时
+		if (subLR) //h > 0时
 		{
 			subLR->_pParent = parent;
 		}
@@ -189,7 +189,7 @@ private:
 		Node* subRL = subR->_pLeft;
 
 		parent->_pRight = subRL;
-		if(subLR) //h不为0时
+		if(subLR) //h > 0时
 		{
 			subRL->_pParent = parent;
 		}
@@ -207,15 +207,93 @@ private:
 		}
 		else
 		{
+			if (parentParent->_pLeft == parent)
+			{
+				parentParent->_pLeft = subR;
+			}
+			else
+			{
+				parentParent->_pRight = subR;
+			}
 
+			subR->_pParent = parentParent;
 		}
 
+		//更新平衡因子
+		parent->_bf = 0;
+		subR->_bf = 0;
 	}
 
-	// 右左双旋
-	void RotateRL(Node* pParent);
 	// 左右双旋
-	void RotateLR(Node* pParent);
+	void RotateRL(Node* pParent)
+	{
+		Node* parent = pParent;
+		Node* subL = parent->_pLeft;
+		Node* subLR = subL->_pRight;
+
+		RotateL(subL); //左
+		RotateR(parent); //右
+
+		//更新平衡因子
+		if (subLR->_bf == 1)
+		{
+			subLR->_bf = 0;
+			subL->_bf = -1;
+			parent->_bf = 0;
+		}
+		else if (subLR->_bf == 0)
+		{
+			subLR->_bf = 0;
+			subL->_bf = 0;
+			parent->_bf = 0;
+		}
+		else if (subLR->_bf == -1)
+		{
+			subLR->_bf = 0;
+			subL->_bf = 0;
+			parent->_bf = 1;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
+	// 右左双旋
+	void RotateLR(Node* pParent)
+	{
+		Node* parent = pParent;
+		Node* subR = parent->_pRight;
+		Node* subRL = subR->_pLeft;
+
+		RotateR(subRL); //右
+		RotateL(parent); //左
+
+		//更新平衡因子
+		if (subRL->_bf == 1)
+		{
+			subRL->_bf = 0;
+			subR->_bf = 0;
+			parent->_bf = -1;
+		}
+		else if (subRL->_bf == 0)
+		{
+			subRL->_bf = 0;
+			subR->_bf = 0;
+			parent->_bf = 0;
+		}
+		else if (subRL->_bf == -1)
+		{
+			subRL->_bf = 0;
+			subR->_bf = 1;
+			parent->_bf = 0;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 private:
 	Node* _pRoot;
