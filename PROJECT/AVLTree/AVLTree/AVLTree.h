@@ -295,6 +295,29 @@ private:
 		}
 	}
 
+	//查找节点
+	Node* Find(const K& key)
+	{
+		Node* cur = _pRoot;
+		while (cur)
+		{
+			if (cur->_data < key)
+			{
+				cur = cur->_pRight;
+			}
+			else if (cur->_data > key)
+			{
+				cur = cur->_pLeft;
+			}
+			else
+			{
+				return cur;
+			}
+		}
+
+		return nullptr;
+	}
+
 private:
 	Node* _pRoot;
 };
