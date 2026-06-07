@@ -10,35 +10,29 @@ public:
     vector<int> productExceptSelf(vector<int>& nums)
     {
         int n = nums.size();
-
-        vector<int> fx(n), gx(n);
-        vector<int> ret;
-
+        vector<int> fx(n, 1);
+        vector<int> gx(n, 1);
+        
         fx[0] = nums[0];
         gx[n - 1] = nums[n - 1];
-        for(int i=1; i<n; i++)
-        {
-            fx[i] = nums[i];
-            gx[n - i - 1] = nums[n - i - 1];
 
-            fx[i] *= fx[i - 1];
-            gx[n - i - 1] *= gx[n - i];
+        for(int i=1; i<n-1; i++)
+        {
+            fx[i] = fx[i - 1] * nums[i];
         }
 
+        for(int i=n-2; i>=0; i--)
+        {
+            gx[i] = gx[i + 1] * nums[i];
+        }
+
+        vector<int> ret;
         for(int i=0; i<n; i++)
         {
-            if(i == 0)
-            {
-                ret.push_back(gx[1]);
-            }
-            else if(i == n - 1)
-            {
-                ret.push_back(fx[n - 2]);
-            }
-            else
-            {
-                ret.push_back(fx[i - 1] * gx[i + 1]);
-            }
+            int left = (i == 0 ? 1 : fx[i - 1]);
+            int right = (i == n-1 ? 1 : gx[i + 1]);
+
+            ret.push_back(left * right);
         }
 
         return ret;
@@ -46,4 +40,44 @@ public:
 };
 // @lc code=end
 
+//二刷：一遍过，用了前缀和后缀乘积的方式解决（适用于频繁多次求区间积）
 //一刷：用前缀乘积的方式计算区间乘积
+// class Solution {
+// public:
+//     vector<int> productExceptSelf(vector<int>& nums)
+//     {
+//         int n = nums.size();
+
+//         vector<int> fx(n), gx(n);
+//         vector<int> ret;
+
+//         fx[0] = nums[0];
+//         gx[n - 1] = nums[n - 1];
+//         for(int i=1; i<n; i++)
+//         {
+//             fx[i] = nums[i];
+//             gx[n - i - 1] = nums[n - i - 1];
+
+//             fx[i] *= fx[i - 1];
+//             gx[n - i - 1] *= gx[n - i];
+//         }
+
+//         for(int i=0; i<n; i++)
+//         {
+//             if(i == 0)
+//             {
+//                 ret.push_back(gx[1]);
+//             }
+//             else if(i == n - 1)
+//             {
+//                 ret.push_back(fx[n - 2]);
+//             }
+//             else
+//             {
+//                 ret.push_back(fx[i - 1] * gx[i + 1]);
+//             }
+//         }
+
+//         return ret;
+//     }
+// };
