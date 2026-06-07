@@ -13,7 +13,7 @@ public:
         int right = 0;
         int n = s.size();
         int maxlen = 0;
-        vector<int> hash(128, 0);
+        vector<int> hash(128, 0); //128个字符，用数组模拟哈希表
 
         while(right < n)
         {
