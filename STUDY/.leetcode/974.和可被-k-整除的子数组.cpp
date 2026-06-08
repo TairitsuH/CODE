@@ -9,14 +9,16 @@ class Solution {
 public:
     int subarraysDivByK(vector<int>& nums, int k)
     {
-        int sum = 0, ret = 0;
         unordered_map<int, int> hash;
-        hash[0] = 1; //0这个数的余数
+
+        int n = nums.size();
+        int sum = 0, ret = 0;
+        hash[0] = 1;
 
         for(auto x : nums)
         {
             sum += x;
-            if(hash.count((sum % k + k) % k) == 1)
+            if(hash.count((sum % k + k) % k) != 0) //同余定理
             {
                 ret += hash[(sum % k + k) % k];
             }
@@ -29,7 +31,29 @@ public:
 };
 // @lc code=end
 
-//二刷：根据同余定理和负数取模的规则，选择用前缀和+哈希表的方式解题。
+//二刷：根据同余定理(a - b) % n == 0 -> a % n == b % n, 和负数取模(a % n + n) % n的规则，选择用前缀和+哈希表的方式解题。
+// class Solution {
+// public:
+//     int subarraysDivByK(vector<int>& nums, int k)
+//     {
+//         int sum = 0, ret = 0;
+//         unordered_map<int, int> hash;
+//         hash[0] = 1; //0这个数的余数
+
+//         for(auto x : nums)
+//         {
+//             sum += x;
+//             if(hash.count((sum % k + k) % k) == 1)
+//             {
+//                 ret += hash[(sum % k + k) % k];
+//             }
+
+//             hash[(sum % k + k) % k]++;
+//         }
+
+//         return ret;
+//     }
+// };
 //一刷：暴力解法，可以过70/76但是超时了
 // class Solution {
 // public:
