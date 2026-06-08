@@ -11,19 +11,19 @@ public:
     {
         unordered_map<int, int> hash;
 
-        int n = nums.size();
         int sum = 0, ret = 0;
         hash[0] = 1;
 
         for(auto x : nums)
         {
             sum += x;
-            if(hash.count((sum % k + k) % k) != 0) //同余定理
+            int r = (sum % k + k) % k;
+            if(hash.count(r) != 0)
             {
-                ret += hash[(sum % k + k) % k];
+                ret += hash[r]; //sum范围内所有余数为r的子区间都满足
             }
 
-            hash[(sum % k + k) % k]++;
+            hash[r]++;
         }
 
         return ret;
@@ -31,7 +31,33 @@ public:
 };
 // @lc code=end
 
-//二刷：根据同余定理(a - b) % n == 0 -> a % n == b % n, 和负数取模(a % n + n) % n的规则，选择用前缀和+哈希表的方式解题。
+//二刷：根据同余定理(a - b) % n == 0 <-> a % n == b % n, 和负数取模(a % n + n) % n的规则，选择用前缀和+哈希表的方式解题：
+//如果sum % k和x % k的余数相同，那么所求的子区间(sum - x) % k == 0。
+// class Solution {
+// public:
+//     int subarraysDivByK(vector<int>& nums, int k)
+//     {
+//         unordered_map<int, int> hash;
+
+//         int n = nums.size();
+//         int sum = 0, ret = 0;
+//         hash[0] = 1; //余数为0的时候算一个子区间，初始设置为1
+
+//         for(auto x : nums)
+//         {
+//             sum += x;
+
+//             if(hash.count((sum % k + k) % k) != 0) //同余定理
+//             {
+//                 ret += hash[(sum % k + k) % k];
+//             }
+
+//             hash[(sum % k + k) % k]++;
+//         }
+
+//         return ret;
+//     }
+// };
 // class Solution {
 // public:
 //     int subarraysDivByK(vector<int>& nums, int k)
@@ -67,7 +93,7 @@ public:
 //             int left = i, right = i;
 //             int sum = 0;
 //             while(right < n)
-//             {   
+//             {
 //                 sum += nums[right];
 //                 if(sum % k == 0)
 //                 {
