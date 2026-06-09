@@ -146,6 +146,7 @@ private:
 		Node* subLR = subL->_pRight;
 
 		parent->_pLeft = subLR;
+        
 		if (subLR) //h > 0时
 		{
 			subLR->_pParent = parent;
