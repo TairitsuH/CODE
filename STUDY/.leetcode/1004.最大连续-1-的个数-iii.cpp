@@ -11,18 +11,18 @@ public:
     {
         int left = 0;
         int right = 0;
-        int zero = 0;
-        int maxlen = 0;
+        int zerocnt = 0;
+        int len = 0;
         int n = nums.size();
 
         while(right < n)
         {
             if(nums[right] == 0)
             {
-                zero++;
+                zerocnt++;
             }
 
-            while(zero > k)
+            while(zerocnt > k)
             {
                 if(nums[left++] == 0)
                 {
@@ -30,11 +30,11 @@ public:
                 }
             }
 
-            maxlen = max(maxlen, right - left + 1);
+            len = max(len, right - left + 1);
             right++;
         }
 
-        return maxlen;
+        return len;
     }
 };
 // @lc code=end
