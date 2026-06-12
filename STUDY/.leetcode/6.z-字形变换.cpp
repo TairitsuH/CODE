@@ -9,34 +9,37 @@ class Solution {
 public:
     string convert(string s, int numRows)
     {
+        int d = 2*(numRows - 1);
         int n = s.size();
+        string ret;
         if(numRows == 1) return s;
-        vector<vector<int>> vv(numRows, vector<int>(n, '1'));
 
-        for(int i=0,x=0,y=0; i<n; i++,x++)
+        //第一行
+        for(int i=0; i<n; i+=d)
         {
-            vv[x][y] = s[i];
+            ret += s[i];
+        }
 
-            if(x == numRows - 1)
+        //中间行
+        for(int k=1; k<numRows-1; k++)
+        {
+            for(int i=k, j=d-k; i < n || j < n; i+=d, j+=d)
             {
-                while(x > 0 && i + 1 < n)
+                if(i < n)
                 {
-                    vv[--x][++y] = s[++i];
+                    ret += s[i];
+                }
+                if(j < n)
+                {
+                    ret += s[j];
                 }
             }
         }
 
-        string ret;
-
-        for(int i=0; i<numRows; i++)
+        //末尾行
+        for(int i=numRows-1; i<n; i+=d)
         {
-            for(int j=0; j<n; j++)
-            {
-                if(vv[i][j] != '1')
-                {
-                    ret += vv[i][j];
-                }
-            }
+            ret += s[i];
         }
 
         return ret;
@@ -44,6 +47,45 @@ public:
 };
 // @lc code=end
 
+//三刷：搞懂了规律！注意要顺着下标找规律而不是数组中的位置！
+//二刷：试着直接模拟了一下
+// class Solution {
+// public:
+//     string convert(string s, int numRows)
+//     {
+//         int n = s.size();
+//         if(numRows == 1) return s;
+//         vector<vector<int>> vv(numRows, vector<int>(n, '1'));
+
+//         for(int i=0,x=0,y=0; i<n; i++,x++)
+//         {
+//             vv[x][y] = s[i];
+
+//             if(x == numRows - 1)
+//             {
+//                 while(x > 0 && i + 1 < n)
+//                 {
+//                     vv[--x][++y] = s[++i];
+//                 }
+//             }
+//         }
+
+//         string ret;
+
+//         for(int i=0; i<numRows; i++)
+//         {
+//             for(int j=0; j<n; j++)
+//             {
+//                 if(vv[i][j] != '1')
+//                 {
+//                     ret += vv[i][j];
+//                 }
+//             }
+//         }
+
+//         return ret;
+//     }
+// };
 //一刷：用找规律优化模拟
 // class Solution {
 // public:
