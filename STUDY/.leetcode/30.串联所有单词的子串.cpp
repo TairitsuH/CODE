@@ -9,7 +9,7 @@ class Solution {
 public:
     vector<int> findSubstring(string s, vector<string>& words)
     {
-        unordered_map<string, int> hash1;
+        unordered_map<string, int> hash1; //样板
         vector<int> ret;
 
         for(auto& str : words)
@@ -17,8 +17,8 @@ public:
             hash1[str]++;
         }
 
-        int n = words.size();
-        int len = words[0].size();
+        int n = words.size(); //字符串个数
+        int len = words[0].size(); //字符串单位长度
 
         for(int i=0; i<len; i++)
         {

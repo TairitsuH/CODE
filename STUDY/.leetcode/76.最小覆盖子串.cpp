@@ -11,18 +11,18 @@ public:
     string minWindow(string s, string t)
     {
         int hash1[128] = {0};
-        int kind = 0;
+        int kinds = 0;
         for(auto ch : t)
         {
             if(hash1[ch] == 0)
             {
-                kind++;
+                kinds++;
             }
 
             hash1[ch]++;
         }
 
-        int retleft = -1;
+        int begin = -1;
         int len = INT_MAX;
 
         int hash2[128] = {0};
@@ -37,16 +37,14 @@ public:
             }
 
             //判断
-            while(count == kind)
+            while(count == kinds)
             {                
                 //更新结果
                 if(right - left + 1 < len)
                 {
-                    retleft = left;
+                    begin = left;
                     len = right - left + 1;
                 }
-
-
 
                 //出窗口
                 char out = s[left];
@@ -60,7 +58,7 @@ public:
             }
         }
         
-        if(retleft == -1) return "";
+        if(begin == -1) return "";
 
         // string ret = "";
         // for(int i=retleft; i < retleft+len; i++)
@@ -70,7 +68,7 @@ public:
 
         // return ret;
         
-        return s.substr(retleft, len);
+        return s.substr(begin, len);
     }
 };
 // @lc code=end
