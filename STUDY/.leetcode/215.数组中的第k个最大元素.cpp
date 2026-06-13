@@ -16,9 +16,12 @@ public:
 
     int QuickSort(vector<int>& nums, int l, int r, int k)
     {
-        if(l == r) return nums[l];
+        if(l == r) return nums[l]; //区间一定会存在
 
+        //1.随机选择基准元素
         int key = getRandom(nums, l, r);
+
+        //2.根据基准元素将数组分为三块
         int left = l - 1;
         int right = r + 1;
         int i = l;
@@ -38,6 +41,7 @@ public:
             }
         }
 
+        //3.分情况讨论
         int c = r - right + 1;
         int b = right - left - 1;
 
