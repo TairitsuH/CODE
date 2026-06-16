@@ -1,19 +1,22 @@
 class Solution {
 public:
-    int mySqrt(int x)
-    {
-        if(x == 0) return 0;
-        else if(x == 1) return 1;
-        long long left = 1, right = x/2;
-        long long mid;
-        while(left < right)
-        {
-            mid = left + (right - left + 1) / 2;
-            if(mid * mid <= x) left = mid;
-            else right = mid - 1; //有-1时mid补+1
+    int mySqrt(int x) {
+        // 由于两个较大的数相乘可能会超过 int 最大范围，因此用 long long
+        long long i = 0;
+        
+        for (i = 0; i <= x; i++) {
+            // 如果两个数相乘正好等于 x，直接返回 i
+            if (i * i == x) {
+                return i;
+            }
+            // 如果第一次出现两个数相乘大于 x，说明结果是前一个数
+            if (i * i > x) {
+                return i - 1;
+            }
         }
-        return left;
+        
+        // 为了处理 OJ 题需要控制所有路径都有返回值
+        return -1;
     }
 };
-
 //二分查找，本质模板题
