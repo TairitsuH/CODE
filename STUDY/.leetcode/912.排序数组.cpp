@@ -9,37 +9,31 @@ class Solution {
 public:
     vector<int> tmp;
 
-    void Merge_Sort(vector<int>& nums, vector<int>& tmp, int left, int right)
+    void Merge_Sort(vector<int>& nums, vector<int>& tmp,  int left, int right)
     {
         if(left >= right) return;
 
+
         int mid = (left + right) / 2;
-
-        Merge_Sort(nums, tmp, left, mid);
-        Merge_Sort(nums, tmp, mid + 1, right);
-
         int begin1 = left;
         int end1 = mid;
         int begin2 = mid + 1;
         int end2 = right;
         int i = left;
+        
+        Merge_Sort(nums, tmp, left, mid);
+        Merge_Sort(nums, tmp, mid + 1, right);
 
         while(begin1 <= end1 && begin2 <= end2)
         {
             tmp[i++] = nums[begin1] <= nums[begin2] ? nums[begin1++] : nums[begin2++];
         }
 
-        while(begin1 <= end1)
-        {
-            tmp[i++] = nums[begin1++];
-        }
+        while(begin1 <= end1) tmp[i++] = nums[begin1++];
 
-        while(begin2 <= end2)
-        {
-            tmp[i++] = nums[begin2++];
-        }
-
-        for(i=left; i<=right; i++)
+        while(begin2 <= end2) tmp[i++] = nums[begin2++];    
+        
+        for(int i=left; i<=right; i++)
         {
             nums[i] = tmp[i];
         }
@@ -54,7 +48,55 @@ public:
 };
 // @lc code=end
 
+//四刷：归并排序，注意排序的时机！（后序
 //三刷：归并排序，好久不练生疏了...打算现在遇到相关的就回去瞄一眼
+// class Solution {
+// public:
+//     vector<int> tmp;
+
+//     void Merge_Sort(vector<int>& nums, vector<int>& tmp, int left, int right)
+//     {
+//         if(left >= right) return;
+
+//         int mid = (left + right) / 2;
+
+//         Merge_Sort(nums, tmp, left, mid);
+//         Merge_Sort(nums, tmp, mid + 1, right);
+
+//         int begin1 = left;
+//         int end1 = mid;
+//         int begin2 = mid + 1;
+//         int end2 = right;
+//         int i = left;
+
+//         while(begin1 <= end1 && begin2 <= end2)
+//         {
+//             tmp[i++] = nums[begin1] <= nums[begin2] ? nums[begin1++] : nums[begin2++];
+//         }
+
+//         while(begin1 <= end1)
+//         {
+//             tmp[i++] = nums[begin1++];
+//         }
+
+//         while(begin2 <= end2)
+//         {
+//             tmp[i++] = nums[begin2++];
+//         }
+
+//         for(i=left; i<=right; i++)
+//         {
+//             nums[i] = tmp[i];
+//         }
+//     }
+
+//     vector<int> sortArray(vector<int>& nums)
+//     {
+//         tmp.resize(nums.size());
+//         Merge_Sort(nums, tmp, 0, nums.size() - 1);
+//         return nums;
+//     }
+// };
 //二刷：快速排序，整体偏套路化，注意一些细节
 // class Solution {
 // public:
