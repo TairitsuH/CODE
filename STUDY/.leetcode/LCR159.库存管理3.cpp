@@ -1,52 +1,95 @@
 class Solution {
 public:
-    void Quick_Sort_K(vector<int>& arr, int l, int r, int k)
+    void Quick_Sort_K(vector<int>& nums, int l, int r, int k)
     {
-        if(l == r) return;
+        if(l >= r) return;
 
-        int key = getRandom(arr, l, r);
+        int key = getRandom(nums, l,r);
         int left = l - 1;
-        int right  = r + 1;
+        int right = r + 1;
         int i = l;
         
         while(i < right)
         {
-            if(arr[i] < key)
-            {
-                swap(arr[++left], arr[i++]);
-            }
-            else if(arr[i] > key)
-            {
-                swap(arr[--right], arr[i]);
-            }
-            else
-            {
-                i++;
-            }
+            if(nums[i] < key) swap(nums[++left], nums[i++]);
+            else if(nums[i] > key) swap(nums[--right], nums[i]);
+            else i++; 
         }
 
         int a = left - l + 1;
         int b = right - left - 1;
 
-        if(k < a) Quick_Sort_K(arr, l, left, k);
+        if(k <= a) Quick_Sort_K(nums, l, left, k);
         else if(k <= a + b) return;
-        else Quick_Sort_K(arr, right, r, k - a - b);
+        else Quick_Sort_K(nums, right, r, k - a - b);
     }
 
-    int getRandom(vector<int>& arr, int l, int r)
+    int getRandom(vector<int>& nums, int l, int r)
     {
-        return arr[rand() % (r - l + 1) + l];
+        return nums[rand() % (r - l) + l];
     }
 
     vector<int> inventoryManagement(vector<int>& stock, int cnt)
     {
-        if(stock.size() == 0) return {};
-
         srand(time(NULL));
+
         Quick_Sort_K(stock, 0, stock.size()-1, cnt);
 
         return {stock.begin(), stock.begin() + cnt};
+
+
     }
 };
 
+//二刷：整体代码和细节都处理得很好！注意一下i从l开始就行
 //本题和17.19相同，都是返回前k小的数，不计顺序
+// class Solution {
+// public:
+//     void Quick_Sort_K(vector<int>& arr, int l, int r, int k)
+//     {
+//         if(l == r) return;
+
+//         int key = getRandom(arr, l, r);
+//         int left = l - 1;
+//         int right  = r + 1;
+//         int i = l;
+        
+//         while(i < right)
+//         {
+//             if(arr[i] < key)
+//             {
+//                 swap(arr[++left], arr[i++]);
+//             }
+//             else if(arr[i] > key)
+//             {
+//                 swap(arr[--right], arr[i]);
+//             }
+//             else
+//             {
+//                 i++;
+//             }
+//         }
+
+//         int a = left - l + 1;
+//         int b = right - left - 1;
+
+//         if(k < a) Quick_Sort_K(arr, l, left, k);
+//         else if(k <= a + b) return;
+//         else Quick_Sort_K(arr, right, r, k - a - b);
+//     }
+
+//     int getRandom(vector<int>& arr, int l, int r)
+//     {
+//         return arr[rand() % (r - l + 1) + l];
+//     }
+
+//     vector<int> inventoryManagement(vector<int>& stock, int cnt)
+//     {
+//         if(stock.size() == 0) return {};
+
+//         srand(time(NULL));
+//         Quick_Sort_K(stock, 0, stock.size()-1, cnt);
+
+//         return {stock.begin(), stock.begin() + cnt};
+//     }
+// };

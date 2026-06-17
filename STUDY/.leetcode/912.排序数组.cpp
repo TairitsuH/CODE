@@ -8,14 +8,14 @@
 class Solution {
 public:
     vector<int> tmp;
-    void Merge_Sort(vector<int>& nums, vector<int>& tmp, int left, int right)
+    void Merge_Sort(vector<int>& nums, int left, int right)
     {
         if(left >= right) return;
 
         int mid = (left + right) / 2;
 
-        Merge_Sort(nums, tmp, left, mid);
-        Merge_Sort(nums,tmp,  mid + 1, right);
+        Merge_Sort(nums, left, mid);
+        Merge_Sort(nums, mid + 1, right);
 
         int begin1 = left;
         int end1 = mid;
@@ -40,7 +40,7 @@ public:
     vector<int> sortArray(vector<int>& nums)
     {
         tmp.resize(nums.size());
-        Merge_Sort(nums, tmp, 0, nums.size() - 1);
+        Merge_Sort(nums, 0, nums.size() - 1);
 
         return nums;
     }
