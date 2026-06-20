@@ -38,7 +38,7 @@ public:
         return {stock.begin(), stock.begin() + cnt};
 
 
-    }
+    }//
 };
 
 //二刷：整体代码和细节都处理得很好！注意一下i从l开始就行
