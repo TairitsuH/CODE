@@ -14,14 +14,16 @@ public:
 
     vector<int> countSmaller(vector<int>& nums)
     {
-        index.resize(nums.size());
-        tmp_in.resize(nums.size());
-        tmp_nums.resize(nums.size());
-        ret.resize(nums.size(), 0);
+        int n = nums.size();
 
-        for(int i=0; i<nums.size(); i++) index[i] = i;
+        index.resize(n);
+        ret.resize(n);
+        tmp_nums.resize(n);
+        tmp_in.resize(n);
 
-        Merge_Sort(nums, index, 0, nums.size() - 1);
+        for(int i=0; i<n; i++) index[i] = i;
+
+        Merge_Sort(nums, index, 0, n - 1);
 
         return ret;
     }
@@ -74,12 +76,7 @@ public:
             nums[k] = tmp_nums[k - left];
             index[k] = tmp_in[k - left];
         }
-
-        for(auto x : ret)
-        {
-            cout << x << " ";
-        }
-        cout << endl;
     }
 };
 // @lc code=end
+//一刷：归并排序，需要两个数组和两个辅助数组，搞清楚下标逻辑后还是很好处理的
