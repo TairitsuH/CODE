@@ -24,7 +24,7 @@ public:
 };
 
 //二刷：试了下各种解法
-//求和相减
+// //求和相减
 // class Solution {
 // public:
 //     int takeAttendance(vector<int>& records)
@@ -56,7 +56,7 @@ public:
 //         return ret ^= num;
 //     }
 // };
-//直接遍历找结果
+// // 直接遍历找结果
 // class Solution {
 // public:
 //     int takeAttendance(vector<int>& records)
@@ -73,7 +73,7 @@ public:
 //         return i; 
 //     }
 // };
-//哈希表
+// 哈希表
 // class Solution {
 // public:
 //     int takeAttendance(vector<int>& records)
