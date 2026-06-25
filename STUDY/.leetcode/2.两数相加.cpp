@@ -20,14 +20,14 @@ public:
     typedef ListNode Node;
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2)
     {
-        Node* newhead = new Node(0);
-        Node* prev = newhead;
+        Node* newhead = new Node(0); //虚拟头节点
+        Node* prev = newhead; //尾指针
 
         Node* cur1 = l1;
         Node* cur2 = l2;
-        int s = 0;
+        int s = 0; //记录进位
 
-        while(cur1 || cur2 || s)
+        while(cur1 || cur2 || s) 
         {
             if(cur1)
             {
@@ -47,7 +47,7 @@ public:
         }
 
         prev = newhead->next;
-        delete newhead;
+        delete newhead; //销毁虚拟头节点
 
         return prev;
     }
