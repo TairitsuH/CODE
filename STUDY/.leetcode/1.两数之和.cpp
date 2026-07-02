@@ -11,15 +11,14 @@ public:
     {
         unordered_map<int, int> hash;
 
-        int n = nums.size();
-        for(int i=0; i<n; i++)
+        for(int i=0; i<nums.size(); i++)
         {
-            int key = target - nums[i];
-            if(hash.count(key))
+            int x = target - nums[i];
+            if(hash.count(x))
             {
-                return {i, hash[key]};
+                return {hash[x], i};
             }
-
+            
             hash.insert({nums[i], i});
         }
 
@@ -28,7 +27,29 @@ public:
 };
 // @lc code=end
 
+//三刷：用哈希表从前往后存储数组中的数
 //二刷：哈希表，存储cur之前的数，再在哈希表中找组合，时空复杂度都是O(N)
+// class Solution {
+// public:
+//     vector<int> twoSum(vector<int>& nums, int target)
+//     {
+//         unordered_map<int, int> hash;
+
+//         int n = nums.size();
+//         for(int i=0; i<n; i++)
+//         {
+//             int key = target - nums[i];
+//             if(hash.count(key))
+//             {
+//                 return {i, hash[key]};
+//             }
+
+//             hash.insert({nums[i], i});
+//         }
+
+//         return {-1, -1};
+//     }
+// };
 //一刷：暴力枚举，和之前的数配对看是否满足目标值，时间复杂度O(N^2)
 // class Solution {
 // public:

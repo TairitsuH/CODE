@@ -9,15 +9,16 @@ class Solution {
 public:
     bool containsDuplicate(vector<int>& nums)
     {
-        unordered_set<int> heap;
+        unordered_set<int> hash;
 
         for(auto x : nums)
         {
-            if(heap.count(x))
+            if(hash.count(x))
             {
                 return true;
             }
-            heap.insert(x);
+
+            hash.insert(x);
         }
 
         return false;
@@ -25,4 +26,23 @@ public:
 };
 // @lc code=end
 
+//二刷：注意什么时候用set，什么时候用map！
 //一刷：哈希表，一边遍历一边存储
+// class Solution {
+// public:
+//     bool containsDuplicate(vector<int>& nums)
+//     {
+//         unordered_set<int> heap;
+
+//         for(auto x : nums)
+//         {
+//             if(heap.count(x))
+//             {
+//                 return true;
+//             }
+//             heap.insert(x);
+//         }
+
+//         return false;
+//     }
+// };
