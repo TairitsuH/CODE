@@ -10,26 +10,51 @@ public:
     string longestCommonPrefix(vector<string>& strs)
     {
         int n = strs.size();
-        int m = strs[0].size();
-
-        for(int i=0; i<m; i++)
+        
+        string ret = strs[0];
+        for(int i=0; i<ret.size(); i++)
         {
-            char ch = strs[0][i];
             for(int j=1; j<n; j++)
             {
-                if(i == strs[j].size() || ch != strs[j][i])
+                int m = strs[j].size();
+                if(i >= m || ret[i] != strs[j][i])
                 {
-                    return strs[0].substr(0, i);
-                }
+                    ret = ret.substr(0, i);
+                    break;
+                }  
             }
         }
 
-        return strs[0];
+        return ret;
     }
 };
 // @lc code=end
 
+//三刷：统一比较字符串中的每一位，注意ret的更新需要写在if内部
 //二刷：统一比较全部字符的每一位
+// class Solution {
+// public:
+//     string longestCommonPrefix(vector<string>& strs)
+//     {
+//         int n = strs.size();
+//         int m = strs[0].size();
+
+//         for(int i=0; i<m; i++)
+//         {
+//             char ch = strs[0][i];
+//             for(int j=1; j<n; j++)
+//             {
+//                 if(i == strs[j].size() || ch != strs[j][i])
+//                 {
+//                     return strs[0].substr(0, i);
+//                 }
+//             }
+//         }
+
+//         return strs[0];
+//     }
+// };
+
 //一刷：两两比较，然后和其他字符串比较。注意字符串为空的情况！
 // class Solution {
 // public:
