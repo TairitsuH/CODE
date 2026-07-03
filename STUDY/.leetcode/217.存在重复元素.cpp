@@ -10,7 +10,6 @@ public:
     bool containsDuplicate(vector<int>& nums)
     {
         unordered_set<int> hash;
-
         for(auto x : nums)
         {
             if(hash.count(x))
@@ -26,7 +25,26 @@ public:
 };
 // @lc code=end
 
-//二刷：注意什么时候用set，什么时候用map！
+//二刷：注意什么时候用set（是否出现），什么时候用map（出现次数）！
+// class Solution {
+// public:
+//     bool containsDuplicate(vector<int>& nums)
+//     {
+//         unordered_set<int> hash;
+
+//         for(auto x : nums)
+//         {
+//             if(hash.count(x))
+//             {
+//                 return true;
+//             }
+
+//             hash.insert(x);
+//         }
+
+//         return false;
+//     }
+// };
 //一刷：哈希表，一边遍历一边存储
 // class Solution {
 // public:
