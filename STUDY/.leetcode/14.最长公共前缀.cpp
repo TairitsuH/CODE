@@ -19,6 +19,8 @@ public:
                 int m = strs[j].size();
                 if(i >= m || ret[i] != strs[j][i])
                 {
+
+                    
                     ret = ret.substr(0, i);
                     break;
                 }  
