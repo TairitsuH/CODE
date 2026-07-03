@@ -16,7 +16,7 @@ public:
             string tmp = s;
             sort(tmp.begin(), tmp.end());
 
-            if(hash.count(tmp))
+            if(hash.count(tmp)) //或者直接hash[tmp]，会自动插入
             {
                 hash[tmp].push_back(s);
             }
