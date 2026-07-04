@@ -14,32 +14,68 @@ public:
         int n = b.size();
         int next = 0;
 
-        for(int cur1 = m - 1, cur2 = n - 1; cur1 >= 0 || cur2 >= 0; cur1--, cur2--)
+        for(int i=m-1, j=n-1; i>=0 || j>=0; i--,j--)
         {
-            if(cur1 >= 0)
+            if(i >= 0)
             {
-                next += a[cur1] - '0';
+                next += a[i] - '0';
             }
-            if(cur2 >= 0)
+
+            if(j >= 0)
             {
-                next += b[cur2] - '0';
+                next += b[j] - '0';
             }
 
             ret += next % 2 + '0';
             next /= 2;
         }
 
-        while(next > 0)
+        while(next != 0)
         {
             ret += next % 2 + '0';
             next /= 2;
         }
 
         reverse(ret.begin(), ret.end());
-
         return ret;
     }
 };
 // @lc code=end
 
+//二刷：注意逆置ret
 //一刷：需要逆置ret，另外注意for循环中判断结束的条件是||！
+// class Solution {
+// public:
+//     string addBinary(string a, string b)
+//     {
+//         string ret = "";
+//         int m = a.size();
+//         int n = b.size();
+//         int next = 0;
+
+//         for(int cur1 = m - 1, cur2 = n - 1; cur1 >= 0 || cur2 >= 0; cur1--, cur2--)
+//         {
+//             if(cur1 >= 0)
+//             {
+//                 next += a[cur1] - '0';
+//             }
+//             if(cur2 >= 0)
+//             {
+//                 next += b[cur2] - '0';
+//             }
+
+//             ret += next % 2 + '0';
+//             next /= 2;
+//         }
+
+//         while(next > 0)
+//         {
+//             ret += next % 2 + '0';
+//             next /= 2;
+//         }
+
+//         reverse(ret.begin(), ret.end());
+
+//         return ret;
+//     }
+// };
