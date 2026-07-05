@@ -59,7 +59,7 @@ public:
             tail = cur1;
         }
 
-        prev->next = cur1;
+        prev->next = cur1; //链接剩余节点
 
         Node* ret = newhead->next;
         delete newhead;
