@@ -12,25 +12,22 @@ public:
         int n = nums.size();
         vector<int> fx(n, 1);
         vector<int> gx(n, 1);
-        
-        fx[0] = nums[0];
-        gx[n - 1] = nums[n - 1];
 
-        for(int i=1; i<n-1; i++)
+        for(int i=1; i<n; i++)
         {
-            fx[i] = fx[i - 1] * nums[i];
+            fx[i] = fx[i - 1] * nums[i - 1];
         }
 
         for(int i=n-2; i>=0; i--)
         {
-            gx[i] = gx[i + 1] * nums[i];
+            gx[i] = gx[i + 1] * nums[i + 1];
         }
 
         vector<int> ret;
         for(int i=0; i<n; i++)
         {
-            int left = (i == 0 ? 1 : fx[i - 1]);
-            int right = (i == n-1 ? 1 : gx[i + 1]);
+            int left = fx[i];
+            int right = gx[i];
 
             ret.push_back(left * right);
         }

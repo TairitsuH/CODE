@@ -9,16 +9,16 @@ class Solution {
 public:
     int subarraysDivByK(vector<int>& nums, int k)
     {
-        unordered_map<int, int> hash;
+        unordered_map<int, int> hash; //存储余数+出现次数
 
         int sum = 0, ret = 0;
-        hash[0] = 1;
+        hash[0] = 1; //0位置初始化为1，因为0是可以整除任何数的元素
 
         for(auto x : nums)
         {
             sum += x;
             int r = (sum % k + k) % k;
-            if(hash.count(r) != 0)
+            if(hash.count(r))
             {
                 ret += hash[r]; //sum范围内所有余数为r的子区间都满足
             }
