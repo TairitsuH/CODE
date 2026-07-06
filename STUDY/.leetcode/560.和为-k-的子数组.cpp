@@ -10,7 +10,7 @@ public:
     int subarraySum(vector<int>& nums, int k)
     {
         unordered_map<int, int> hash;
-        int sum = 0, cnt = 0;
+        int sum = 0, cnt = 0; //sum存储前一个位置的前缀和
         hash[0] = 1;
         
         for(auto x : nums)
