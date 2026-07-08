@@ -25,7 +25,7 @@ public:
             }
             else
             {
-                hash[sum] = i; 
+                hash[sum] = i;
             }
         }
 
