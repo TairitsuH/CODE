@@ -1,3 +1,5 @@
+//50min
+//类型转换重载，string和char[]
 #include<iostream>
 #include<string.h>
 #include<string>
