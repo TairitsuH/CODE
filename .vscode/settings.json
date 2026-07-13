@@ -1,3 +1,5 @@
 {
-    "cmake.sourceDirectory": "D:/CODE/PROJECT/String"
+    "cmake.sourceDirectory": "D:/CODE/PROJECT/String",
+    "C_Cpp.errorSquiggles": "disabled",
+    "C_Cpp.default.compilerPath": "D:/LeStoreDownload/winlibs/mingw64/bin/g++.exe"
 }
