@@ -8,19 +8,35 @@ class Solution {
 public:
     void moveZeroes(vector<int>& nums)
     {
-        for(int cur=0, dest =-1; cur<nums.size(); cur++)
+        int n = nums.size();
+        for(int left=-1, right=0; right < n; right++)
         {
-            if(nums[cur] != 0)
+            if(nums[right] != 0)
             {
-                dest++;
-                swap(nums[cur], nums[dest]);
+                left++;
+                swap(nums[left], nums[right]);
             }
-        }  
+        }
     }
 };
 
 // @lc code=end
+//四刷：双指针,left起始位置设置为-1会更好做，另外一定要画图！
 //三刷：dest设置在最后一个非零数的位置
+// class Solution {
+// public:
+//     void moveZeroes(vector<int>& nums)
+//     {
+//         for(int cur=0, dest =-1; cur<nums.size(); cur++)
+//         {
+//             if(nums[cur] != 0)
+//             {
+//                 dest++;
+//                 swap(nums[cur], nums[dest]);
+//             }
+//         }  
+//     }
+// };
 //二刷：确定好快慢指针的动向
 // class Solution {
 // public:
