@@ -1,4 +1,5 @@
 #pragma once
+#include<utility>
 
 //枚举值表示颜色
 enum Colour
@@ -11,13 +12,14 @@ enum Colour
 template<class T>
 struct RBTreeNode
 {
+public:
     T _data; //让节点可以同时用于set(key)和map(pair)
-
     RBTreeNode<T>* _left;
     RBTreeNode<T>* _right;
     RBTreeNode<T>* _parent;
     Colour _col;
 
+    //构造函数
     RBTreeNode(const T& data)
         :_data(data)
         ,_left(nullptr)
@@ -31,10 +33,10 @@ struct RBTreeNode
 template<class T, class Ref, class Ptr>
 struct RBTreeIterator
 {
+public:
     typedef RBTreeNode<T> Node; //节点类型
     typedef RBTreeIterator<T, T&, T*> Self; //红黑树迭代器（根据RBTreeIterator的模板）
 
-    //成员变量
     Node* _node;
     Node* _root;
 
@@ -44,50 +46,87 @@ struct RBTreeIterator
         ,_root(root)
     {}
 
-    //++
+    //重载++
     Self& operator++()
     {
-        Node* cur = *this;
-        Node* parent = cur->_parent;
-        //父节点右子树不为空
-        if (!parent->right)
+        //1.右不为空，则下一个节点为右子树的最左节点
+        if (_node->_right)
         {
+            Node* leftmost = _node->_right;
+            while (leftmost && leftmost->_left)
+            {
+                leftmost = leftmost->_left;
+            }
 
+            _node = leftmost;
         }
-        while (parent && parent->_right)
+        //2.右为空，向上查找直至该节点为左孩子时，返回父节点
+        else
         {
-            parent = parent->_right;
-            cur = parent->_left;
+            Node* cur = _node;
+            Node* parent = _node->_parent;
+            while (parent && cur == parent->_right)
+            {
+                cur = parent;
+                parent = parent->_parent;
+            }
+
+            _node = parent;
         }
 
-        return RBTreeIterator(cur, _root);
+        return *this;
     }
 
-    //--
+    //重载--
     Self& operator--()
     {
+        //1.根节点，找树最右侧节点
+        if (_node == _root)
+        {
+            Node* rightmost = _node;
+            while (rightmost && rightmost->_right)
+            {
+                rightmost = rightmost->_right;
+            }
 
+            _node = rightmost;
+        }
+        //2.左为空，向上查找直至该节点为右孩子时，返回父节点
+        else
+        {
+            Node* cur = _node;
+            Node* parent = _node->_parent;
+            while (parent && cur == parent->_left)
+            {
+                cur = parent;
+                parent = parent->_parent;
+            }
+
+            _node = parent;
+        }
+
+        return *this;
     }
 
-    //*
-    Self& operator*()
+    //重载*：返回整个对象（解引用）
+    Ref operator*()
     {
-
+        return _node->_data;
     }
 
-    //->
-    Self& operator->()
+    //重载->：返回对象内部成员的地址
+    Ptr operator->()
     {
-
+        return &_node->_data;
     }
 
-    //!=
+    //重载!=
     bool operator!=(const Self& s) const
     {
         return _node != s._node;
     }
 
-    //==
+    //重载==
     bool operator==(const Self& s) const
     {
         return _node == s._node;
@@ -106,51 +145,59 @@ public:
     typedef RBTreeIterator<T, T&, T*> Iterator;
     typedef RBTreeIterator<T, const T&, const T*> ConstIterator;
 
-    //迭代器Begin
+    //迭代器Begin：找树的最左节点
     Iterator Begin()
     {
-        Node* cur = _root;
-        while (cur && cur->_left)
+        Node* leftmost = _root;
+        while (leftmost && leftmost->_left)
         {
-            cur = cur->_left;
+            leftmost = leftmost->_left;
         }
 
-        return RBTreeIterator(cur, _root);
+        Iterator ret = Iterator(leftmost, _root);
+        return ret; //或者直接返回构造return RBTreeIterator(leftmost, _root);
     }
 
-    //迭代器End
+    //迭代器End：根节点的_parent，即空指针
     Iterator End()
     {
-        return RBTreeIterator(nullptr, _root);
+        return Iterator(nullptr, _root);
     }
 
     //迭代器ConstBegin
     ConstIterator Begin() const
     {
-        Node* cur = _root;
-        while (cur && cur->_left)
+        Node* leftmost = _root;
+        while (leftmost && leftmost->_left)
         {
-            cur = cur->_left;
+            leftmost = leftmost->_left;
         }
 
-        return ConstRBTreeIterator(cur, _root);
+        return ConstIterator(leftmost, _root);
     }
 
     //迭代器ConstEnd
     ConstIterator End() const
     {
-        return ConstRBTreeIterator(nullptr, _root);
+        return ConstIterator(nullptr, _root);
+    }
+
+    //析构函数
+    ~RBTree()
+    {
+        Destroy(_root);
+        _root = nullptr;
     }
 
     //插入
-    bool Insert(const T& data)
+    pair<Iterator, bool> Insert(const T& data)
     {
         //根
         if (!_root)
         {
             _root = new Node(data);
             _root->_col = BLACK;
-            return true;
+            return {Iterator(_root, _root), true}; //改成iterator的形式
         }
 
         //非根
@@ -171,7 +218,7 @@ public:
             }
             else
             {
-                return false;
+                return {Iterator(cur, _root), false}; //改成iterator的形式
             }
         }
 
@@ -191,7 +238,7 @@ public:
         cur->_parent = parent;
 
         //旋转调整
-        while (parent&& parent->_col = RED)
+        while (parent&& parent->_col == RED)
         {
             Node* grandfather = parent->_parent;
 
@@ -271,9 +318,34 @@ public:
         //一律设置为黑
         _root->_col = BLACK;
 
-        return true;
+        return { Iterator(cur, _root), true}; //改成iterator的形式
     }
 
+    //通过key查找
+    Iterator Find(const K& key)
+    {
+        KeyOfT kot; //比较逻辑（可以像类一样使用）
+        Node* cur = _root;
+        while (cur)
+        {
+            if (kot(cur->_data) > key)
+            {
+                cur = cur->_left;
+            }
+            else if (kot(cur->_data) < key)
+            {
+                cur = cur->_right;
+            }
+            else
+            {
+                return Iterator(cur, _root);
+            }
+        }
+
+        return End();
+    }
+
+private:
     //右旋
     void RotateR(Node* pParent)
     {
@@ -357,26 +429,13 @@ public:
         }
     }
 
-    //通过key查找
-    Iterator Find(const K& key)
+    //递归销毁
+    void Destroy(Node* root)
     {
-        Node* cur = _root;
-        while (cur)
-        {
-            if (kot(cur->_data) > key)
-            {
-                cur = cur->_left;
-            }
-            else if (kot(cur->_data) < key)
-            {
-                cur = cur->_right;
-            }
-            else
-            {
-                return cur;
-            }
-        }
+        if (root == nullptr) return;
 
-        return End();
+        Destroy(root->_left);
+        Destroy(root->_right);
+        delete root;
     }
 };
