@@ -14,7 +14,7 @@
             "compilerPath": "D:/LeStoreDownload/winlibs/mingw64/bin/g++.exe",
             "cStandard": "c17",
             "cppStandard": "c++11",
-            "intelliSenseMode": "windows-msvc-x64",
+            "intelliSenseMode": "windows-gcc-x64",
             "configurationProvider": "ms-vscode.cmake-tools"
         }
     ],
