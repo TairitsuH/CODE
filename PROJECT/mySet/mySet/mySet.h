@@ -1,6 +1,9 @@
 #pragma once
 #include<utility>
 #include "RBTree.h"
+using namespace std;
+
+
 namespace mzh
 {
 	template<class K>
@@ -47,6 +50,7 @@ namespace mzh
 		//插入
 		pair<iterator, bool> insert(const K& key)
 		{
+			//_t.Insert(key);
 			return _t.Insert(key);
 		}
 

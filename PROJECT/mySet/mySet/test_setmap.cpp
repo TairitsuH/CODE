@@ -1,4 +1,5 @@
 #include<iostream>
+#include<utility>
 #include "myMap.h"
 #include "mySet.h"
 #include "RBTree.h"
@@ -24,7 +25,12 @@ void test_set()
 {
     set<int> s;
     int a[] = { 4, 2, 6, 1, 3, 5, 15, 7, 16, 14 };
+    int b[] = { 72, 19, 45, 8, 93, 31, 57, 62, 14, 87 };
     for (auto e : a)
+    {
+        s.insert(e);
+    }
+    for (auto e : b)
     {
         s.insert(e);
     }
@@ -36,4 +42,9 @@ void test_set()
     cout << endl;
 
     Print(s);
+}
+
+int main()
+{
+    test_set();
 }

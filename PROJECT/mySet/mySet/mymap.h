@@ -1,15 +1,13 @@
 #pragma once
 namespace mzh
 {
+	struct myMap
+	{
+	private:
 
+
+	public:
+
+	};
 }
 
-
-struct myMap
-{
-private:
-
-
-public:
-
-};
