@@ -44,7 +44,39 @@ void test_set()
     Print(s);
 }
 
+void test_map()
+{
+    map<string, string> dict;
+    dict.insert({ "sort", "排序" });
+    dict.insert({ "left", "左边" });
+    dict.insert({ "right", "右边" });
+
+    dict["left"] = "左边，剩余";
+    dict["insert"] = "插⼊";
+    dict["string"];
+
+    map<string, string>::iterator it = dict.begin();
+    while (it != dict.end())
+    {
+        // 不能修改first，可以修改second
+        //it->first += 'x';
+        it->second += " hehe";
+
+        cout << it->first << ":" << it->second << endl;
+        ++it;
+    }
+    cout << endl;
+}
+
+
 int main()
 {
+    cout << "test_set:" << endl;
     test_set();
+    cout << endl;
+    cout << "test_map:" << endl;
+    test_map();
+    cout << endl;
+    cout << "end" << endl;
 }
+

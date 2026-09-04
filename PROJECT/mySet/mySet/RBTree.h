@@ -50,7 +50,6 @@ namespace mzh
             :_node(node)
             , _root(root)
         {
-            cout << "Instructor" << endl;
         }
 
         //重载++
@@ -87,10 +86,10 @@ namespace mzh
         //重载--
         Self& operator--()
         {
-            //1.根节点，找树最右侧节点
-            if (_node == _root)
+            //1.节点为end()，则找树的最右侧节点
+            if (_node == nullptr)
             {
-                Node* rightmost = _node;
+                Node* rightmost = _root;
                 while (rightmost && rightmost->_right)
                 {
                     rightmost = rightmost->_right;
@@ -98,12 +97,23 @@ namespace mzh
 
                 _node = rightmost;
             }
-            //2.左为空，向上查找直至该节点为右孩子时，返回父节点
+            //2.左子树不为空，找左子树的最右节点
+            else if (_node->_left)
+            {
+                Node* rightmost = _node->_left;
+                while (rightmost->_right)
+                {
+                    rightmost = rightmost->_right;
+                }
+
+                _node = rightmost;
+            }
+            //2.左子树为空，向上查找直至该节点为右孩子时，返回父节点
             else
             {
                 Node* cur = _node;
                 Node* parent = _node->_parent;
-                while (parent && cur == parent->_left)
+                while (parent && cur != parent->_right)
                 {
                     cur = parent;
                     parent = parent->_parent;
