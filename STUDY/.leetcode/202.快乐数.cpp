@@ -7,33 +7,62 @@
 // @lc code=start
 class Solution {
 public:
-    int addsum(int n)
+    int addperseat(int n)
     {
-        int sum = 0;
+        int ret = 0;
         while(n)
         {
-            sum += pow(n % 10, 2);
+            ret += pow(n % 10, 2);
             n /= 10;
         }
-        return sum;
+
+        return ret;
     }
+
     bool isHappy(int n)
     {
-        unordered_set<int> hash;
-        int num = addsum(n);
-        while(hash.find(num) == hash.end())
+        int slow = addperseat(n); 
+        int fast = addperseat(addperseat(n));
+        do
         {
-            if(num == 1) return true;
-            
-            hash.insert(num);
-            num = addsum(num);
+            if(fast == 1 || slow == 1) return true;
+            fast = addperseat(addperseat(fast));
+            slow = addperseat(slow);
         }
-
+        while(slow != fast);
         return false;
     }
 };
 // @lc code=end
-//四刷：哈希表解法，用于统计是否重复
+//五刷：双指针循环链表解法
+//四刷：哈希表解法，用于统计是否重复，时空复杂度较高
+// class Solution {
+// public:
+//     int addsum(int n)
+//     {
+//         int sum = 0;
+//         while(n)
+//         {
+//             sum += pow(n % 10, 2);
+//             n /= 10;
+//         }
+//         return sum;
+//     }
+//     bool isHappy(int n)
+//     {
+//         unordered_set<int> hash;
+//         int num = addsum(n);
+//         while(hash.find(num) == hash.end())
+//         {
+//             if(num == 1) return true;
+            
+//             hash.insert(num);
+//             num = addsum(num);
+//         }
+
+//         return false;
+//     }
+// };
 //三刷：双指针解法，可以试试封装函数，化简表达
 // class Solution {
 // public:
