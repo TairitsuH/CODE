@@ -7,35 +7,63 @@
 // @lc code=start
 class Solution {
 public:
-    long long culSum(int num)
+    int addsum(int n)
     {
         int sum = 0;
-        while(num)
+        while(n)
         {
-            long long a = num % 10;
-            sum += a*a;
-            num /= 10;
+            sum += pow(n % 10, 2);
+            n /= 10;
         }
-
         return sum;
     }
-
     bool isHappy(int n)
     {
-        long long slow = n;
-        long long fast = culSum(n);
-
-        while(slow != fast)
+        unordered_set<int> hash;
+        int num = addsum(n);
+        while(hash.find(num) == hash.end())
         {
-            slow = culSum(slow);
-            fast = culSum(culSum(fast));
+            if(num == 1) return true;
+            
+            hash.insert(num);
+            num = addsum(num);
         }
 
-        return slow == 1;
+        return false;
     }
 };
 // @lc code=end
-//三刷：可以试试封装函数，化简表达
+//四刷：哈希表解法，用于统计是否重复
+//三刷：双指针解法，可以试试封装函数，化简表达
+// class Solution {
+// public:
+//     long long culSum(int num)
+//     {
+//         int sum = 0;
+//         while(num)
+//         {
+//             long long a = num % 10;
+//             sum += a*a;
+//             num /= 10;
+//         }
+
+//         return sum;
+//     }
+
+//     bool isHappy(int n)
+//     {
+//         long long slow = n;
+//         long long fast = culSum(n);
+
+//         while(slow != fast)
+//         {
+//             slow = culSum(slow);
+//             fast = culSum(culSum(fast));
+//         }
+
+//         return slow == 1;
+//     }
+// };
 //二刷：do-while循环yyds！最后总会进入循环，因此设置快慢指针，fast走两步，看相遇点是否为1
 // class Solution {
 // public:
