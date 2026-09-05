@@ -7,7 +7,7 @@
 // @lc code=start
 class Solution {
 public:
-    int addperseat(int n)
+    int addperpos(int n)
     {
         int ret = 0;
         while(n)
@@ -21,13 +21,13 @@ public:
 
     bool isHappy(int n)
     {
-        int slow = addperseat(n); 
-        int fast = addperseat(addperseat(n));
+        int slow = addperpos(n); 
+        int fast = addperpos(addperpos(n));
         do
         {
             if(fast == 1 || slow == 1) return true;
-            fast = addperseat(addperseat(fast));
-            slow = addperseat(slow);
+            fast = addperpos(addperpos(fast));
+            slow = addperpos(slow);
         }
         while(slow != fast);
         return false;
