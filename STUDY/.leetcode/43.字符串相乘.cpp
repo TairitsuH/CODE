@@ -38,7 +38,7 @@ public:
         }
 
         //处理前导零（对乘数为零的特殊处理）
-        while(ret.size() > 1 && ret.back() == '0')
+        while(ret.size() > 1 && ret.back() == '0') //留一个0
         {
             ret.pop_back();
         }
