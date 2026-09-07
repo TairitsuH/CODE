@@ -5,69 +5,121 @@
  */
 
 // @lc code=start
-
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums)
     {
         sort(nums.begin(), nums.end());
-
-        vector<vector<int>> vv;
-
+        vector<vector<int>> ret;
         int n = nums.size();
-        for(int i=0; i<n-2; i++)
+        for(int i=n-1; i>=2; i--)
         {
-            int left = i+1;
-            int right = n-1;
-            int flag = 0;
-
+            int left = 0;
+            int right = i - 1;
             while(left < right)
             {
-                if(nums[left] + nums[right] == -nums[i])
+                if(nums[left] + nums[right] > -nums[i])
                 {
-                    flag = 1;
-                    vv.push_back({nums[left], nums[right], nums[i]});
-
-                    left++;
-                    right--;
-
-                    //去重left和right
-                    while(left < right && nums[left-1] == nums[left])
-                    {
-                        left++;
-                    }
-
-                    while(left < right && nums[right+1] == nums[right])
-                    {
-                        right--;
-                    }
+                    --right;
                 }
-                else if(nums[left] + nums[right] > -nums[i])
+                else if(nums[left] + nums[right] < -nums[i])
                 {
-                    right--;
+                    ++left;
                 }
                 else
                 {
-                    left++;
+                    //去重x,y
+                    while(left < right && nums[left + 1] == nums[left])
+                    {
+                        ++left;
+                    }
+                    while(left < right && nums[right - 1] == nums[right])
+                    {
+                        --right;
+                    }
+
+                    ret.push_back({nums[left], nums[right], nums[i]});
+                    ++left;
+                    --right;
                 }
             }
 
             //去重i
-            if(flag == 1)
+            while(i >= 2 && nums[i] == nums[i - 1])
             {
-                while(i < n-2 && nums[i] == nums[i+1])
-                {
-                    i++;
-                }
+                --i;
             }
         }
 
-        return vv;
+
+        return ret;
     }
+
 };
 
+
 // @lc code=end
+//三刷：通过移动指针去重，很巧妙的解法。
 //二刷：排序+选定数据+双指针+去重
+// class Solution {
+// public:
+//     vector<vector<int>> threeSum(vector<int>& nums)
+//     {
+//         sort(nums.begin(), nums.end());
+
+//         vector<vector<int>> vv;
+
+//         int n = nums.size();
+//         for(int i=0; i<n-2; i++)
+//         {
+//             int left = i+1;
+//             int right = n-1;
+//             int flag = 0;
+
+//             while(left < right)
+//             {
+//                 if(nums[left] + nums[right] == -nums[i])
+//                 {
+//                     flag = 1;
+//                     vv.push_back({nums[left], nums[right], nums[i]});
+
+//                     left++;
+//                     right--;
+
+//                     //去重left和right
+//                     while(left < right && nums[left-1] == nums[left])
+//                     {
+//                         left++;
+//                     }
+
+//                     while(left < right && nums[right+1] == nums[right])
+//                     {
+//                         right--;
+//                     }
+//                 }
+//                 else if(nums[left] + nums[right] > -nums[i])
+//                 {
+//                     right--;
+//                 }
+//                 else
+//                 {
+//                     left++;
+//                 }
+//             }
+
+//             //去重i
+//             if(flag == 1)
+//             {
+//                 while(i < n-2 && nums[i] == nums[i+1])
+//                 {
+//                     i++;
+//                 }
+//             }
+//         }
+
+//         return vv;
+//     }
+// };
 //一刷：排序，暴力枚举，放进set里，然后放入vector。
 //超时了TAT
 // class Solution {
