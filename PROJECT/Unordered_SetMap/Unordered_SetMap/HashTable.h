@@ -71,11 +71,12 @@ namespace hash_bucket
 
 		HashNode(const T& data)
 			:_data(data)
-			,_next(nullptr)
-		{ }
+			, _next(nullptr)
+		{
+		}
 	};
 
-	template<class K, class T, class KeyOfT>
+	template<class K, class T, class KeyOfT, class Hash = HashFunc<K>>
 	class HashTable
 	{
 	private:
@@ -87,20 +88,21 @@ namespace hash_bucket
 		//构造函数
 		HashTable()
 			:_tables(__stl_next_prime(0))
-			,_n(0)
-		{}
+			, _n(0)
+		{
+		}
 
 		//拷贝构造(复用Insert，但是效率比手写深拷贝低)
 		HashTable(const HashTable& hst)
 			:_tables(__stl_next_prime(hst._tables.size() == 0 ? __stl_next_prime(0) : hst._tables.size())) //注意检验哈希表是否为空
-			,_n(0)
+			, _n(0)
 		{
 			for (size_t i = 0; i < hst._tables.size(); i++)
 			{
 				Node* cur = hst._tables[i];
 				while (cur)
 				{
-					this->Insert(cur->_kv);
+					this->Insert(cur->_data);
 					cur = cur->_next;
 				}
 			}
@@ -191,7 +193,7 @@ namespace hash_bucket
 			Node* cur = _tables[hashi];
 			while (cur)
 			{
-				if (kot(cur->_data) == key)
+				if (kot(cur->_data) == kot(data))
 				{
 					return cur;
 				}
@@ -205,8 +207,9 @@ namespace hash_bucket
 		//删除
 		bool Erase(const T& data)
 		{
+			KeyOfT kot;
 			Hash hash;
-			size_t hashi = hash(kot(data) % _tables.size());
+			size_t hashi = hash(kot(data)) % _tables.size();
 			Node* cur = _tables[hashi];
 
 			if (!cur) return false;
@@ -214,7 +217,7 @@ namespace hash_bucket
 			Node* prev = nullptr;
 			while (cur)
 			{
-				if (kot(cur->_data) == key)
+				if (kot(cur->_data) == kot(data))
 				{
 					//1.删除头节点
 					if (prev == nullptr)
