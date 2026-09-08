@@ -20,7 +20,7 @@ namespace mzh
 			}
 		};
 
-		hash_bucket::HashTable<K, pair<const K, V>, MapKeyOfT> _ht;
+		hash_bucket::HashTable<K, pair<const K, V>, MapKeyOfT, Hash> _ht;
 
 	public:
 		typedef typename hash_bucket::HashTable<K, pair<const K, V>, MapKeyOfT, Hash>::Iterator iterator;

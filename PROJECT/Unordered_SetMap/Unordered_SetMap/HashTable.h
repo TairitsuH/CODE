@@ -82,7 +82,7 @@ namespace hash_bucket
 	};
 
 	//迭代器
-	template<class K, class T, class Ref, class Ptr, class KeyOfT, class Hash = HashFunc<K>>
+	template<class K, class T, class Ref, class Ptr, class KeyOfT, class Hash>
 	struct HTIterator
 	{
 		typedef HashNode<T> Node;
@@ -163,7 +163,7 @@ namespace hash_bucket
 	};
 
 
-	template<class K, class T, class KeyOfT, class Hash = HashFunc<K>>
+	template<class K, class T, class KeyOfT, class Hash>
 	class HashTable
 	{
 	private:
