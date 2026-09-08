@@ -3,14 +3,6 @@
 #include<string>
 using namespace std;
 
-//状态栏
-enum State
-{
-	EXIST,
-	EMPTY,
-	DELETE
-};
-
 //key转成整型
 template<class K>
 struct HashFunc
@@ -120,6 +112,8 @@ namespace hash_bucket
 		//重载++
 		Self& operator++()
 		{
+			if (_node == nullptr) return *this;
+
 			//当前桶还有数据
 			if (_node->_next)
 			{
@@ -156,13 +150,9 @@ namespace hash_bucket
 
 			return *this;
 		}
-
-		//重载--
-
-
 	};
 
-
+	//哈希表
 	template<class K, class T, class KeyOfT, class Hash>
 	class HashTable
 	{
@@ -188,7 +178,7 @@ namespace hash_bucket
 
 		//拷贝构造(复用Insert，但是效率比手写深拷贝低)
 		HashTable(const HashTable& hst)
-			:_tables(__stl_next_prime(hst._tables.size() == 0 ? __stl_next_prime(0) : hst._tables.size())) //注意检验哈希表是否为空
+			:_tables(hst._tables.size())
 			, _n(0)
 		{
 			for (size_t i = 0; i < hst._tables.size(); i++)
@@ -298,11 +288,11 @@ namespace hash_bucket
 		}
 
 		//删除
-		bool Erase(const T& data)
+		bool Erase(const K& key)
 		{
 			KeyOfT kot;
 			Hash hash;
-			size_t hashi = hash(kot(data)) % _tables.size();
+			size_t hashi = hash(key) % _tables.size();
 			Node* cur = _tables[hashi];
 
 			if (!cur) return false;
@@ -310,7 +300,7 @@ namespace hash_bucket
 			Node* prev = nullptr;
 			while (cur)
 			{
-				if (kot(cur->_data) == kot(data))
+				if (kot(cur->_data) == key)
 				{
 					//1.删除头节点
 					if (prev == nullptr)
@@ -322,6 +312,7 @@ namespace hash_bucket
 						prev->_next = cur->_next;
 					}
 
+					--_n;
 					delete cur;
 					return true;
 				}
@@ -374,7 +365,7 @@ namespace hash_bucket
 
 		ConstIterator End() const
 		{
-			return ConstIterator(nullptr, this); //编译不通过的原因：构造函数内部的this指针非const
+			return ConstIterator(nullptr, this); //构造函数内部的this指针需要const修饰
 		}
 	};
 

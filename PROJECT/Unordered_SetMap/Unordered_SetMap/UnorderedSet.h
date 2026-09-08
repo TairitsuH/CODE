@@ -10,9 +10,7 @@ namespace mzh
 	private:
 		struct SetKeyOfT //返回key的仿函数
 		{
-			//返回值加const限制的是调用者（不能改返回值）
-			//括号后加const限制的是函数自己（不能改传入的值）
-			//括号内加const限制的是别人（不能通过函数改自己的成员）
+			//operator() 返回 const K& ，是为了保证提取出的 key 不可被上层修改
 			const K& operator()(const K& key)
 			{
 				return key;
@@ -55,14 +53,14 @@ namespace mzh
 			return _ht.End();
 		}
 
-		//迭代器const_begin
-		const_iterator const_begin() const
+		//const迭代器begin
+		const_iterator begin() const
 		{
 			return _ht.Begin();
 		}
 
-		//迭代器const_end
-		const_iterator const_end() const
+		//const迭代器end
+		const_iterator end() const
 		{
 			return _ht.End();
 		}
