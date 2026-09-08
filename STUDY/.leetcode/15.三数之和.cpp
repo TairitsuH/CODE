@@ -5,13 +5,15 @@
  */
 
 // @lc code=start
+
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums)
     {
-        sort(nums.begin(), nums.end());
         vector<vector<int>> ret;
+        sort(nums.begin(), nums.end());
         int n = nums.size();
+
         for(int i=n-1; i>=2; i--)
         {
             int left = 0;
@@ -28,38 +30,88 @@ public:
                 }
                 else
                 {
-                    //去重x,y
-                    while(left < right && nums[left + 1] == nums[left])
-                    {
-                        ++left;
-                    }
-                    while(left < right && nums[right - 1] == nums[right])
-                    {
-                        --right;
-                    }
-
+                    //在插入后记得移动指针
                     ret.push_back({nums[left], nums[right], nums[i]});
                     ++left;
                     --right;
+
+                    //去重1
+                    while(left < right && nums[left] == nums[left - 1])
+                    {
+                        ++left;
+                    }
+                    while(left < right && nums[right] == nums[right + 1])
+                    {
+                        --right;
+                    }
                 }
             }
 
-            //去重i
+            //去重2
             while(i >= 2 && nums[i] == nums[i - 1])
             {
                 --i;
             }
         }
 
-
         return ret;
     }
-
 };
 
-
 // @lc code=end
+//四刷：移动指针注意死循环的处理
 //三刷：通过移动指针去重，很巧妙的解法。
+// class Solution {
+// public:
+//     vector<vector<int>> threeSum(vector<int>& nums)
+//     {
+//         sort(nums.begin(), nums.end());
+//         vector<vector<int>> ret;
+//         int n = nums.size();
+//         for(int i=n-1; i>=2; i--)
+//         {
+//             int left = 0;
+//             int right = i - 1;
+//             while(left < right)
+//             {
+//                 if(nums[left] + nums[right] > -nums[i])
+//                 {
+//                     --right;
+//                 }
+//                 else if(nums[left] + nums[right] < -nums[i])
+//                 {
+//                     ++left;
+//                 }
+//                 else
+//                 {
+//                     //去重x,y
+//                     while(left < right && nums[left + 1] == nums[left])
+//                     {
+//                         ++left;
+//                     }
+//                     while(left < right && nums[right - 1] == nums[right])
+//                     {
+//                         --right;
+//                     }
+
+//                     ret.push_back({nums[left], nums[right], nums[i]});
+//                     ++left;
+//                     --right;
+//                 }
+//             }
+
+//             //去重i
+//             while(i >= 2 && nums[i] == nums[i - 1])
+//             {
+//                 --i;
+//             }
+//         }
+
+
+//         return ret;
+//     }
+
+// };
 //二刷：排序+选定数据+双指针+去重
 // class Solution {
 // public:
