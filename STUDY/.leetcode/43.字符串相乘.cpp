@@ -9,12 +9,13 @@ class Solution {
 public:
     string multiply(string num1, string num2)
     {
-        reverse(num1.begin(), num1.end());
-        reverse(num2.begin(), num2.end());
         int m = num1.size();
         int n = num2.size();
-        vector<int> v(m + n - 1, 0); //注意开空间的大小
+        vector<int> v(m + n - 1);
+        reverse(num1.begin(), num1.end());
+        reverse(num2.begin(), num2.end());
 
+        //无进位相加
         for(int i=0; i<m; i++)
         {
             for(int j=0; j<n; j++)
@@ -23,35 +24,75 @@ public:
             }
         }
 
-        //处理进位
-        int cur = 0;
-        int next = 0;
+        //处理进位+放入字符串
         string ret = "";
-        while(cur < m + n - 1 || next)
+        int t = 0;
+        for(int i=0; i<m+n-1; i++)
         {
-            if(cur < m + n - 1)
-            {
-                next += v[cur++];
-            }
-            ret += next % 10 + '0';
-            next /= 10;
+            t += v[i];
+            ret += t % 10 + '0';
+            t /= 10;
         }
+        ret += t + '0';
 
-        //处理前导零（对乘数为零的特殊处理）
-        while(ret.size() > 1 && ret.back() == '0') //留一个0
+        //处理前导零
+        while(ret.size() > 1 && ret.back() == '0')
         {
             ret.pop_back();
         }
 
         reverse(ret.begin(), ret.end());
-
         return ret;
     }
 };
 
 // @lc code=end
 
+//三刷：用自己的方式复现了一下思路，需要注意最后一次进位
 //二刷：无进位相乘后相加->处理进位->处理前导零（乘数为0的情况）
+// class Solution {
+// public:
+//     string multiply(string num1, string num2)
+//     {
+//         reverse(num1.begin(), num1.end());
+//         reverse(num2.begin(), num2.end());
+//         int m = num1.size();
+//         int n = num2.size();
+//         vector<int> v(m + n - 1, 0); //注意开空间的大小
+
+//         for(int i=0; i<m; i++)
+//         {
+//             for(int j=0; j<n; j++)
+//             {
+//                 v[i + j] += (num1[i] - '0') * (num2[j] - '0');
+//             }
+//         }
+
+//         //处理进位
+//         int cur = 0;
+//         int next = 0;
+//         string ret = "";
+//         while(cur < m + n - 1 || next)
+//         {
+//             if(cur < m + n - 1)
+//             {
+//                 next += v[cur++];
+//             }
+//             ret += next % 10 + '0';
+//             next /= 10;
+//         }
+
+//         //处理前导零（对乘数为零的特殊处理）
+//         while(ret.size() > 1 && ret.back() == '0') //留一个0
+//         {
+//             ret.pop_back();
+//         }
+
+//         reverse(ret.begin(), ret.end());
+
+//         return ret;
+//     }
+// };
 //一刷：注意前导零和结果为0时需要保留一位！思路有点复杂，主要还是按照高精度乘法做的
 // class Solution {
 // public:
