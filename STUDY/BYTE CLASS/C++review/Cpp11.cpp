@@ -1,10 +1,51 @@
+#define _CRT_SECURE_NO_WARNINGS 1
 #include <iostream>
 #include <string>
-#define _CRT_SECURE_NO_WARNINGS 1
+#include<vector>
 #include<assert.h>
 #include<string.h>
 #include<algorithm>
+#include<utility>
 using namespace std;
+
+//初始化
+// struct Date
+// {
+//     int _year;
+//     int _month;
+//     int _day;
+// };
+// int main()
+// {
+//     int arr[] = {1, 2, 3, 4, 5};
+//     Date d = {2026, 9, 10};
+//     return 0;
+// }
+
+//C++11列表初始化
+// struct Date
+// {
+//     int _year;
+//     int _month;
+//     int _day;
+// };
+// int main()
+// {
+//     int x = {1};
+//     int y{2}; //省略=
+//     Date d1 = {2026, 9, 10};
+//     vector<Date> v;
+//     v.push_back({2026, 9, 11});
+//     return 0;
+// }
+
+//C++11的std::initializer_list
+int main()
+{
+    vector<int> v{1, 2, 3, 4, 5};
+    unordered_map<string> hashmap = {{"字符串", "string"}, {"整型", "int"}};
+    return 0;
+}
 
 // //基础认知
 // int main()
@@ -284,10 +325,80 @@ namespace bit
 // }
 
 //场景2
-int main()
-{
-bit::string ret; //1构造
-ret = bit::addStrings("11111", "2222"); //括号内部2构造，return1构造，1移动赋值
-cout << ret.c_str() << endl;
-return 0;
-}
+// int main()
+// {
+// bit::string ret; //1构造
+// ret = bit::addStrings("11111", "2222"); //括号内部2构造，return1构造，1移动赋值
+// cout << ret.c_str() << endl;
+// return 0;
+// }
+
+
+// template<class T>
+// void f1(T& x)
+// {}
+
+// template<class T>
+// void f2(T&& x)
+// {}
+
+// int main()
+// {
+//     typedef int& lref;
+//     typedef int&& rref;
+//     int n = 0;
+//     lref& r1 = n; //左 + 左 = 左
+//     lref&& r2 = n; //左 + 右 = 左
+//     rref& r3 = n; //右 + 左 = 左
+//     rref&& r4 = 1; //右 + 右 = 右
+// }
+
+
+//引用折叠/万能引用
+// template<class T>
+// void Function(T&& t)
+// {
+//     int a = 0;
+//     T x = a;
+//     cout << &a << endl;
+//     cout << &x << endl;
+//     cout << endl;
+// }
+// int main()
+// {
+//     Function(10); //右值：T为int
+//     int a;
+//     Function(a); //左值：T为int&
+//     Function(std::move(a)); //右值：T为int
+//     const int b = 8;
+//     Function(b); //左值：T为const int&
+//     Function(std::move(b)); //右值：T为const int
+// }
+
+//完美转发
+// void Fun(int& x) { cout << "左值引⽤" << endl; }
+// void Fun(const int& x) { cout << "const 左值引⽤" << endl; }
+// void Fun(int&& x) { cout << "右值引⽤" << endl; }
+// void Fun(const int&& x) { cout << "const 右值引⽤" << endl; }
+// template<class T>
+// void Function(T&& t)
+// {
+//     // Fun(t);
+//     Fun(std::forward<T>(t));
+// }
+// int main()
+// {
+//     // 10是右值，推导出T为int，模板实例化为void Function(int&& t)
+//     Function(10); // 右值
+//     int a;
+//     // a是左值，推导出T为int&，引⽤折叠，模板实例化为void Function(int& t)
+//     Function(a); // 左值
+//     // std::move(a)是右值，推导出T为int，模板实例化为void Function(int&& t)
+//     Function(std::move(a)); // 右值
+//     const int b = 8;
+//     // a是左值，推导出T为const int&，引⽤折叠，模板实例化为void Function(const int&t)
+//     Function(b); // const 左值
+//     // std::move(b)右值，推导出T为const int，模板实例化为void Function(const int&&t)
+//     Function(std::move(b)); // const 右值
+// return 0;
+// }
