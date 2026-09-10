@@ -9,33 +9,65 @@ class Solution {
 public:
     int longestOnes(vector<int>& nums, int k)
     {
-        int left = 0;
-        int right = 0;
-        int zerocnt = 0;
-        int len = 0;
         int n = nums.size();
+        int len = 0;
+        int zero = 0;
+        int left, right;
 
-        while(right < n)
+        for(left=0, right=0; right<n; right++)
         {
             if(nums[right] == 0)
             {
-                zerocnt++;
+                ++zero;
             }
-
-            while(zerocnt > k)
+            while(zero > k)
             {
-                if(nums[left++] == 0)
-                {
-                    zero--;
-                }
-            }
+                len = max(len, right - left);
 
-            len = max(len, right - left + 1);
-            right++;
+                if(nums[left] == 0)
+                {
+                    --zero;
+                }
+                ++left;
+            }
         }
 
+        len = max(len, right - left);
         return len;
     }
 };
 // @lc code=end
+//二刷：“变量职责分离”和“循环不变量”，不要对k进行修改，也不要修改循环中的变量
 //一刷：滑动窗口，依据是0的个数
+// class Solution {
+// public:
+//     int longestOnes(vector<int>& nums, int k)
+//     {
+//         int left = 0;
+//         int right = 0;
+//         int zerocnt = 0;
+//         int len = 0;
+//         int n = nums.size();
+
+//         while(right < n)
+//         {
+//             if(nums[right] == 0)
+//             {
+//                 zerocnt++;
+//             }
+
+//             while(zerocnt > k)
+//             {
+//                 if(nums[left++] == 0)
+//                 {
+//                     zero--;
+//                 }
+//             }
+
+//             len = max(len, right - left + 1);
+//             right++;
+//         }
+
+//         return len;
+//     }
+// };
