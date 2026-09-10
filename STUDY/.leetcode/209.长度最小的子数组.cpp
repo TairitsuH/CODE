@@ -12,14 +12,14 @@ public:
         int n = nums.size();
         int len = INT_MAX;
         int sum = 0;
-        for(int left=0,right=0; right < n; right++)
+        for(int left=0, right=0; right<n; right++)
         {
             sum += nums[right];
-            while(sum >= target)
+            while(left <= right && sum >= target)
             {
-                len = min(len, right-left+1);
+                len = min(len, right - left + 1);
                 sum -= nums[left];
-                left++;
+                ++left;
             }
         }
 
@@ -27,7 +27,29 @@ public:
     }
 };
 // @lc code=end
+//四刷：注意是嵌套循环的关系！不是分开的两个while循环！出窗口的时机是在进窗口的过程中，不是分开的两个步骤
 //三刷：滑动窗口，注意循环中用while不是if，时间复杂度O(N)
+// class Solution {
+// public:
+//     int minSubArrayLen(int target, vector<int>& nums)
+//     {
+//         int n = nums.size();
+//         int len = INT_MAX;
+//         int sum = 0;
+//         for(int left=0,right=0; right < n; right++)
+//         {
+//             sum += nums[right];
+//             while(sum >= target)
+//             {
+//                 len = min(len, right-left+1);
+//                 sum -= nums[left];
+//                 left++;
+//             }
+//         }
+
+//         return len == INT_MAX ? 0 : len;
+//     }
+// };
 //二刷：滑动窗口（有点类似双指针，但是更像窗口移动），很喜欢评论区大佬的解读（花钱和赚钱
 //复盘：感觉滑动窗口的重点还是指针的初始位置，if或while的条件判断，以及指针的移动方式
 // int minSubArrayLen(int target, vector<int>& nums)
