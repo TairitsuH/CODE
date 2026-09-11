@@ -40,12 +40,12 @@ using namespace std;
 // }
 
 //C++11的std::initializer_list
-int main()
-{
-    vector<int> v{1, 2, 3, 4, 5};
-    unordered_map<string> hashmap = {{"字符串", "string"}, {"整型", "int"}};
-    return 0;
-}
+//int main()
+//{
+//    vector<int> v{1, 2, 3, 4, 5};
+//    unordered_map<string> hashmap = {{"字符串", "string"}, {"整型", "int"}};
+//    return 0;
+//}
 
 // //基础认知
 // int main()
@@ -75,7 +75,6 @@ int main()
 //     //右值引用
 //     double&& z = x + y;
 //     int&& num = 10;
-
 //     // cout << z << endl;
 //     // cout << num << endl;
     
@@ -337,11 +336,9 @@ namespace bit
 // template<class T>
 // void f1(T& x)
 // {}
-
 // template<class T>
 // void f2(T&& x)
 // {}
-
 // int main()
 // {
 //     typedef int& lref;
@@ -402,3 +399,54 @@ namespace bit
 //     Function(std::move(b)); // const 右值
 // return 0;
 // }
+
+
+//参数包拓展
+void ShowList()
+{
+    cout << endl;
+}
+
+//1.递归展开
+// template<class T, class ...Args>
+// void ShowList(T x, Args... args)
+// {
+//     cout << x << " ";
+//     cout << flush;
+//     ShowList(args...);
+// }
+
+// template<class ...Args>
+// void Print(Args... args)
+// {
+//     ShowList(args...);
+// }
+
+//2.并列展开
+template<class T>
+const T& GetArgs(const T& x) //对左值和右值都适用
+{
+    cout << x << " ";
+    return x;
+}
+
+template<class... Args>
+void Arguments(Args... args)
+{}
+
+template<class... Args>
+void Print(Args... args)
+{
+    Arguments(GetArgs(args)...);
+    cout << endl;
+}
+
+
+int main()
+{
+    Print();
+    Print(1);
+    Print("xxxxxx", 1);
+    Print(1, 2, 3.5, "xxxyyy", "hello");
+    return 0;
+}
