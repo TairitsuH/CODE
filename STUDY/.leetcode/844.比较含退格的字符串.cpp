@@ -9,37 +9,70 @@ class Solution {
 public:
     bool backspaceCompare(string s, string t)
     {
-        string s1, t1;
+        string a, b;
         for(auto c : s)
         {
-            if(s1.size() && c == '#')
+            if(a.size() && c == '#')
             {
-                s1.pop_back();
+                a.pop_back();
             }
             else if(c != '#')
             {
-                s1 += c;
+                a += c;
             }
         }
 
         for(auto c : t)
         {
-            if(t1.size() && c == '#')
+            if(b.size() && c == '#')
             {
-                t1.pop_back();
+                b.pop_back();
             }
             else if(c != '#')
             {
-                t1 += c;
+                b += c;
             }
         }
 
-        return s1 == t1;
+        return a == b;
     }
 };
 // @lc code=end
 
+//三刷：栈思路，注意分类讨论
 //二刷：栈模拟，遇到#且非空则出栈，非#则入栈
+// class Solution {
+// public:
+//     bool backspaceCompare(string s, string t)
+//     {
+//         string s1, t1;
+//         for(auto c : s)
+//         {
+//             if(s1.size() && c == '#')
+//             {
+//                 s1.pop_back();
+//             }
+//             else if(c != '#')
+//             {
+//                 s1 += c;
+//             }
+//         }
+
+//         for(auto c : t)
+//         {
+//             if(t1.size() && c == '#')
+//             {
+//                 t1.pop_back();
+//             }
+//             else if(c != '#')
+//             {
+//                 t1 += c;
+//             }
+//         }
+
+//         return s1 == t1;
+//     }
+// };
 //一刷：双指针。思路乱了，看了评论区题解，遇到#则fast后移，slow--（slow大于0）
 // class Solution {
 // public:
