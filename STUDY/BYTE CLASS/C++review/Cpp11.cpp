@@ -415,12 +415,12 @@ namespace mzh
 
 
 //参数包拓展
+//1.递归展开
 // void ShowList()
 // {
 //     cout << endl;
 // }
 
-//1.递归展开
 // template<class T, class ...Args>
 // void ShowList(T x, Args... args)
 // {
@@ -435,7 +435,7 @@ namespace mzh
 //     ShowList(args...);
 // }
 
-// //2.并列展开
+//2.并列展开
 // template<class T>
 // const T& GetArgs(const T& x) //对左值和右值都适用
 // {
@@ -451,9 +451,7 @@ namespace mzh
 // void Print(Args... args)
 // {
 //     Arguments(GetArgs(args)...);
-//     cout << endl;
 // }
-
 
 // int main()
 // {
@@ -468,67 +466,89 @@ namespace mzh
 //emplace_back
 // int main()
 // {
-    // vector<pair<mzh::string, int>> vp;
-    // vp.reserve(10);
-    // vp.emplace_back("你好", 1); //支持完美转发直接构造
-    // vp.emplace_back("字符串", 2);
-    // vp.emplace_back("整型", 3);
-    // vp.emplace_back("C++", 4);
-    // vp.emplace_back("world", 5);
-    // for(auto x : vp)
-    // {
-    //     cout << x.first << " ";
-    //     cout << x.second << endl;
-    // }
-    // unordered_map<string, int> hashmap;
-    // hashmap.emplace("你好", 1);
-    // hashmap.emplace("字符串", 2);
-    // hashmap.emplace("整型", 3);
-    // hashmap.emplace("C++", 4);
-    // hashmap.emplace("world", 5);
+//     vector<mzh::string> v;
+//     v.reserve(100);
+//     mzh::string x = "你好";
+//     cout << "***********************" << endl;
+
+//     v.emplace_back(x); //左值
+//     cout << endl;
+//     v.push_back(x); //左值
+
+//     cout << "***********************" << endl;
+
+//     v.emplace_back((mzh::string)"你好"); //右值
+//     cout << endl;
+//     v.push_back((mzh::string)"你好"); //右值
+
 //     return 0;
 // }
 
 
-//lambda
+
 int main()
 {
-    //省略参数和返回值
-    auto eg1 = []{cout << "hello, world" << endl;};
-    eg1();
-
-    //显式捕捉
-    int x = 0, y = 1, z = 2;
-    auto eg2 = [&x, y, z]
+    vector<pair<mzh::string, int>> vp;
+    vp.reserve(10);
+    vp.emplace_back("你好", 1); //支持完美转发直接构造
+    vp.emplace_back("字符串", 2);
+    vp.emplace_back("整型", 3);
+    vp.emplace_back("C++", 4);
+    vp.emplace_back("world", 5);
+    cout << "**********************************" << endl;
+    for(auto x : vp)
     {
-        ++x;
-        cout << x << " " << y << " " << z << endl;
-    };
-    eg2();
-
-    //隐式捕捉
-    auto eg3 = [=]
-    {
-        cout << x << " " << y << " " << z << endl;
-    };
-    eg3();
-
-    auto eg4 = [&]
-    {
-        x += 10;
-        y += 10;
-        z += 10;
-        cout << x << " " << y << " " << z << endl;
-    };
-    eg4();
-
-    //混合捕捉
-    auto eg5 = [&, z]
-    {
-        x -= 10;
-        y -= 10;
-        cout << x << " " << y << " " << z << endl;
-    };
-    eg5();
-
+        cout << x.first << " ";
+        cout << x.second << endl;
+    }
+    unordered_map<string, int> hashmap;
+    hashmap.emplace("hello", 1);
+    hashmap.emplace("string", 2);
+    hashmap.emplace("int", 3);
+    hashmap.emplace("Cpp", 4);
+    hashmap.emplace("世界", 5);
+    return 0;
 }
+
+
+// //lambda
+// int main()
+// {
+//     //省略参数和返回值
+//     auto eg1 = []{cout << "hello, world" << endl;};
+//     eg1();
+
+//     //显式捕捉
+//     int x = 0, y = 1, z = 2;
+//     auto eg2 = [&x, y, z]
+//     {
+//         ++x;
+//         cout << x << " " << y << " " << z << endl;
+//     };
+//     eg2();
+
+//     //隐式捕捉
+//     auto eg3 = [=]
+//     {
+//         cout << x << " " << y << " " << z << endl;
+//     };
+//     eg3();
+
+//     auto eg4 = [&]
+//     {
+//         x += 10;
+//         y += 10;
+//         z += 10;
+//         cout << x << " " << y << " " << z << endl;
+//     };
+//     eg4();
+
+//     //混合捕捉
+//     auto eg5 = [&, z]
+//     {
+//         x -= 10;
+//         y -= 10;
+//         cout << x << " " << y << " " << z << endl;
+//     };
+//     eg5();
+// }
