@@ -7,7 +7,7 @@
 #include<utility>
 using namespace std;
 
-namespace bit
+namespace mzh
 {
 	template<class T>
 	struct ListNode
@@ -25,7 +25,7 @@ namespace bit
 		{
 		}
 
-		//参数包构造（跳过中间临时对象，参数下传到构造函数）
+		//参数列表下传（跳过临时对象）
 		template <class... Args>
 		ListNode(Args&&... args)
 			:_next(nullptr)
@@ -185,7 +185,7 @@ namespace bit
 }
 
 
-namespace bit
+namespace mzh
 {
 	class string
 	{
