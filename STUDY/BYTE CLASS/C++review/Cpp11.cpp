@@ -475,21 +475,60 @@ namespace mzh
     // vp.emplace_back("整型", 3);
     // vp.emplace_back("C++", 4);
     // vp.emplace_back("world", 5);
-
     // for(auto x : vp)
     // {
     //     cout << x.first << " ";
     //     cout << x.second << endl;
     // }
-
     // unordered_map<string, int> hashmap;
     // hashmap.emplace("你好", 1);
     // hashmap.emplace("字符串", 2);
     // hashmap.emplace("整型", 3);
     // hashmap.emplace("C++", 4);
     // hashmap.emplace("world", 5);
-
-
 //     return 0;
 // }
 
+
+//lambda
+int main()
+{
+    //省略参数和返回值
+    auto eg1 = []{cout << "hello, world" << endl;};
+    eg1();
+
+    //显式捕捉
+    int x = 0, y = 1, z = 2;
+    auto eg2 = [&x, y, z]
+    {
+        ++x;
+        cout << x << " " << y << " " << z << endl;
+    };
+    eg2();
+
+    //隐式捕捉
+    auto eg3 = [=]
+    {
+        cout << x << " " << y << " " << z << endl;
+    };
+    eg3();
+
+    auto eg4 = [&]
+    {
+        x += 10;
+        y += 10;
+        z += 10;
+        cout << x << " " << y << " " << z << endl;
+    };
+    eg4();
+
+    //混合捕捉
+    auto eg5 = [&, z]
+    {
+        x -= 10;
+        y -= 10;
+        cout << x << " " << y << " " << z << endl;
+    };
+    eg5();
+
+}

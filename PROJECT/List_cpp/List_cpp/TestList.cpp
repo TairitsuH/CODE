@@ -13,6 +13,7 @@ int main()
 
 	bit::string s1("111111111111");
 	lt.emplace_back(s1); //传入左值s1，走拷贝构造
+	lt.push_back(s1);
 	cout << "*********************************" << endl;
 
 	lt.emplace_back(move(s1)); //传入右值s1，走移动构造
