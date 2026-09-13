@@ -41,7 +41,7 @@ public:
 };
 // @lc code=end
 
-//二刷：栈模拟+function包装器+lambda+initializer_list
+//二刷：栈模拟+function包装器+lambda+initializer_list，无需一个个对比操作符，实践中更加推荐（竞赛中偏向理论不注重效率）
 //一刷：栈模拟，注意边界条件
 class Solution {
 public:
