@@ -7,6 +7,7 @@
 #include<algorithm>
 #include<utility>
 #include<unordered_map>
+#include<functional>
 using namespace std;
 
 //初始化
@@ -170,6 +171,7 @@ namespace mzh
             ::swap(_capacity, s._capacity);
         }
 
+        //拷贝构造
         string(const string& s)
             :_str(nullptr)
         {
@@ -486,29 +488,29 @@ namespace mzh
 
 
 
-int main()
-{
-    vector<pair<mzh::string, int>> vp;
-    vp.reserve(10);
-    vp.emplace_back("你好", 1); //支持完美转发直接构造
-    vp.emplace_back("字符串", 2);
-    vp.emplace_back("整型", 3);
-    vp.emplace_back("C++", 4);
-    vp.emplace_back("world", 5);
-    cout << "**********************************" << endl;
-    for(auto x : vp)
-    {
-        cout << x.first << " ";
-        cout << x.second << endl;
-    }
-    unordered_map<string, int> hashmap;
-    hashmap.emplace("hello", 1);
-    hashmap.emplace("string", 2);
-    hashmap.emplace("int", 3);
-    hashmap.emplace("Cpp", 4);
-    hashmap.emplace("世界", 5);
-    return 0;
-}
+// int main()
+// {
+//     vector<pair<mzh::string, int>> vp;
+//     vp.reserve(10);
+//     vp.emplace_back("你好", 1); //支持完美转发直接构造
+//     vp.emplace_back("字符串", 2);
+//     vp.emplace_back("整型", 3);
+//     vp.emplace_back("C++", 4);
+//     vp.emplace_back("world", 5);
+//     cout << "**********************************" << endl;
+//     for(auto x : vp)
+//     {
+//         cout << x.first << " ";
+//         cout << x.second << endl;
+//     }
+//     unordered_map<string, int> hashmap;
+//     hashmap.emplace("hello", 1);
+//     hashmap.emplace("string", 2);
+//     hashmap.emplace("int", 3);
+//     hashmap.emplace("Cpp", 4);
+//     hashmap.emplace("世界", 5);
+//     return 0;
+// }
 
 
 // //lambda
@@ -552,3 +554,65 @@ int main()
 //     };
 //     eg5();
 // }
+
+
+void eg1()
+{
+    cout << "eg1" << endl;
+}
+
+struct Less
+{
+    bool operator()(int x, int y)
+    {
+        cout << "less()" << " ";
+        return x < y;
+    }
+};
+
+class Student
+{
+private:
+    string _name;
+    int _no;
+
+public:
+    Student(string name, int no)
+    :_name(name)
+    ,_no(no)
+    {}
+
+    void Print()
+    {
+        cout << _name << " " << _no << endl;
+    }
+
+    static int add(int x, int y)
+    {
+        cout << "mzh::static_add" << " ";
+        return x + y;
+    }
+};
+
+int main()
+{
+    function<void()> Func0 = eg1; //函数
+    function<bool(int, int)> Func1 = Less(); //仿函数
+    function<int(int, int)> Func2 = [](int x, int y){ cout << "lambda" << " "; return x - y;}; //lambda
+    function<void(Student*)> Func3 = &Student::Print; //类内成员函数(内部走->*)
+    function<void(Student&)> Func4 = &Student::Print; //类内成员函数(内部走.*)
+    function<int(int, int)> Func5 = &Student::add; //类内静态成员函数
+    // function<int(int, int)> Func2 = 
+
+
+    int x = 1, y = 10;
+    Func0();
+    cout << Func1(x, y) << endl;
+    cout << Func2(x, y) << endl;
+    Student s1 = {"LiHua", 20250101};
+    Func3(&s1);
+    Func();
+    Func4(s1);
+    cout << Func5(x, y) << endl;
+    return 0;
+}
