@@ -58,7 +58,7 @@ public:
             else
             {
                 string in;
-                while(s[i] >= 'a' && s[i] <= 'z')
+                while(i < n && s[i] >= 'a' && s[i] <= 'z') //i < n防止越界
                 {
                     in += s[i];
                     ++i;
