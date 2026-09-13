@@ -4,57 +4,97 @@
  * [438] 找到字符串中所有字母异位词
  */
 
-// @lc code=start
 class Solution {
 public:
     vector<int> findAnagrams(string s, string p)
     {
         vector<int> ret;
-        vector<int> hash1(26);   
-        vector<int> hash2(26);
-        int n = s.size();
         int m = p.size();
-        int cnt = 0; //记录有效字符个数
-
-        for(auto c : p)
+        int n = s.size();
+        int arrs[26];
+        int arrp[26];
+        int count = 0;
+        for(auto& c : p)
         {
-            ++hash1[c - 'a'];
-            ++cnt;
+            ++arrp[c - 'a'];
         }
 
-        int count = 0;
-
-        for(int left=0, right=0; right<n; right++)
+        for(int left=0, right=0; right<n; ++right)    
         {
-            int x = s[right] - 'a';
-            if(hash2[x] < hash1[x]) ++count;
-            ++hash2[x];
-
+            int pos = s[right] - 'a';
+            if(arrs[pos] < arrp[pos]) ++count;
+            ++arrs[pos];
+            
             //出窗口
             while(right - left + 1 > m)
             {
-                int y = s[left] - 'a';
-                if(hash1[y] > 0 && hash2[y] <= hash1[y])
+                int del = s[left] - 'a';
+                if(arrs[del] <= arrp[del])
                 {
                     --count;
                 }
-
-                --hash2[y];
+                --arrs[del];
                 ++left;
             }
 
-            if(count == cnt)
-            {
-                ret.emplace_back(left);
-            }
-        } 
+            if(count == m) ret.push_back(left);
+        }
 
         return ret;
     }
 };
 
 // @lc code=end
+//五刷：普通数组模拟哈希表+滑动窗口+统计有效字符个数
 //四刷：数组模拟哈希表+滑动窗口+比较逻辑优化（有效字符个数），出窗口的时机不变
+// @lc code=start
+// class Solution {
+// public:
+//     vector<int> findAnagrams(string s, string p)
+//     {
+//         vector<int> ret;
+//         vector<int> hash1(26);   
+//         vector<int> hash2(26);
+//         int n = s.size();
+//         int m = p.size();
+//         int cnt = 0; //记录有效字符个数
+
+//         for(auto c : p)
+//         {
+//             ++hash1[c - 'a'];
+//             ++cnt;
+//         }
+
+//         int count = 0;
+
+//         for(int left=0, right=0; right<n; right++)
+//         {
+//             int x = s[right] - 'a';
+//             if(hash2[x] < hash1[x]) ++count;
+//             ++hash2[x];
+
+//             //出窗口
+//             while(right - left + 1 > m)
+//             {
+//                 int y = s[left] - 'a';
+//                 if(hash1[y] > 0 && hash2[y] <= hash1[y])
+//                 {
+//                     --count;
+//                 }
+
+//                 --hash2[y];
+//                 ++left;
+//             }
+
+//             if(count == cnt)
+//             {
+//                 ret.emplace_back(left);
+//             }
+//         } 
+
+//         return ret;
+//     }
+// };
 //三刷：两个哈希表+滑动窗口
 // class Solution {
 // public:
