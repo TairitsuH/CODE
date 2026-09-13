@@ -229,6 +229,7 @@ namespace mzh
 			::swap(_capacity, s._capacity);
 		}
 
+		//拷贝构造
 		string(const string& s)
 			:_str(nullptr)
 		{
@@ -240,7 +241,7 @@ namespace mzh
 			}
 		}
 
-		// 移动构造
+		//移动构造
 		string(string&& s)
 		{
 			cout << "string(string&& s) -- 移动构造" << endl;
@@ -329,7 +330,7 @@ namespace mzh
 		}
 
 	private:
-		char* _str = nullptr;
+		char* _str = new char('\0');
 		size_t _size = 0;
 		size_t _capacity = 0;
 	};
