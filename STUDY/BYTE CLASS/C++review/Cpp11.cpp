@@ -556,63 +556,189 @@ namespace mzh
 // }
 
 
-void eg1()
+//function包装器
+// void eg1()
+// {
+//     cout << "eg1" << endl;
+// }
+
+// struct Less
+// {
+//     bool operator()(int x, int y)
+//     {
+//         cout << "less()" << " ";
+//         return x < y;
+//     }
+// };
+
+// class Student
+// {
+// private:
+//     string _name;
+//     int _no;
+
+// public:
+//     Student(string name, int no)
+//     :_name(name)
+//     ,_no(no)
+//     {}
+
+//     void Print()
+//     {
+//         cout << _name << " " << _no << endl;
+//     }
+
+//     static int add(int x, int y)
+//     {
+//         cout << "mzh::static_add" << " ";
+//         return x + y;
+//     }
+// };
+
+// int main()
+// {
+//     function<void()> Func0 = eg1; //函数
+//     function<bool(int, int)> Func1 = Less(); //仿函数
+//     function<int(int, int)> Func2 = [](int x, int y){ cout << "lambda" << " "; return x - y;}; //lambda
+//     function<void(Student*)> Func3 = &Student::Print; //类内成员函数(内部走->*)
+//     function<void(Student&)> Func4 = &Student::Print; //类内成员函数(内部走.*)
+//     function<int(int, int)> Func5 = &Student::add; //类内静态成员函数
+//     // function<int(int, int)> Func2 = 
+
+
+//     int x = 1, y = 10;
+//     Func0();
+//     cout << Func1(x, y) << endl;
+//     cout << Func2(x, y) << endl;
+//     Student s1 = {"LiHua", 20250101};
+//     Func3(&s1);
+//     Func();
+//     Func4(s1);
+//     cout << Func5(x, y) << endl;
+//     return 0;
+// }
+
+
+//bind绑定
+namespace bind
 {
-    cout << "eg1" << endl;
+    using placeholders::_1;
+    using placeholders::_2;
+    using placeholders::_3;
+
+    int Sub(int a, int b)
+    {
+        return a - b;
+    }
+
+    class Culculate
+    {
+    private:
+        int _x = 5;
+        int _y = 2;
+
+    public:
+        int Plus1()
+        {
+            return _x + _y;
+        }
+
+        int Plus2(int x, int y)
+        {
+            return x + y + _x + _y;
+        }
+    };
+
+
+    // int main()
+    // {
+    //     auto sub1 = bind(Sub, _1, _2); //绑定函数
+    //     cout << sub1(10, 2) << endl; //8
+
+    //     auto sub2 = bind(Sub, _2, _1); //修改参数顺序
+    //     cout << sub2(10, 2) << endl; //-8
+        
+    //     auto sub3 = bind(Sub, _1, 100); //绑死固定参数(常用)
+    //     cout << sub3(20) << endl; //-80
+
+    //     Culculate c1;
+
+    //     function<int()> func1 = bind(Culculate::Plus1, c1); //固定对象
+    //     function<int(int, int)> func2 = bind(Culculate::Plus2, Culculate(), _1, _2); //固定对象
+    //     cout << func1() << endl; //7
+    //     cout << func2(10, 20) << endl; //37
+
+
+    //     //应用：复利计算(通过绑死参数实现计算不同金额在指定期限和利率下的利润)
+    //     auto CpInterest = [](double rate, double money, double year)->double
+    //     {
+    //         double ret = money;
+    //         for(int i=0; i<year; ++i)
+    //         {
+    //             ret += ret * rate;
+    //         }
+
+    //         return ret - money;
+    //     };
+
+    //     function<double(double)> f1 = bind(CpInterest, 0.015, _1, 3);
+    //     function<double(double)> f2 = bind(CpInterest, 0.015, _1, 5);
+    //     function<double(double)> f3 = bind(CpInterest, 0.025, _1, 10);
+    //     function<double(double)> f4 = bind(CpInterest, 0.035, _1, 30);
+
+    //     cout << f1(1000000) << endl;
+    //     cout << f2(1000000) << endl;
+    //     cout << f3(1000000) << endl;
+    //     cout << f4(1000000) << endl;
+
+    //     return 0;
+    // }
 }
 
-struct Less
-{
-    bool operator()(int x, int y)
-    {
-        cout << "less()" << " ";
-        return x < y;
-    }
-};
 
-class Student
-{
-private:
-    string _name;
-    int _no;
+//final和override
+// class Person
+// {
+// public:
+//     virtual void Print()
+//     {
+//         //...
+//     }
+// };
 
-public:
-    Student(string name, int no)
-    :_name(name)
-    ,_no(no)
-    {}
+// class Student: public Person
+// {
+// public:
+//     virtual void Print() override
+//     {
+//         //...
+//     }
+// };
 
-    void Print()
-    {
-        cout << _name << " " << _no << endl;
-    }
+// class LiHua: public Student
+// {
+// public:
+//     virtual void Print() override
+//     {
+//         //...
+//     }
+// };
 
-    static int add(int x, int y)
-    {
-        cout << "mzh::static_add" << " ";
-        return x + y;
-    }
-};
-
-int main()
-{
-    function<void()> Func0 = eg1; //函数
-    function<bool(int, int)> Func1 = Less(); //仿函数
-    function<int(int, int)> Func2 = [](int x, int y){ cout << "lambda" << " "; return x - y;}; //lambda
-    function<void(Student*)> Func3 = &Student::Print; //类内成员函数(内部走->*)
-    function<void(Student&)> Func4 = &Student::Print; //类内成员函数(内部走.*)
-    function<int(int, int)> Func5 = &Student::add; //类内静态成员函数
-    // function<int(int, int)> Func2 = 
+// int main()
+// {
+//     return 0;
+// }
 
 
-    int x = 1, y = 10;
-    Func0();
-    cout << Func1(x, y) << endl;
-    cout << Func2(x, y) << endl;
-    Student s1 = {"LiHua", 20250101};
-    Func3(&s1);
-    Func();
-    Func4(s1);
-    cout << Func5(x, y) << endl;
-    return 0;
-}
+
+// //缺省值
+// class Date
+// {
+// private:
+//     int _year = 2000;
+//     int _month = 1;
+//     int _day = 1;
+
+// public:
+//     //...
+// };
