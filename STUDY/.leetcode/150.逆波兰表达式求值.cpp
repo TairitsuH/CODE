@@ -41,35 +41,36 @@ public:
 };
 // @lc code=end
 
+//三刷：注意从栈中取数时是先右后左！
 //二刷：栈模拟+function包装器+lambda+initializer_list，无需一个个对比操作符，实践中更加推荐（竞赛中偏向理论不注重效率）
 //一刷：栈模拟，注意边界条件
-class Solution {
-public:
-    int evalRPN(vector<string>& tokens)
-    {
-        stack<int> st;
-        int n = tokens.size();
-        int i = 0;
-        while(i < n)
-        {
-            if(tokens[i] != "+" && tokens[i] != "-" && tokens[i] != "*" && tokens[i] != "/")
-            {
-                st.push(stoi(tokens[i]));
-            }
-            else
-            {
-                int right = st.top();
-                st.pop();
+// class Solution {
+// public:
+//     int evalRPN(vector<string>& tokens)
+//     {
+//         stack<int> st;
+//         int n = tokens.size();
+//         int i = 0;
+//         while(i < n)
+//         {
+//             if(tokens[i] != "+" && tokens[i] != "-" && tokens[i] != "*" && tokens[i] != "/")
+//             {
+//                 st.push(stoi(tokens[i]));
+//             }
+//             else
+//             {
+//                 int right = st.top();
+//                 st.pop();
 
-                if(tokens[i] == "+") st.top() += right;
-                else if(tokens[i] == "-") st.top() -= right;
-                else if(tokens[i] == "*") st.top() *= right;
-                else st.top() /= right;
-            }
+//                 if(tokens[i] == "+") st.top() += right;
+//                 else if(tokens[i] == "-") st.top() -= right;
+//                 else if(tokens[i] == "*") st.top() *= right;
+//                 else st.top() /= right;
+//             }
 
-            ++i;
-        }
+//             ++i;
+//         }
 
-        return st.top();
-    }
-};
+//         return st.top();
+//     }
+// };
