@@ -520,14 +520,15 @@ namespace mzh
 //     auto eg1 = []{cout << "hello, world" << endl;};
 //     eg1();
 
-//     //显式捕捉
-//     int x = 0, y = 1, z = 2;
-//     auto eg2 = [&x, y, z]
-//     {
-//         ++x;
-//         cout << x << " " << y << " " << z << endl;
-//     };
-//     eg2();
+    // //显式捕捉
+    // int x = 0, y = 1, z = 2;
+    // auto eg2 = [&x, y, z]
+    // {
+    //     ++x;
+    //     // ++y; //不可修改
+    //     cout << x << " " << y << " " << z << endl;
+    // };
+    // eg2();
 
 //     //隐式捕捉
 //     auto eg3 = [=]
@@ -555,8 +556,61 @@ namespace mzh
 //     eg5();
 // }
 
+// int main()
+// {
+//     int x = 1, y = 2, z = 3;
+//     //C++20中，mutable存在时省略参数列表的()是非法的
+//     auto eg6 = [=]() mutable
+//     {
+//         x += 1;
+//         y += 1;
+//         z += 1;
+//         cout << x << " " << y << " " << z << endl;
+//     };
 
-//function包装器
+//     eg6();
+// }
+
+// int Add(int a, int b)
+// {
+//     return a + b;
+// }
+
+
+// int main()
+// {
+//     int x = 1, y = 2, z = 3;
+    
+//     auto eg7 = [x](int a, int b)
+//     {
+//         Add(a, b);  
+//     };
+
+//     eg7(y, z);
+// }
+
+// //底层为类似的仿函数对象:
+// class LambdaClass_eg7 //类名按照一定规则生成
+// {
+// private:
+//     int _x;
+
+// public:
+//     LambdaClass_eg7(int x)
+//     :_x(x)
+//     {}
+
+//     void operator()(int a, int b) const //不嫩修改x
+//     {
+//         Add(a, b);
+//     }
+// };
+
+
+
+
+
+// //function包装器
 // void eg1()
 // {
 //     cout << "eg1" << endl;
@@ -583,12 +637,12 @@ namespace mzh
 //     ,_no(no)
 //     {}
 
-//     void Print()
+//     void Print() const
 //     {
 //         cout << _name << " " << _no << endl;
 //     }
 
-//     static int add(int x, int y)
+//     static int add(int x, int y) const
 //     {
 //         cout << "mzh::static_add" << " ";
 //         return x + y;
@@ -597,14 +651,12 @@ namespace mzh
 
 // int main()
 // {
-//     function<void()> Func0 = eg1; //函数
-//     function<bool(int, int)> Func1 = Less(); //仿函数
-//     function<int(int, int)> Func2 = [](int x, int y){ cout << "lambda" << " "; return x - y;}; //lambda
-//     function<void(Student*)> Func3 = &Student::Print; //类内成员函数(内部走->*)
-//     function<void(Student&)> Func4 = &Student::Print; //类内成员函数(内部走.*)
-//     function<int(int, int)> Func5 = &Student::add; //类内静态成员函数
-//     // function<int(int, int)> Func2 = 
-
+//     function<void()> Func0 = eg1; //包装函数
+//     function<bool(int, int)> Func1 = Less(); //包装仿函数
+//     function<int(int, int)> Func2 = [](int x, int y){ cout << "lambda" << " "; return x - y;}; //包装lambda
+//     function<void(Student*)> Func3 = &Student::Print; //包装类内成员函数(内部走->*)
+//     function<void(Student&)> Func4 = &Student::Print; //包装类内成员函数(内部走.*)
+//     function<int(int, int)> Func5 = &Student::add; //包装类内静态成员函数
 
 //     int x = 1, y = 10;
 //     Func0();
@@ -612,7 +664,6 @@ namespace mzh
 //     cout << Func2(x, y) << endl;
 //     Student s1 = {"LiHua", 20250101};
 //     Func3(&s1);
-//     Func();
 //     Func4(s1);
 //     cout << Func5(x, y) << endl;
 //     return 0;
@@ -620,79 +671,76 @@ namespace mzh
 
 
 //bind绑定
-namespace bind
-{
-    using placeholders::_1;
-    using placeholders::_2;
-    using placeholders::_3;
+using placeholders::_1;
+using placeholders::_2;
+using placeholders::_3;
 
-    int Sub(int a, int b)
+int Sub(int a, int b)
+{
+    return a - b;
+}
+
+class Culculate
+{
+private:
+    int _x = 5;
+    int _y = 2;
+
+public:
+    int Plus1()
     {
-        return a - b;
+        return _x + _y;
     }
 
-    class Culculate
+    int Plus2(int x, int y)
     {
-    private:
-        int _x = 5;
-        int _y = 2;
+        return x + y + _x + _y;
+    }
+};
 
-    public:
-        int Plus1()
+
+int main()
+{
+    auto sub1 = bind(Sub, _1, _2); //绑定函数
+    cout << sub1(10, 2) << endl; //8
+
+    auto sub2 = bind(Sub, _2, _1); //修改参数顺序
+    cout << sub2(10, 2) << endl; //-8
+    
+    auto sub3 = bind(Sub, _1, 100); //绑死固定参数(常用)
+    cout << sub3(20) << endl; //-80
+
+    Culculate c1;
+
+    function<int()> func1 = bind(Culculate::Plus1, c1); //固定对象
+    function<int(int, int)> func2 = bind(Culculate::Plus2, Culculate(), _1, _2); //固定对象
+    cout << func1() << endl; //7
+    cout << func2(10, 20) << endl; //37
+
+
+    //应用：复利计算(通过绑死参数实现计算不同金额在指定期限和利率下的利润)
+    auto CpInterest = [](double rate, double money, double year)->double
+    {
+        double ret = money;
+        for(int i=0; i<year; ++i)
         {
-            return _x + _y;
+            ret += ret * rate;
         }
 
-        int Plus2(int x, int y)
-        {
-            return x + y + _x + _y;
-        }
+        return ret - money;
     };
 
+    function<double(double)> f1 = bind(CpInterest, 0.015, _1, 3);
+    function<double(double)> f2 = bind(CpInterest, 0.015, _1, 5);
+    function<double(double)> f3 = bind(CpInterest, 0.025, _1, 10);
+    function<double(double)> f4 = bind(CpInterest, 0.035, _1, 30);
 
-    // int main()
-    // {
-    //     auto sub1 = bind(Sub, _1, _2); //绑定函数
-    //     cout << sub1(10, 2) << endl; //8
+    cout << f1(1000000) << endl;
+    cout << f2(1000000) << endl;
+    cout << f3(1000000) << endl;
+    cout << f4(1000000) << endl;
 
-    //     auto sub2 = bind(Sub, _2, _1); //修改参数顺序
-    //     cout << sub2(10, 2) << endl; //-8
-        
-    //     auto sub3 = bind(Sub, _1, 100); //绑死固定参数(常用)
-    //     cout << sub3(20) << endl; //-80
-
-    //     Culculate c1;
-
-    //     function<int()> func1 = bind(Culculate::Plus1, c1); //固定对象
-    //     function<int(int, int)> func2 = bind(Culculate::Plus2, Culculate(), _1, _2); //固定对象
-    //     cout << func1() << endl; //7
-    //     cout << func2(10, 20) << endl; //37
-
-
-    //     //应用：复利计算(通过绑死参数实现计算不同金额在指定期限和利率下的利润)
-    //     auto CpInterest = [](double rate, double money, double year)->double
-    //     {
-    //         double ret = money;
-    //         for(int i=0; i<year; ++i)
-    //         {
-    //             ret += ret * rate;
-    //         }
-
-    //         return ret - money;
-    //     };
-
-    //     function<double(double)> f1 = bind(CpInterest, 0.015, _1, 3);
-    //     function<double(double)> f2 = bind(CpInterest, 0.015, _1, 5);
-    //     function<double(double)> f3 = bind(CpInterest, 0.025, _1, 10);
-    //     function<double(double)> f4 = bind(CpInterest, 0.035, _1, 30);
-
-    //     cout << f1(1000000) << endl;
-    //     cout << f2(1000000) << endl;
-    //     cout << f3(1000000) << endl;
-    //     cout << f4(1000000) << endl;
-
-    //     return 0;
-    // }
+    return 0;
 }
 
 
