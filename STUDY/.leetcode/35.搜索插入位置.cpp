@@ -2,29 +2,48 @@ class Solution {
 public:
     int searchInsert(vector<int>& nums, int target)
     {
+        int n = nums.size();
+        if(target > nums[n - 1]) return n;
         int left = 0;
-        int right = nums.size() - 1;
-
-        if(target > nums[right]) return right + 1;
-
+        int right = n - 1;
         while(left < right)
         {
             int mid = (left + right) / 2;
-            if(nums[mid] >= target)
-            {
-                right = mid;
-            }
-            else
-            {
-                left = mid + 1;
-            }
+            if(nums[mid] >= target) right = mid;
+            else left = mid + 1;
         }
 
         return left;
     }
 };
 
+//三刷：不应该依赖于测试用例，更应主动考虑所有情况
 //二刷：忘记讨论target比所有元素大的情况了
+// class Solution {
+// public:
+//     int searchInsert(vector<int>& nums, int target)
+//     {
+//         int left = 0;
+//         int right = nums.size() - 1;
+
+//         if(target > nums[right]) return right + 1;
+
+//         while(left < right)
+//         {
+//             int mid = (left + right) / 2;
+//             if(nums[mid] >= target)
+//             {
+//                 right = mid;
+//             }
+//             else
+//             {
+//                 left = mid + 1;
+//             }
+//         }
+
+//         return left;
+//     }
+// };
 //二分查找：升序数组，时间复杂度o(logn)，用于快速查找/定位元素
 //找不到的情况需要插入，循环条件 while(left < right) 结束时，left == right
 //此时right指向的是数组第一个 >= right 的元素的位置，所以循环结束后，
