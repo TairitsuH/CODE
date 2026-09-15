@@ -3,6 +3,29 @@ public:
     int searchInsert(vector<int>& nums, int target)
     {
         int n = nums.size();
+
+        if(target > nums[n - 1]) return n;
+        int left = 0;
+        int right = n - 1;
+        while(left < right)
+        {
+            int mid = (left + right) / 2;
+            if(nums[mid] >= target) right = mid;
+            else left = mid + 1;
+        }    
+
+        return left;
+    }
+};
+
+//四刷：当target并不是比数组中所有的数都大的时候，插入位置的数总是会大于等于target，此时只能选择right = mid而不是mid+1，据此拓展函数体
+
+//三刷：不应该依赖于测试用例，更应主动考虑所有情况
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target)
+    {
+        int n = nums.size();
         if(target > nums[n - 1]) return n;
         int left = 0;
         int right = n - 1;
@@ -16,8 +39,6 @@ public:
         return left;
     }
 };
-
-//三刷：不应该依赖于测试用例，更应主动考虑所有情况
 //二刷：忘记讨论target比所有元素大的情况了
 // class Solution {
 // public:
