@@ -2,6 +2,35 @@
 #include<thread>
 using namespace std;
 
+double Divide(int a, int b)
+{
+    try
+    {
+        if (b == 0)
+        {
+            string s = "Divided by zero condition!" ;
+            throw s;
+        }
+        else
+        {
+            return (double)a / (double)b;
+        }
+    }
+    catch (const string& errmsg)
+    {
+        cout << "Divide" << ":" << errmsg << endl;
+    }
+
+    return 0;
+}
+
+// int main()
+// {
+//     int x, y; cin >> x >> y;
+//     Divide(x, y);
+//     return 0;
+// }
+
 //异常
 // double Divide(int a, int b)
 // {
@@ -245,25 +274,42 @@ void SendMsg(const string& s)
     }
 }
 
+// int main()
+// {
+//     srand(time(0));
+
+//     string str;
+//     while (cin >> str)
+//     {
+//         try
+//         {
+//             SendMsg(str);
+//         }
+//         catch (const Exception& e)
+//         {
+//             cout << e.what() << endl << endl;
+//         }
+//         catch (...)
+//         {
+//             cout << "Unkown Exception" << endl;
+//         }
+//     }
+//     return 0;
+// }
+
+//异常规范noexcept
+//作为关键字
+int Add(int a, int b) noexcept
+{
+    return a + b;
+}
+
 int main()
 {
-    srand(time(0));
-
-    string str;
-    while (cin >> str)
-    {
-        try
-        {
-            SendMsg(str);
-        }
-        catch (const Exception& e)
-        {
-            cout << e.what() << endl << endl;
-        }
-        catch (...)
-        {
-            cout << "Unkown Exception" << endl;
-        }
-    }
+    //作为运算符
+    int i;
+    cout << noexcept(Add(1, 2)) << endl;
+    cout << noexcept(Divide(1, 0)) << endl;
+    cout << noexcept(++i) << endl;
     return 0;
 }
