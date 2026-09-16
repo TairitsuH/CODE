@@ -39,8 +39,6 @@ namespace mzh
 			++(*_pcount);
 		}
 
-		//
-
 		//析构
 		~shared_ptr()
 		{
@@ -58,7 +56,7 @@ namespace mzh
 		shared_ptr<T>& operator=(const shared_ptr<T>& sp)
 		{
 			//自赋值
-			if (sp._ptr == _ptr)
+			if (sp._ptr == _ptr) //更推荐，或者this != &sp
 			{
 				cout << "不能自赋值！" << endl;
 				return *this;
