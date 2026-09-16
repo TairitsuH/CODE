@@ -53,6 +53,11 @@ int main()
 	sp1 = sp4;
 
 	cout << sp1->_year << endl;
+	cout << sp1->_month << endl;
+	cout << sp1->_day << endl;
+	cout << (*sp1)._year << endl;
+	cout << (*sp1)._month << endl;
+	cout << (*sp1)._day << endl;
 
 	return 0;
 }

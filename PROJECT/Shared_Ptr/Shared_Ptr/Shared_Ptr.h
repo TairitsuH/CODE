@@ -28,7 +28,7 @@ namespace mzh
 		shared_ptr(T* ptr, D del) //ptr = nullptr不能写两次缺省值！
 			:_ptr(ptr)
 			,_del(del)
-		{ }
+		{}
 
 		//拷贝构造
 		shared_ptr(const shared_ptr<T>& sp)
@@ -42,7 +42,8 @@ namespace mzh
 		//析构
 		~shared_ptr()
 		{
-			if (--(*_pcount) == 0)
+			--(*_pcount);
+			if (*_pcount == 0)
 			{
 				_del(_ptr);
 				delete _pcount;
