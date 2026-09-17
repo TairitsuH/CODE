@@ -18,6 +18,27 @@
  */
 class Solution {
 public:
+    void PreOrder(vector<int>& v, TreeNode* root)
+    {
+        if(!root) return;
+
+        v.push_back(root->val);
+        PreOrder(v, root->left);
+        PreOrder(v, root->right);
+    }
+
+    vector<int> preorderTraversal(TreeNode* root)
+    {
+        vector<int> v;
+        PreOrder(v, root);
+        return v;
+    }
+};
+// @lc code=end
+//二刷：递归。发现好像不用设置返回值（￣︶￣）↗　
+//递归遍历二叉树：前序为根->左->右
+class Solution {
+public:
     TreeNode* Fore(vector<int>& v, TreeNode* root)
     {
         if(root == nullptr) return root;
@@ -36,6 +57,3 @@ public:
         return ret;    
     }
 };
-// @lc code=end
-//递归遍历二叉树：前序为根->左->右
-
