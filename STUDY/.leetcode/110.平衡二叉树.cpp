@@ -40,7 +40,7 @@ public:
             return isBalanced(root->left) && isBalanced(root->right);
         }
 
-        else return false;
+        else return false; //不需要继续递归了
     }
 };
 // @lc code=end
