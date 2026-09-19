@@ -22,6 +22,39 @@ class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root)
     {
+        vector<vector<int>> ret;
+        if(!root) return ret;
+
+        queue<TreeNode*> q;
+        q.push(root);
+        int levelsize = 1;
+        while(!q.empty())
+        {
+            vector<int> v;
+
+            while(levelsize--)
+            {
+                TreeNode* tmp = q.front();
+                v.push_back(tmp->val);
+                q.pop(); 
+                if(tmp->left) q.push(tmp->left);
+                if(tmp->right) q.push(tmp->right);
+            }
+
+            levelsize = q.size();
+            ret.push_back(v);
+        }    
+
+        return ret;
+    }
+};
+
+//五刷：队列+levelsize，一层出完后队列内的节点数就是下一次循环的levelsize
+//四刷：忘记删除节点了TAT
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root)
+    {
         vector<vector<int>> vv;
         queue<TreeNode*> q;
         int levelsize = 0;
@@ -58,8 +91,6 @@ public:
         return vv;
     }
 };
-
-//四刷：忘记删除节点了TAT
 //三刷：重新捋了一遍思路就顺了^_^
 // class Solution {
 // public:
