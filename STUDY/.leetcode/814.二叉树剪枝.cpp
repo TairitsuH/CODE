@@ -36,7 +36,11 @@ public:
         EraseNode(root->left);
         EraseNode(root->right);
 
-        if(root->val == 0 && !root->left && !root->right) root = nullptr;
+        if(root->val == 0 && !root->left && !root->right)
+        {
+            delete root; //如果节点是new出来的就需要delete，防止内存泄漏（可加可不加
+            root = nullptr;
+        }
     }
 
     TreeNode* pruneTree(TreeNode* root)
