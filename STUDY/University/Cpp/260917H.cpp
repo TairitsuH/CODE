@@ -7,29 +7,25 @@ int main()
     int T; cin >> T;
     while(T--)
     {
-        map<int, int> hash;
+        map<int, int> rbmap;
         int n; cin >> n; 
         for(int i=0; i<n; ++i)
         {
             int c, e; cin >> c >> e;
-            hash[e] += c;
+            rbmap[e] += c;
+            if(rbmap[e] == 0) rbmap.erase(e);
         }
 
         int m; cin >> m;
         for(int i=0; i<m; ++i)
         {
             int c, e; cin >> c >> e;
-            hash[e] += c;
+            rbmap[e] += c;
+            if(rbmap[e] == 0) rbmap.erase(e);
         }
 
-        int cnt = 0;
-        for(auto it : hash)
-        {
-            if(it.second != 0) ++cnt;
-        }
-        cout << cnt << endl;
-        for(auto it : hash)
-            if(it.second != 0) 
+        cout << rbmap.size() << endl;
+        for(auto it : rbmap)
                 cout << it.second << " " << it.first << endl;
 
     }
