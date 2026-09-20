@@ -17,7 +17,41 @@
  * };
  */
 
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root)
+    {
+        vector<vector<int>> ret;
+        if(!root) return ret;
+
+        queue<TreeNode*> q;
+        q.push(root);
+        int levelsize = 1;
+        while(!q.empty())
+        {
+            vector<int> v;
+            while(levelsize--)
+            {
+                TreeNode* fore = q.front();
+                q.pop();
+                v.push_back(fore->val);
+                if(fore->left) q.push(fore->left);
+                if(fore->right) q.push(fore->right);
+            }
+
+            ret.push_back(v);
+            levelsize = q.size();
+        }
+
+        return ret;
+    }
+};
+
+//思路：用队列存储每一层的节点，levelsize记录每一层结束后的队列大小，即为下一层的节点
 // @lc code=end
+
+//六刷：重新熟悉
+//五刷：队列+levelsize，一层出完后队列内的节点数就是下一次循环的levelsize
 class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root)
@@ -48,8 +82,6 @@ public:
         return ret;
     }
 };
-
-//五刷：队列+levelsize，一层出完后队列内的节点数就是下一次循环的levelsize
 //四刷：忘记删除节点了TAT
 class Solution {
 public:
