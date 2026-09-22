@@ -31,3 +31,58 @@ int main()
     }
     return 0;
 }
+
+
+#include<stdio.h>
+#include<memory.h>
+
+#define NUM 1000010
+long long poly[NUM];
+long long recE[NUM];
+long long recC[NUM];
+
+int main()
+{
+    int T; scanf("%d", &T);
+    while(T--)
+    {
+        memset(poly, 0, sizeof(poly));
+
+        int n; scanf("%d", &n);
+        int i = 0;
+        for(i=0; i<n; ++i)
+        {
+            int c, e; scanf("%d%d", &c, &e);
+            poly[e] += c;
+        }
+
+        int m; scanf("%d", &m);
+        for(i=0; i<m; ++i)
+        {
+            int c, e; scanf("%d%d", &c, &e);
+            poly[e] += c;
+        }
+
+        int cnt = 0; //项数
+        int pos = 0;
+        for(i=0; i<NUM; ++i)
+        {
+            if(poly[i] != 0)
+            {
+                ++cnt;
+                recC[pos] = poly[i];
+                recE[pos] = i;
+                ++pos;
+            }
+        }
+        
+        printf("%d\n", cnt);
+
+        for(i=0; i<cnt; ++i)
+        {
+            printf("%d %d\n", recC[i], recE[i]);
+        }
+    }
+
+    return 0;
+}
