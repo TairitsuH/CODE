@@ -5,7 +5,39 @@
  */
 // @lc code=start
 
+class Solution {
+public:
+    vector<string> vs = {"0", "0", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    vector<string> ret;
+    string path;
 
+    void dfs(string dights, int pos)
+    {
+        if(pos >= dights.size())
+        {
+            ret.push_back(path);
+            return;
+        }
+
+        int x = dights[pos] - '0';
+        for(int j=0; j<vs[x].size(); ++j)
+        {
+            path += vs[x][j];
+            dfs(dights, pos + 1);
+            path.pop_back();
+        }
+    }
+
+    vector<string> letterCombinations(string digits)
+    {
+        dfs(digits, 0);
+        return ret;
+    }
+};
+
+// @lc code=end
+//三刷：递归，思考久了点，但很快就过了，尽可能多用全局变量，减少数组传参（eg：vs数组
+//二刷：试了下普通递归，可以理解^_^ 就是类的权限方面还需注意，同时数组不能放在全局要放在类作用域里。
 class Solution {
 public:
     vector<string> mapp = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
@@ -36,9 +68,6 @@ public:
         return ret;
     }
 };
-// @lc code=end
-
-//二刷：试了下普通递归，可以理解^_^ 就是类的权限方面还需注意，同时数组不能放在全局要放在类作用域里。
 //一刷：太麻烦了，题解区用的是循环+递归，可以一学
 // vector<string> str = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
