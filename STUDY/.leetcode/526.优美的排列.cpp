@@ -13,7 +13,7 @@ public:
 
     void dfs(int n, int pos)
     {
-        if(pos - 1 == n)
+        if(pos - 1 == n) //进入下一层的时候pos == n + 1!!
         {
             ++ret;
             return;
