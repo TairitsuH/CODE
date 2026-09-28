@@ -9,6 +9,52 @@ class Solution {
 public:
     vector<vector<string>> ret;
     vector<string> path;
+    string mod;
+    
+    bool col[9];
+    bool dig1[17];
+    bool dig2[17];
+
+    void dfs(int n, int row)
+    {
+        if(row == n)
+        {
+            ret.push_back(path);
+            return;
+        }
+
+        for(int i=0; i<n; ++i)
+        {
+            int d1 = i - row + n - 1;
+            int d2 = i + row;
+            if(col[i] == false && dig1[d1] == false && dig2[d2] == false)
+            {
+                col[i] = dig1[d1] = dig2[d2] = true;
+                string tmp = mod;
+                tmp[i] = 'Q';
+                path.push_back(tmp);
+                dfs(n, row + 1);
+                path.pop_back();
+                col[i] = dig1[d1] = dig2[d2] = false;
+            }
+        }
+    }
+
+    vector<vector<string>> solveNQueens(int n)
+    {
+        for(int i=0; i<n; ++i) mod += '.';
+
+        dfs(n, 0);
+        return ret;
+    }
+};
+// @lc code=end
+//二刷：理解了思路，除了一些编译错误一遍过
+//一刷：递归/剪枝/回溯，开三个数组（列，主对角，副对角），每次递归处理一行；找规律一定要勤于画图！数组尽可能放在全局，减少传参
+class Solution {
+public:
+    vector<vector<string>> ret;
+    vector<string> path;
     string model;
     bool col[10];
     bool dig1[20];
@@ -52,6 +98,3 @@ public:
         return ret;
     }
 };
-// @lc code=end
-//一刷：递归/剪枝/回溯，开三个数组（列，主对角，副对角），每次递归处理一行；找规律一定要勤于画图！数组尽可能放在全局，减少传参
-
