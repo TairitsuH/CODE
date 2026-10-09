@@ -60,6 +60,7 @@ public:
     }
 };
 // @lc code=end
+//三刷：思路相同，注意时刻保持清醒！递归时比较的是heights数组而不是check数组！
 //二刷：一遍过！还不赖，重点在于捋清楚why而不是how
 //一刷：floodfill+正难则反，注意不要重复定义M,N！最好不要定义为全局变量（bool数组），作为参数传入更简洁
 class Solution {
