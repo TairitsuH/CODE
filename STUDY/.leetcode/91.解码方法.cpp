@@ -9,6 +9,37 @@ class Solution {
 public:
     int numDecodings(string s)
     {
+        //创建
+        int n = s.size();
+        vector<int> dp(n + 1);
+        
+        //初始化
+        dp[0] = 1;
+
+        if(s[0] == '0') return 0;
+        dp[1] = 1;
+
+        //填表
+        for(int i=2; i<=n; ++i)
+        {
+            int tmp = (s[i - 2] - '0') * 10 + s[i - 1] - '0';
+
+            if(tmp >= 10 && tmp <= 26) dp[i] += dp[i - 2];
+            if(s[i - 1] != '0') dp[i] += dp[i - 1];
+        }
+
+        //返回
+        return dp[n];
+    }
+};
+// @lc code=end
+
+//三刷：在二刷的解法基础上优化了return 0的步骤，更简洁了
+//二刷：在一刷的基础上整合了判断合法条件，添加辅助结点，需要注意映射关系和dp值要保证后面节点正确
+class Solution {
+public:
+    int numDecodings(string s)
+    {
         int n = s.size();
         vector<int> dp(n + 1);
         
@@ -28,9 +59,7 @@ public:
         return dp[n];
     }
 };
-// @lc code=end
 
-//二刷：在一刷的基础上整合了判断合法条件，添加辅助结点，需要注意映射关系和dp值要保证后面节点正确
 //一刷：斐波那契dp，细节很多，分类讨论也很多，一定要自己模拟画图！dp状态表示以i位置为结尾时编码的种类数
 class Solution {
 public:
