@@ -15,7 +15,7 @@ public:
         while(heap.size() > 1)
         {
             int y = heap.top();
-            heap.pop();
+            heap.pop(); 
             int x = heap.top();
             heap.pop();
             int tmp = y - x;

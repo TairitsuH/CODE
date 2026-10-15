@@ -5,7 +5,7 @@
  */
 
 // @lc code=start
-class Solution {
+class Solution { 
 public:
     struct Cmp
     {
