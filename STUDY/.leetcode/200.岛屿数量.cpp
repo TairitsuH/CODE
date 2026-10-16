@@ -7,6 +7,62 @@
 // @lc code=start
 class Solution {
 public:
+    int M, N;
+    int dx[4] = {0, 0, 1, -1};
+    int dy[4] = {1, -1, 0, 0};
+
+    void bfs(vector<vector<char>>& grid, int m, int n)
+    {
+        queue<pair<int, int>> q;
+        q.push({m, n});
+        grid[m][n] = '0';
+
+        while(q.size() > 0)
+        {
+            auto [a, b] = q.front();
+            q.pop();
+
+            for(int i=0; i<4; ++i)
+            {
+                int x = dx[i] + a;
+                int y = dy[i] + b;
+                if(x >= 0 && x < M && y >= 0 && y < N && grid[x][y] == '1')
+                {
+                    grid[x][y] = '0';
+                    q.push({x, y});
+                }
+            }
+        } 
+
+
+    }
+
+    int numIslands(vector<vector<char>>& grid)
+    {
+        M = grid.size();
+        N = grid[0].size();
+        int ret = 0;
+        for(int i=0; i<M; ++i)
+        {
+            for(int j=0; j<N; ++j)
+            {
+                if(grid[i][j] == '1')
+                {
+                    cout << i << ' ' << j << endl;
+                    ++ret;
+                    bfs(grid, i, j);
+                }
+            }
+        }
+
+        return ret;
+    }
+};
+// @lc code=end
+//二刷：floodfill算法，非递归bfs，注意queue要用int存坐标，否则会存不下导致大用例出错！
+//一刷：递归floodfill，注意更新结果要完善！
+class Solution {
+public:
     bool check[300][300];
     int ret = 0;
     int M, N;
@@ -48,8 +104,3 @@ public:
         return ret;
     }
 };
-
-
-// @lc code=end
-//一刷：递归floodfill，注意更新结果要完善！
-
