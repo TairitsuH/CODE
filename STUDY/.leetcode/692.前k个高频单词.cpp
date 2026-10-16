@@ -5,6 +5,45 @@
  */
 
 // @lc code=start
+class Solution {
+public:
+    struct Cmp
+    {
+        bool operator()(pair<string, int>& p1, pair<string, int>& p2)
+        {
+            if(p1.second == p2.second) return p1.first < p2.first;  //字典序：大根堆
+            return p1.second > p2.second;  //频次：小根堆
+        }
+    };
+
+
+    vector<string> topKFrequent(vector<string>& words, int k)
+    {
+        unordered_map<string, int> hash;
+        priority_queue<pair<string, int>, vector<pair<string, int>>, Cmp> hp;
+
+        for(auto& s : words) ++hash[s];    
+        for(auto& p : hash)
+        {
+            hp.push(p);
+            if(hp.size() > k) hp.pop();
+        }
+
+        vector<string> ret(k);
+        for(int i=k-1; i>=0; --i)
+        {
+            ret[i] = hp.top().first;
+            hp.pop();
+        }
+
+        return ret;
+    }
+};
+// @lc code=end
+
+//四刷：哈希表+优先级队列+数组，注意自定义比较逻辑时需要补上第二个参数，比较逻辑用仿函数更为方便，注意大根堆中<为true(继续向下比较)
+//小根堆中>为true(大的继续向下调整)
+//三刷：哈希表+优先队列
 class Solution { 
 public:
     struct Cmp
@@ -41,8 +80,6 @@ public:
         return ret;
     }
 };
-// @lc code=end
-//三刷：哈希表+优先队列
 //二刷：思路没问题，但pair的使用还是不熟
 class Solution {
 public:
