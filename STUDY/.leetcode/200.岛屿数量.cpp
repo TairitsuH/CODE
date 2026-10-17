@@ -10,6 +10,62 @@ public:
     int M, N;
     int dx[4] = {0, 0, 1, -1};
     int dy[4] = {1, -1, 0, 0};
+    bool check[301][301];
+
+    void bfs(vector<vector<char>>& grid, int m, int n)
+    {
+        check[m][n] = true;
+        queue<pair<int, int>> q;
+        q.push({m, n});
+
+        while(q.size() > 0)
+        {
+            auto [a, b] = q.front();
+            q.pop();
+
+            for(int i=0; i<4; ++i)
+            {
+                int x = dx[i] + a;
+                int y = dy[i] + b;
+
+                if(x >=0 && x < M && y >= 0 && y <N && grid[x][y] == '1' && !check[x][y])
+                {
+                    check[x][y] = true;
+                    q.push({x, y});
+                }
+            }
+        }
+    }   
+
+    int numIslands(vector<vector<char>>& grid)
+    {
+        M = grid.size();
+        N = grid[0].size();
+        int ret = 0;
+
+        for(int i=0; i<M; ++i)
+        {
+            for(int j=0; j<N; ++j)
+            {
+                if(grid[i][j] == '1' && !check[i][j])
+                {
+                    bfs(grid, i, j);
+                    ++ret;
+                }
+            }
+        }
+
+        return ret;
+    }
+};
+// @lc code=end
+//三刷：floodfill算法，bfs+不修改原数组（用bool数组标记已经走过的位置）
+//二刷：floodfill算法，非递归bfs，注意queue要用int存坐标，否则会存不下导致大用例出错！
+class Solution {
+public:
+    int M, N;
+    int dx[4] = {0, 0, 1, -1};
+    int dy[4] = {1, -1, 0, 0};
 
     void bfs(vector<vector<char>>& grid, int m, int n)
     {
@@ -58,8 +114,6 @@ public:
         return ret;
     }
 };
-// @lc code=end
-//二刷：floodfill算法，非递归bfs，注意queue要用int存坐标，否则会存不下导致大用例出错！
 //一刷：递归floodfill，注意更新结果要完善！
 class Solution {
 public:
