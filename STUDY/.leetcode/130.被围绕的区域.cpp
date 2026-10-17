@@ -11,6 +11,68 @@ public:
     int dx[4] = {0, 0, 1, -1};
     int dy[4] = {1, -1, 0, 0};
 
+    void bfs(vector<vector<char>>& board, int m, int n)
+    {
+        queue<pair<int, int>> q;
+        q.push({m, n});
+        board[m][n] = '.';
+
+        while(q.size() > 0) 
+        {
+            auto [a, b] = q.front();
+            q.pop();
+
+            for(int i=0; i<4; ++i)
+            {
+                int x = dx[i] + a;
+                int y = dy[i] + b;
+
+                if(x >= 0 && x < M && y >= 0 && y < N && board[x][y] == 'O')
+                {
+                    board[x][y] = '.';
+                    q.push({x, y});
+                }
+            }
+        }
+    }
+
+    void solve(vector<vector<char>>& board)
+    {
+        M = board.size();
+        N = board[0].size();
+
+        for(int i=0; i<M; ++i)
+        {
+            if(board[i][0] == 'O') bfs(board, i, 0);
+            if(board[i][N-1] == 'O') bfs(board, i, N - 1);
+        }    
+
+        for(int j=0; j<N; ++j)
+        {
+            if(board[0][j] == 'O') bfs(board, 0, j);
+            if(board[M-1][j] == 'O') bfs(board, M - 1, j);
+        }
+
+        for(int i=0; i<M; ++i)
+        {
+            for(int j=0; j<N; ++j)
+            {
+                if(board[i][j] == 'O') board[i][j] = 'X';
+                else if(board[i][j] == '.') board[i][j] = 'O';
+            }
+        }
+    }
+};
+// @lc code=end
+
+//三刷：floodfill+bfs算法，对处于边缘的O进行bfs设置为.，再遍历数组，O变X，X变O
+//二刷：floodfill算法，在处理完边缘的O后，没必要再对内部的O递归处理，仅需全部遍历 + .变为O + O变为X
+class Solution {
+public:
+    int M, N;
+    int dx[4] = {0, 0, 1, -1};
+    int dy[4] = {1, -1, 0, 0};
+
     void dfs(vector<vector<char>>& board, int m, int n)
     {
         board[m][n] = '.';
@@ -56,9 +118,6 @@ public:
         }
     }
 };
-// @lc code=end
-
-//二刷：floodfill算法，在处理完边缘的O后，没必要再对内部的O递归处理，仅需全部遍历 + .变为O + O变为X
 //一刷：floodfill算法，正难则反，先用.标记所有与边界相连的O，再遍历，将中间的O变为X，.变为O
 class Solution {
 public:

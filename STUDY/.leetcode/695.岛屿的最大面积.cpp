@@ -7,6 +7,66 @@
 // @lc code=start
 class Solution {
 public:
+    int M, N;
+    bool check[51][51];
+    int dx[4] = {0, 0, 1, -1};
+    int dy[4] = {1, -1, 0, 0};
+
+    int bfs(vector<vector<int>>& grid, int m, int n)
+    {   
+        queue<pair<int, int>> q;
+        q.push({m, n});
+        check[m][n] = true;
+        int ret = 1;
+
+        while(q.size() > 0)
+        {
+            auto [a, b] = q.front();
+            q.pop();
+
+            for(int i=0; i<4; ++i)
+            {
+                int x = dx[i] + a;
+                int y = dy[i] + b;
+
+                if(x >= 0 && x < M && y >= 0 && y < N && grid[x][y] == 1 && !check[x][y])
+                {
+                    check[x][y] = true;
+                    ++ret;
+                    q.push({x, y});
+                }
+            }
+        }
+
+        return ret;
+    }
+
+    int maxAreaOfIsland(vector<vector<int>>& grid)
+    {
+        M = grid.size();
+        N = grid[0].size();
+        int maxisland = 0;
+
+        for(int i=0; i<M; ++i)
+        {
+            for(int j=0; j<N; ++j)
+            {
+                if(grid[i][j] == 1 && !check[i][j])
+                {
+                    maxisland = max(bfs(grid, i, j), maxisland);
+                }
+            }
+        }
+        
+        return maxisland;
+    }
+};
+// @lc code=end
+
+//二刷：floodfill算法，bfs出入队列，在层序遍历的基础上加一个cnt即可
+//一刷：递归floodfill，注意不要再在局部重复定义全局变量！会冲突！
+class Solution {
+public:
     int ret = 0;
     int M, N;
     int dx[4] = {0, 0, 1, -1};
@@ -52,6 +112,3 @@ public:
         return ret;
     }
 };
-// @lc code=end
-
-//一刷：递归floodfill，注意不要再在局部重复定义全局变量！会冲突！
