@@ -7,6 +7,52 @@
 // @lc code=start
 class Solution {
 public:
+    char visit[101][101];
+    int dx[4] = {0, 0, 1, -1};
+    int dy[4] = {1, -1, 0, 0};
+
+    int nearestExit(vector<vector<char>>& maze, vector<int>& entrance)
+    {
+        int m = maze.size();
+        int n = maze[0].size();
+        queue<pair<int, int>> q;
+        q.push({entrance[0], entrance[1]});
+        visit[entrance[0]][entrance[1]] = true;
+        int ret = 0;
+
+        while(q.size() > 0)
+        {
+            ++ret;
+            int levelsize = q.size();
+            for(int i=0; i<levelsize; ++i)
+            {
+                auto [a, b] = q.front();
+                q.pop();
+
+                for(int i=0; i<4; ++i)
+                {
+                    int x = dx[i] + a;
+                    int y = dy[i] + b;
+
+                    if(x >= 0 && y >= 0 && x < m && y < n && maze[x][y] == '.' && !visit[x][y])
+                    {
+                        if(x == 0 || y == 0 || x == m-1 || y == n-1) return ret;
+                        visit[x][y] = true;
+                        q.push({x, y});
+                    }
+                }
+            }
+        }
+        
+        return -1;
+    }
+};
+// @lc code=end
+
+//二刷：路权为1的最短路径，bfs解法，一层层向外拓展，注意更新visit数组
+//一刷：路权为1的最短路径，注意ret更新的时机是每次while循环（每层），用bool数组标记是否走过，一层层往外扩
+class Solution {
+public:
     int dx[4] = {0, 0, 1, -1};
     int dy[4] = {1, -1, 0, 0};
     bool visit[101][101];    
@@ -48,7 +94,3 @@ public:
         return -1;
     }
 };
-// @lc code=end
-
-//一刷：路权为1的最短路径，注意ret更新的时机是每次while循环（每层），用bool数组标记是否走过，一层层往外扩
-
