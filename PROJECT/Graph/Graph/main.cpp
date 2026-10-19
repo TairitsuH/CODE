@@ -1,10 +1,11 @@
 #include "GraphMatrix.h"
+#include "GraphList.h"
 #include<iostream>
 #include<vector>
 
 using namespace std;
 
-int main()
+void testMatrix()
 {
 	int num = 10;
 	vector<int> v(10);
@@ -29,6 +30,17 @@ int main()
 	gh.AddEdge(11, 18, 7);
 
 	gh.Print();
+}
+
+void testLink()
+{
+	LinkGraph<int, int>().TestLinkGraph();
+}
+
+int main()
+{
+	testMatrix();
+	testLink();
 
 	return 0;
 }
