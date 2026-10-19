@@ -7,20 +7,21 @@
 // @lc code=start
 class Solution {
 public:
+    int M, N;
     int dx[4] = {0, 0, 1, -1};
     int dy[4] = {1, -1, 0, 0};
-    int M, N;
+    bool visit[51][51];
 
-
-    int bfs(vector<vector<int>>& forest, int m, int n, int tree)
+    int bfs(vector<vector<int>>& forest, int bx, int by, int ex, int ey)
     {
-        bool visit[51][51] = {0};
-        queue<pair<int, int>> q;
+        if(bx == ex && by == ey) return 0;
 
-        q.push({m, n});
-        visit[m][n] = true;
+        memset(visit, false, sizeof(visit));
+        queue<pair<int, int>> q;
+        q.push({bx, by});
+        visit[bx][by] = true;
         int ret = 0;
-        
+
         while(q.size() > 0)
         {
             ++ret;
@@ -31,14 +32,14 @@ public:
                 auto [a, b] = q.front();
                 q.pop();
 
-                for(int i=0; i<4; ++i)
+                for(int j=0; j<4; ++j)
                 {
-                    int x = dx[i] + a;
-                    int y = dy[i] + b;
+                    int x = dx[j] + a;
+                    int y = dy[j] + b;
 
-                    if(x >= 0 && y >= 0 && x < M && y < N  && !visit[x][y] && forest[x][y] > 0)
+                    if(x >= 0 && y >= 0 && x < M && y < N && forest[x][y] > 0 && !visit[x][y])
                     {
-                        if(forest[x][y] == tree) return ret;
+                        if(x == ex && y == ey) return ret;
                         q.push({x, y});
                         visit[x][y] = true;
                     }
@@ -46,38 +47,39 @@ public:
             }
         }
 
-        return 0;
+        return -1;
     }
 
-    int cutOffTree(vector<vector<int>>& forest)
+    int cutOffTree(vector<vector<int>>& forest) 
     {
+        //1.排序，找出路径
         M = forest.size();
         N = forest[0].size();
-
-        if(forest[0][0] == 0) return -1; //起点不存在
-
-        //1.存树，排序
-        map<int, pair<int, int>> height;
+        vector<pair<int, int>> path;
         for(int i=0; i<M; ++i)
         {
             for(int j=0; j<N; ++j)
             {
-                if(forest[i][j] > 1) height[forest[i][j]] = {i, j};
+                if(forest[i][j] > 1) path.push_back({i, j});
             }
         }
 
-        //2.计算最短路径
-        int ret = bfs(forest, 0, 0, height.begin()->first);
-        for(auto it=height.begin(); it!=height.end(); ++it)
+        sort(path.begin(), path.end(), [&](pair<int, int> p1, pair<int, int> p2)
         {
-            auto [m, n] = it->second;
-            auto tmp = it;
-            if(++tmp != height.end())
-            {
-                int cnt = bfs(forest, m, n, tmp->first);
-                if(cnt == 0) return -1;
-                ret += cnt;
-            }
+            return forest[p1.first][p1.second] < forest[p2.first][p2.second];
+        });
+
+
+        //2.逐步找出最小路径
+        int bx = 0, by = 0;
+        int ret = 0;
+
+        for(auto [ex, ey] : path)
+        {
+            int cnt = bfs(forest, bx, by, ex, ey);
+            if(cnt == -1) return cnt;
+            ret += cnt;
+            bx = ex, by = ey;
         }
 
         return ret;
@@ -85,5 +87,5 @@ public:
 };
 // @lc code=end
 
-//一刷：先找出砍树的路径，再按照顺序算出每棵树之间的大小顺序，注意细节：1是地面不是树，起点从(0, 0)开始
+//二刷：先找出砍树的路径，再按照顺序算出每棵树之间的大小顺序，注意细节：1是地面不是树，起点从(0, 0)开始，注意循环变量不要重复！细节很多！
 
