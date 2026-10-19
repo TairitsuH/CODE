@@ -28,8 +28,12 @@ void testMatrix()
 	gh.AddEdge(11, 16, 7);
 	gh.AddEdge(11, 17, 7);
 	gh.AddEdge(11, 18, 7);
+	gh.AddEdge(11, 19, 7);
 
 	gh.Print();
+	cout << endl;
+	gh.bfs(0);
+	cout << endl;
 }
 
 void testLink()

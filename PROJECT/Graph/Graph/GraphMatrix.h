@@ -3,6 +3,7 @@
 #include<map>
 #include<iostream>
 #include<climits>
+#include<queue>
 using namespace std;
 
 
@@ -79,12 +80,12 @@ public:
 	//打印图
 	void Print()
 	{
-		//打印顶点和下标的映射关系
-		for (size_t i = 0; i < _vertexs.size(); ++i)
-		{
-			cout << i << " -> " << _vertexs[i] << endl;
-		}
-		cout << endl;
+		////打印顶点和下标的映射关系
+		//for (size_t i = 0; i < _vertexs.size(); ++i)
+		//{
+		//	cout << i << " -> " << _vertexs[i] << endl;
+		//}
+		//cout << endl;
 
 
 		cout << "   ";
@@ -108,6 +109,40 @@ public:
 			}
 
 			cout << endl;
+		}
+	}
+
+	//宽度优先遍历
+	void bfs(size_t srci)
+	{
+		queue<size_t> q;
+		vector<bool> visit(_vertexs.size(), 0);
+		
+		q.push(srci);
+		visit[srci] = true;
+		int level = 0;
+
+		while (q.size())
+		{
+			++level;
+			cout << "bfs第" << level << "层" << endl;
+			size_t levelsize = q.size();
+			for (size_t i = 0; i < levelsize; ++i)
+			{
+				size_t topi = q.front();
+				q.pop();
+
+				cout << topi << "->" << _vertexs[topi] << endl;
+
+				for (size_t j = 0; j < _vertexs.size(); ++j)
+				{
+					if (!visit[j] && _edge[topi][j] != W_MAX)
+					{
+						q.push(j);
+						visit[j] = true;
+					}
+				}
+			}
 		}
 	}
 };

@@ -120,5 +120,40 @@ public:
 		g1.AddEdge("张三", "王五", 200);
 		g1.AddEdge("王五", "赵六", 30);
 		g1.Print();
+		g1.dfs("张三");
+	}
+
+	void _dfs(size_t index, vector<bool>& visit)
+	{
+		if (!visit[index])
+		{
+			//当前节点
+			cout << index << "->" << _vertexs[index] << endl;
+			visit[index] = true;
+
+			//相连节点
+			Edge* it = _linkTable[index];
+			while(it)
+			{
+				_dfs(it->_dstIndex, visit);
+				it = it->_next;
+			}
+		}
+	}
+
+	void dfs(const V& v)
+	{
+		size_t n = _vertexs.size();
+		size_t index = GetVertexIndex(v);
+		vector<bool> visit(n, 0);
+
+		//当前节点
+		_dfs(index, visit);
+
+		//其他节点
+		for (size_t i = 0; i < n; ++i)
+		{
+			_dfs(i, visit);
+		}
 	}
 };
