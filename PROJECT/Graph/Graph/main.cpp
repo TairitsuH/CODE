@@ -21,14 +21,6 @@ void testMatrix()
 	gh.AddEdge(10, 14, 4);
 	gh.AddEdge(10, 15, 5);
 	gh.AddEdge(10, 16, 6);
-	gh.AddEdge(11, 12, 7);
-	gh.AddEdge(11, 13, 7);
-	gh.AddEdge(11, 14, 7);
-	gh.AddEdge(11, 15, 7);
-	gh.AddEdge(11, 16, 7);
-	gh.AddEdge(11, 17, 7);
-	gh.AddEdge(11, 18, 7);
-	gh.AddEdge(11, 19, 7);
 
 	gh.Print();
 	cout << endl;
@@ -43,7 +35,7 @@ void testLink()
 
 int main()
 {
-	testMatrix();
+	//testMatrix();
 	testLink();
 
 	return 0;

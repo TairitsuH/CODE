@@ -112,12 +112,8 @@ public:
 		}
 	}
 
-	//宽度优先遍历
-	void bfs(size_t srci)
+	void _bfs(size_t srci, queue<size_t>& q, vector<bool>& visit)
 	{
-		queue<size_t> q;
-		vector<bool> visit(_vertexs.size(), 0);
-		
 		q.push(srci);
 		visit[srci] = true;
 		int level = 0;
@@ -142,6 +138,26 @@ public:
 						visit[j] = true;
 					}
 				}
+			}
+		}
+	}
+
+	//bfs宽度优先遍历
+	void bfs(size_t srci)
+	{
+		queue<size_t> q;
+		vector<bool> visit(_vertexs.size(), 0);
+
+		//当前顶点
+		_bfs(srci, q, visit);
+
+		//检查是否存在外部非连通顶点
+		cout << "存在非连通顶点：" << endl;
+		for (size_t i = 0; i < _vertexs.size(); ++i)
+		{
+			if (!visit[i])
+			{
+				_bfs(i, q, visit);
 			}
 		}
 	}

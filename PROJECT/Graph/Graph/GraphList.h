@@ -32,7 +32,7 @@ class LinkGraph
 private:
 	vector<V> _vertexs; //顶点
 	map<V, size_t> _vertexmap; //顶点和数组下标的映射关系
-	vector<Edge*> _linkTable; //顶点下标
+	vector<Edge*> _linkTable; //边
 
 public:
 	LinkGraph() = default; //默认生成
@@ -123,6 +123,7 @@ public:
 		g1.dfs("张三");
 	}
 
+
 	void _dfs(size_t index, vector<bool>& visit)
 	{
 		if (!visit[index])
@@ -141,6 +142,7 @@ public:
 		}
 	}
 
+	//dfs深度优先遍历
 	void dfs(const V& v)
 	{
 		size_t n = _vertexs.size();
@@ -150,7 +152,7 @@ public:
 		//当前节点
 		_dfs(index, visit);
 
-		//其他节点
+		//重新遍历找剩下非相连节点
 		for (size_t i = 0; i < n; ++i)
 		{
 			_dfs(i, visit);
