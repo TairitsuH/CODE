@@ -22,4 +22,4 @@ int kthToLast(struct ListNode* head, int k)
     return slow->val;
 }
 
-//一刷：双指针哈哈
+//一刷：双指针
