@@ -32,7 +32,7 @@ public:
                     char c2 = s2[k];
                     if(c1 != c2)
                     {
-                        if(!edges.count(c1)|| !edges[c1].count(c2)) //要先检查是否存在c1！
+                        if(!edges.count(c1)|| !edges[c1].count(c2)) //要先检查是否存在c1！ 
                         {
                             edges[c1].insert(c2);
                             ++in[c2];
